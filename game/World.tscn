@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game/blocks.meshlib" type="MeshLibrary" id=1]
+[ext_resource path="res://game/Player.tscn" type="PackedScene" id=2]
+
+[node name="World" type="Spatial"]
+
+[node name="GridMap" type="GridMap" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+mesh_library = ExtResource( 1 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray( 0, 0, 0, 1, 0, 536870912, 2, 0, 536870912, 65533, 0, 536870912, 65534, 0, 0, 65535, 0, 0, 2, 65534, 0, 65533, 65534, 0, 1, 65535, 0, 2, 65535, 0, 65533, 65535, 0 )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93353, 0 )
