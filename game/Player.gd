@@ -6,6 +6,7 @@ const ACCEL = 20
 
 var velocity
 onready var head = $Head
+onready var rayCast = $Head/RayCast
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -18,6 +19,13 @@ func _input(event):
 
 
 func _physics_process(delta):
+	# Actions
+	if Input.is_action_just_pressed("use"):
+		var target = rayCast.get_collider()
+		if rayCast.is_colliding() and target.has_method("use"):
+			target.use()
+	
+	# Movement
 	var moveVector = Vector3()
 	if Input.is_action_pressed("move_forward"):
 		moveVector.z -= 1
@@ -33,3 +41,4 @@ func _physics_process(delta):
 	velocity = lerp(velocity, moveVector * SPEED, ACCEL * delta)
 	
 	move_and_slide(velocity)
+
