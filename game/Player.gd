@@ -5,6 +5,7 @@ const SPEED = 10
 const ACCEL = 20
 
 var velocity
+onready var head = $Head
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -13,7 +14,7 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotation_degrees.y -= MOUSE_SENS * event.relative.x
-		rotation_degrees.x = clamp(rotation_degrees.x - MOUSE_SENS * event.relative.y, -90, 90)
+		head.rotation_degrees.x = clamp(head.rotation_degrees.x - MOUSE_SENS * event.relative.y, -90, 90)
 
 
 func _physics_process(delta):
