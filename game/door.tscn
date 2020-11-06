@@ -1,21 +1,22 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/door1.png" type="Texture" id=1]
 [ext_resource path="res://assets/door2.png" type="Texture" id=2]
 [ext_resource path="res://game/door.gd" type="Script" id=3]
+[ext_resource path="res://assets/door.png" type="Texture" id=4]
 
-[sub_resource type="ConcavePolygonShape" id=3]
+[sub_resource type="ConcavePolygonShape" id=1]
 data = PoolVector3Array( -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0 )
 
-[sub_resource type="QuadMesh" id=1]
+[sub_resource type="QuadMesh" id=2]
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=3]
 albedo_texture = ExtResource( 1 )
 
 [sub_resource type="SpatialMaterial" id=4]
 albedo_texture = ExtResource( 2 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "close"
 length = 0.5
 tracks/0/type = "value"
@@ -43,8 +44,37 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "open"
+[sub_resource type="Animation" id=7]
+resource_name = "kick"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 4, 5, 6, 7 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "doneKicking"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -74,26 +104,37 @@ tracks/1/keys = {
 [node name="door" type="Spatial"]
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
+transform = Transform( 0.218572, 0, 0.975821, 0, 1, 0, -0.975821, 0, 0.218572, 0, 0, 0 )
 script = ExtResource( 3 )
-open = true
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 1, 1, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 1, 1, 0 )
-mesh = SubResource( 1 )
-material/0 = SubResource( 2 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="KinematicBody"]
 transform = Transform( -2, 0, -6.51683e-07, 0, 2, 0, 6.51683e-07, 0, -2, 1, 1, 0 )
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = SubResource( 4 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody"]
-anims/close = SubResource( 6 )
-anims/open = SubResource( 5 )
+anims/close = SubResource( 5 )
+anims/kick = SubResource( 7 )
+anims/open = SubResource( 6 )
+
+[node name="Sprite3D" type="Sprite3D" parent="KinematicBody"]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+visible = false
+centered = false
+billboard = 2
+shaded = true
+texture = ExtResource( 4 )
+hframes = 8
+frame = 7

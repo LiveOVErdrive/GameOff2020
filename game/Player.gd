@@ -23,6 +23,7 @@ var dashRemaining = 0
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	velocity = Vector3()
+	freezePlayer = false
 	sprite.frame = 0
 
 func _input(event):
@@ -43,12 +44,12 @@ func _physics_process(delta):
 		elif Input.is_action_pressed("kick"):
 			animationPlayer.play("kick")
 		elif Input.is_action_pressed("dash"):
+			isDashing = true
+			dashRemaining = DASH_LENGTH
 			animationPlayer.play("dashStart")
 			
 	if isDashing:
-		var target = rayCast.get_collider()
-		if rayCastClose.is_colliding():
-			stab()
+		tryStabCollider()
 	
 	# Movement
 	var moveVector = Vector3()
@@ -80,10 +81,10 @@ func _physics_process(delta):
 func isIdle():
 	return !animationPlayer.is_playing()
 
-func slash():
+func doSlash():
 	animationPlayer.play("slash")
 	
-func slashBackOrReturn():
+func doSlashBackOrReturn():
 	if Input.is_action_pressed("slash"):
 		animationPlayer.play("slashBack")
 	elif Input.is_action_pressed("kick"):
@@ -91,7 +92,7 @@ func slashBackOrReturn():
 	else:
 		animationPlayer.play("leftReturn")
 
-func slashOrReturn():
+func doSlashOrReturn():
 	if Input.is_action_pressed("slash"):
 		animationPlayer.play("slash")
 	elif Input.is_action_pressed("kick"):
@@ -99,12 +100,26 @@ func slashOrReturn():
 	else:
 		animationPlayer.play("rightReturn")
 
-func dash():
-	isDashing = true
-	dashRemaining = DASH_LENGTH
+func doDash():
 	animationPlayer.play("dash")
-	
-func stab():
-	isDashing = false
-	dashRemaining = 0
-	animationPlayer.play("dashStab")
+
+func trySlashCollider():
+	if rayCast.is_colliding():
+		var target = rayCast.get_collider()
+		if target.has_method("slash"):
+			target.slash()
+
+func tryKickCollider():
+	if rayCast.is_colliding():
+		var target = rayCast.get_collider()
+		if target.has_method("kick"):
+			target.kick(Vector3(0,0,-1).rotated(Vector3(0, 1, 0), rotation.y))
+
+func tryStabCollider():
+	if rayCast.is_colliding():
+		isDashing = false
+		dashRemaining = 0
+		animationPlayer.play("dashStab")
+		var target = rayCast.get_collider()
+		if target.has_method("stab"):
+			target.stab()

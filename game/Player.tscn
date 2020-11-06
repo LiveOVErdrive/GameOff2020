@@ -103,7 +103,7 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "dash"
+"method": "doDash"
 } ]
 }
 
@@ -129,11 +129,14 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.9 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.3, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "slashOrReturn"
+"method": "tryKickCollider"
+}, {
+"args": [  ],
+"method": "doSlashOrReturn"
 } ]
 }
 tracks/2/type = "value"
@@ -219,11 +222,14 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.6 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.1, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "slashBackOrReturn"
+"method": "trySlashCollider"
+}, {
+"args": [  ],
+"method": "doSlashBackOrReturn"
 } ]
 }
 
@@ -249,11 +255,14 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.6 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.1, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "slashOrReturn"
+"method": "trySlashCollider"
+}, {
+"args": [  ],
+"method": "doSlashOrReturn"
 } ]
 }
 
@@ -283,7 +292,7 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "slash"
+"method": "doSlash"
 } ]
 }
 
@@ -291,6 +300,7 @@ tracks/1/keys = {
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
+freezePlayer = true
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.75, 0, 0, 0, 0.5, 0, 0, 0 )
@@ -307,7 +317,7 @@ shaded = true
 double_sided = false
 texture = ExtResource( 1 )
 hframes = 52
-frame = 44
+frame = 35
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
@@ -315,7 +325,7 @@ cast_to = Vector3( 0, 0, -2 )
 
 [node name="RayCastClose" type="RayCast" parent="Head"]
 enabled = true
-cast_to = Vector3( 0, 0, -1 )
+cast_to = Vector3( 0, 0, -0.6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.5
