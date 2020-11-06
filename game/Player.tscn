@@ -1,11 +1,293 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/Greatsword.png" type="Texture" id=1]
 [ext_resource path="res://game/Player.gd" type="Script" id=2]
 
 [sub_resource type="CylinderShape" id=1]
 
-[sub_resource type="CapsuleMesh" id=2]
+[sub_resource type="Animation" id=9]
+resource_name = "dash"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 36, 37, 38, 39 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "dashMiss"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 35, 34, 0 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "dashStab"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42, 43, 44, 45, 46, 47 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:freezePlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "dashStart"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 34, 35 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "dash"
+} ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "kick"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 26, 27, 28, 29, 30, 31, 32, 33, 25 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "slashOrReturn"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:freezePlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "leftReturn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 18, 19, 20, 21, 22 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "rightExit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 23, 24, 25 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "rightReturn"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 48, 49, 50, 51 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "slash"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 8, 9, 10, 11 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "slashBackOrReturn"
+} ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "slashBack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15, 16, 17 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "slashOrReturn"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "slashWindup"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4, 5 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "slash"
+} ]
+}
+
+[sub_resource type="CapsuleMesh" id=4]
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
@@ -24,19 +306,36 @@ transform = Transform( 0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, -0.25 )
 shaded = true
 double_sided = false
 texture = ExtResource( 1 )
-hframes = 43
+hframes = 52
+frame = 44
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
 cast_to = Vector3( 0, 0, -2 )
 
+[node name="RayCastClose" type="RayCast" parent="Head"]
+enabled = true
+cast_to = Vector3( 0, 0, -1 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 1.5
+anims/dash = SubResource( 9 )
+anims/dashMiss = SubResource( 12 )
+anims/dashStab = SubResource( 11 )
+anims/dashStart = SubResource( 10 )
+anims/kick = SubResource( 8 )
+anims/leftReturn = SubResource( 5 )
+anims/rightExit = SubResource( 6 )
+anims/rightReturn = SubResource( 13 )
+anims/slash = SubResource( 2 )
+anims/slashBack = SubResource( 7 )
+anims/slashWindup = SubResource( 3 )
 
 [node name="shadowcaster" type="MeshInstance" parent="."]
 transform = Transform( 0.25, 0, 0, 0, -4.07302e-08, -0.5, 0, 0.25, -8.14603e-08, 0, 0, 0 )
 visible = false
 cast_shadow = 3
-mesh = SubResource( 2 )
+mesh = SubResource( 4 )
 material/0 = null
 __meta__ = {
 "_editor_description_": ""
