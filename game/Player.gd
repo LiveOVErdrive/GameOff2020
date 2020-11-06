@@ -25,6 +25,8 @@ func _ready():
 	velocity = Vector3()
 	freezePlayer = false
 	sprite.frame = 0
+	yield(get_tree(), "idle_frame")
+	get_tree().call_group("enemies", "setPlayer", self)
 
 func _input(event):
 	if event is InputEventMouseMotion and !freezePlayer:
@@ -68,6 +70,7 @@ func _physics_process(delta):
 	velocity = lerp(velocity, moveVector * SPEED, ACCEL * delta)
 	
 	if isDashing:
+		#TODO: use a timer instead
 		dashRemaining -= delta
 		if dashRemaining <=0:
 			animationPlayer.play("dashMiss")
