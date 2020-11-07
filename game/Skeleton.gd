@@ -9,6 +9,7 @@ const CORNER_CUT_DIST = 1
 
 onready var nav = get_parent()
 onready var player
+onready var animationPlayer = $AnimationPlayer
 
 enum {
 	IDLE,
@@ -72,20 +73,20 @@ func getDistanceToPlayer():
 	return getVectorToPlayer().length()
 
 func advance():
-	print("ADVANCE")
 	state = ADVANCE
+	animationPlayer.play("walkdown")
 	getPathToPlayer()
 
 func attack():
-	print("ATTACK")
+	animationPlayer.play("idle")
 	state = ATTACK
 
 func retreat():
-	print("RETREAT")
+	animationPlayer.play("walkdown")
 	state = RETREAT
 
 func idle():
-	print("IDLE")
+	animationPlayer.play("idle")
 	state = IDLE
 
 func getPathToPlayer():
