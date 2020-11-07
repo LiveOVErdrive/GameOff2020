@@ -1,14 +1,20 @@
 extends KinematicBody
 
 const SPEED = 5
-const MIN_DIST_TO_PLAYER = 3
-const MED_DIST_TO_PLAYER = 5
-const MAX_DIST_TO_PLAYER = 7
+const MIN_DIST_TO_PLAYER = 4
+const MED_DIST_TO_PLAYER = 8
+const MAX_DIST_TO_PLAYER = 12
 const VIEW_DISTANCE = 20
 const CORNER_CUT_DIST = 1
+const ARROW_SPEED = 12
+const ARROW_START_DISTANCE = 1
+
+const arrowResource = preload("res://game/Arrow.tscn")
 
 onready var nav = get_parent()
 onready var player
+onready var animationPlayer = $AnimationPlayer
+onready var arrowSpawnPoint = $ArrowSpawnPoint
 
 enum {
 	IDLE,
@@ -26,7 +32,6 @@ func _ready():
 	state = IDLE
 
 func setPlayer(p):
-	print("set player")
 	player = p
 
 func _physics_process(delta):
@@ -40,12 +45,13 @@ func _physics_process(delta):
 			advance()
 	elif state == ATTACK:
 		# TODO check if we are doing an attack animation first
-		if distanceToPlayer < MIN_DIST_TO_PLAYER:
-			retreat()
-		elif distanceToPlayer > MAX_DIST_TO_PLAYER:
-			advance()
-		else:
-			pass #TODO do an attack animation
+		if !(animationPlayer.is_playing() and animationPlayer.current_animation == "shoot"):
+			if distanceToPlayer < MIN_DIST_TO_PLAYER:
+				retreat()
+			elif distanceToPlayer > MAX_DIST_TO_PLAYER:
+				advance()
+			else:
+				animationPlayer.play("shoot")
 	elif state == RETREAT:
 		if distanceToPlayer > MED_DIST_TO_PLAYER:
 			attack()
@@ -65,27 +71,39 @@ func _physics_process(delta):
 			else:
 				move_and_slide(moveDirection.normalized() * SPEED)
 
+func releaseArrow():
+	var fireDirection = getVectorToPlayer()
+	fireDirection.y = 0
+	fireDirection = fireDirection.normalized()
+	var arrow = arrowResource.instance()
+	arrow.translation = translation + fireDirection * ARROW_START_DISTANCE
+	arrow.setPlayer(player)
+	arrow.setVelocity(fireDirection * ARROW_SPEED)
+	get_parent().get_parent().add_child(arrow)
+
 func getVectorToPlayer():
 	return player.translation - translation
 
 func getDistanceToPlayer():
 	return getVectorToPlayer().length()
+	
+# State Stuff
 
 func advance():
-	print("ADVANCE")
 	state = ADVANCE
+	animationPlayer.play("walkdown")
 	getPathToPlayer()
 
 func attack():
-	print("ATTACK")
+	animationPlayer.play("idle")
 	state = ATTACK
 
 func retreat():
-	print("RETREAT")
+	animationPlayer.play("walkdown")
 	state = RETREAT
 
 func idle():
-	print("IDLE")
+	animationPlayer.play("idle")
 	state = IDLE
 
 func getPathToPlayer():
