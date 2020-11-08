@@ -119,7 +119,7 @@ func tryKickCollider():
 			target.kick(Vector3(0,0,-1).rotated(Vector3(0, 1, 0), rotation.y))
 
 func tryStabCollider():
-	if rayCast.is_colliding():
+	if rayCastClose.is_colliding():
 		isDashing = false
 		dashRemaining = 0
 		animationPlayer.play("dashStab")

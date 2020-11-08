@@ -9,6 +9,7 @@ const CORNER_CUT_DIST = 1
 const ARROW_SPEED = 12
 const ARROW_START_DISTANCE = 1
 const ARROW_HEIGHT = 1.1
+const MAX_HEALTH = 3
 
 const arrowResource = preload("res://game/projectiles/Arrow.tscn")
 
@@ -16,24 +17,49 @@ onready var nav = get_parent()
 onready var player
 onready var animationPlayer = $AnimationPlayer
 onready var arrowSpawnPoint = $ArrowSpawnPoint
+onready var collisionShape = $CollisionShape
 
 enum {
 	IDLE,
 	ADVANCE,
 	RETREAT,
-	ATTACK
+	ATTACK,
+	DEAD,
+	HURT
 }
 
 var path = []
 var currentPathNode = 0
 var state
+var health = MAX_HEALTH
 
 func _ready():
 	add_to_group("enemies")
 	state = IDLE
+	collisionShape.disabled = false
 
 func setPlayer(p):
 	player = p
+	
+# Interface Stuffs
+
+func kick(direction):
+	damage(3)
+func slash():
+	damage(1)
+func stab():
+	damage(2)
+	
+func damage(d):
+	health -= d
+	if health <= 0:
+		die()
+		animationPlayer.play("die")
+	else:
+		hurt()
+		animationPlayer.play("hurt")
+
+# runloop
 
 func _physics_process(delta):
 	if !player:
@@ -71,6 +97,8 @@ func _physics_process(delta):
 				currentPathNode += 1
 			else:
 				move_and_slide(moveDirection.normalized() * SPEED)
+	elif state == DEAD or state == HURT:
+		pass
 
 func releaseArrow():
 	var fireDirection = getVectorToPlayer()
@@ -107,6 +135,14 @@ func retreat():
 func idle():
 	animationPlayer.play("idle")
 	state = IDLE
+
+func hurt():
+	animationPlayer.play("hurt")
+	state = HURT
+
+func die():
+	animationPlayer.play("die")
+	state = DEAD
 
 func getPathToPlayer():
 	path = nav.get_simple_path(global_transform.origin, player.translation)
