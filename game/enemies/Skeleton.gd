@@ -10,7 +10,7 @@ const ARROW_SPEED = 12
 const ARROW_START_DISTANCE = 1
 const ARROW_HEIGHT = 1.1
 
-const arrowResource = preload("res://game/Arrow.tscn")
+const arrowResource = preload("res://game/projectiles/Arrow.tscn")
 
 onready var nav = get_parent()
 onready var player

@@ -12,6 +12,7 @@ enum {
 var velocity = Vector3()
 
 onready var sprite = $Sprite3D
+onready var raycast = $RayCast
 var player
 
 func setVelocity(v):
@@ -23,18 +24,18 @@ func _ready():
 	look_at(velocity, Vector3(0,1,0))
 
 func setPlayer(p):
-	print("set player")
 	player = p 
 
 func _physics_process(delta):
 	if !player:
 		return
 
-	var col = move_and_collide(velocity * delta)
+	move_and_slide(velocity)
+	
+	var col = raycast.get_collider()
 	if col:
 		if col.has_method("arrowHit"):
 			col.arrowHit()
-		print("arrow deleting")
 		queue_free() #delete self
 
 	var vecToPlayer = player.translation - translation
