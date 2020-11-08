@@ -8,6 +8,7 @@ const VIEW_DISTANCE = 20
 const CORNER_CUT_DIST = 1
 const ARROW_SPEED = 12
 const ARROW_START_DISTANCE = 1
+const ARROW_HEIGHT = 1.1
 
 const arrowResource = preload("res://game/Arrow.tscn")
 
@@ -77,6 +78,7 @@ func releaseArrow():
 	fireDirection = fireDirection.normalized()
 	var arrow = arrowResource.instance()
 	arrow.translation = translation + fireDirection * ARROW_START_DISTANCE
+	arrow.translation.y = ARROW_HEIGHT
 	arrow.setPlayer(player)
 	arrow.setVelocity(fireDirection * ARROW_SPEED)
 	get_parent().get_parent().add_child(arrow)
