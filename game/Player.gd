@@ -4,6 +4,7 @@ const MOUSE_SENS = 0.25
 const SPEED = 10
 const ACCEL = 20
 const DASH_LENGTH = .75
+const MAX_HP = 100
 
 var velocity
 onready var head = $Head
@@ -20,6 +21,8 @@ func setFreezePlayer(f):
 var isDashing = false
 var dashRemaining = 0
 
+var health = MAX_HP
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	velocity = Vector3()
@@ -34,6 +37,12 @@ func _input(event):
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - MOUSE_SENS * event.relative.y, -90, 90)
 
 func _physics_process(delta):
+	# System
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
+	elif Input.is_action_just_pressed("reset"):
+		get_tree().reload_current_scene()
+	
 	# Actions
 	if Input.is_action_just_pressed("use"):
 		var target = rayCast.get_collider()
@@ -126,3 +135,14 @@ func tryStabCollider():
 		var target = rayCast.get_collider()
 		if target.has_method("stab"):
 			target.stab()
+			
+# outside effects:
+
+# take damage
+func damage(d: int):
+	health -= d
+	if health <= 0:
+		die()
+
+func die():
+	pass
