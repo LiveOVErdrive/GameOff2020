@@ -7,7 +7,7 @@
 
 [sub_resource type="CylinderShape" id=1]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 resource_name = "die"
 length = 2.0
 tracks/0/type = "value"
@@ -71,7 +71,7 @@ tracks/4/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 resource_name = "hurt"
 length = 0.8
 tracks/0/type = "value"
@@ -137,8 +137,7 @@ tracks/4/keys = {
 "values": [ 0.0, -80.0 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "idle"
+[sub_resource type="Animation" id=4]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -154,8 +153,7 @@ tracks/0/keys = {
 "values": [ 0, 2 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "shoot"
+[sub_resource type="Animation" id=5]
 length = 1.8
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -184,7 +182,7 @@ tracks/1/keys = {
 "values": [ 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -219,11 +217,11 @@ hframes = 33
 frame = 32
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/die = SubResource( 6 )
-anims/hurt = SubResource( 5 )
-anims/idle = SubResource( 2 )
-anims/shoot = SubResource( 3 )
-anims/walkdown = SubResource( 4 )
+anims/die = SubResource( 2 )
+anims/hurt = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/shoot = SubResource( 5 )
+anims/walkdown = SubResource( 6 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 4 )
