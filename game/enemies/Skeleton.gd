@@ -16,7 +16,6 @@ const arrowResource = preload("res://game/projectiles/Arrow.tscn")
 onready var nav = get_parent()
 onready var player
 onready var animationPlayer = $AnimationPlayer
-onready var arrowSpawnPoint = $ArrowSpawnPoint
 onready var collisionShape = $CollisionShape
 
 enum {
@@ -109,6 +108,7 @@ func releaseArrow():
 	arrow.translation.y = ARROW_HEIGHT
 	arrow.setPlayer(player)
 	arrow.setVelocity(fireDirection * ARROW_SPEED)
+	arrow.setSource(self)
 	get_parent().get_parent().add_child(arrow)
 
 func getVectorToPlayer():

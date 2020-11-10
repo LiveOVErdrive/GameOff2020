@@ -1,5 +1,6 @@
 extends KinematicBody
 
+const DAMAGE = 5
 
 enum {
 	BACK,
@@ -12,8 +13,11 @@ enum {
 var velocity = Vector3()
 
 onready var sprite = $Sprite3D
-onready var raycast = $RayCast
 var player
+var source
+
+func setSource(s):
+	source = s
 
 func setVelocity(v):
 	velocity = v
@@ -31,12 +35,9 @@ func _physics_process(delta):
 		return
 
 	move_and_slide(velocity)
-	
-	var col = raycast.get_collider()
-	if col:
-		if col.has_method("arrowHit"):
-			col.arrowHit()
-		queue_free() #delete self
+
+	# 3d 2d sprite stuff
+	# TODO make a generic object to handle this elsewhere too?
 
 	var vecToPlayer = player.translation - translation
 	vecToPlayer.y = 0
@@ -59,3 +60,12 @@ func _physics_process(delta):
 	else:
 		sprite.frame = BACK
 
+
+
+func _on_hitbox_area_entered(area):
+	var target = area.get_parent()
+	if target == source:
+		return
+	if target.has_method("damage"):
+		target.damage(DAMAGE)
+	queue_free() #delete self

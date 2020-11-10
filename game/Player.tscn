@@ -361,29 +361,29 @@ tracks/1/keys = {
 
 [sub_resource type="CapsuleMesh" id=14]
 
-[sub_resource type="Gradient" id=23]
+[sub_resource type="Gradient" id=15]
 colors = PoolColorArray( 0.183594, 1, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=24]
-gradient = SubResource( 23 )
+[sub_resource type="GradientTexture" id=16]
+gradient = SubResource( 15 )
 
-[sub_resource type="ParticlesMaterial" id=15]
+[sub_resource type="ParticlesMaterial" id=17]
 emission_shape = 2
 emission_box_extents = Vector3( 0.25, 0.1, 0.1 )
 direction = Vector3( 0, 1, 0 )
 spread = 50.22
 initial_velocity = 5.0
 initial_velocity_random = 1.0
-color_ramp = SubResource( 24 )
+color_ramp = SubResource( 16 )
 
-[sub_resource type="SpatialMaterial" id=16]
+[sub_resource type="SpatialMaterial" id=18]
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="QuadMesh" id=17]
-material = SubResource( 16 )
+[sub_resource type="QuadMesh" id=19]
+material = SubResource( 18 )
 size = Vector2( 0.02, 0.02 )
 
-[sub_resource type="BoxShape" id=18]
+[sub_resource type="CylinderShape" id=20]
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
@@ -451,8 +451,8 @@ amount = 40
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 15 )
-draw_pass_1 = SubResource( 17 )
+process_material = SubResource( 17 )
+draw_pass_1 = SubResource( 19 )
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
@@ -465,7 +465,16 @@ stream = ExtResource( 4 )
 [node name="SwordArea" type="Area" parent="."]
 
 [node name="SwordShape" type="CollisionShape" parent="SwordArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
-shape = SubResource( 18 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+shape = SubResource( 20 )
 disabled = true
+
+[node name="Hurtbox" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Hurtbox"]
+transform = Transform( 0.5, 0, 0, 0, 0.75, 0, 0, 0, 0.5, 0, 0, 0 )
+shape = SubResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 [connection signal="area_entered" from="SwordArea" to="." method="_on_SwordArea_area_entered"]

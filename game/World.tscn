@@ -59,9 +59,3 @@ __meta__ = {
 
 [node name="Skeleton" parent="Navigation" instance=ExtResource( 5 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -9.08974, 0.769733, -24.0371 )
-
-[node name="Skeleton2" parent="Navigation" instance=ExtResource( 5 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -6.45035, 0.769733, -27.0249 )
-
-[node name="Skeleton3" parent="Navigation" instance=ExtResource( 5 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -6.45035, 0.769733, -20.5182 )

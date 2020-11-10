@@ -5,9 +5,9 @@
 [ext_resource path="res://assets/audio/MonsterGrunt1.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/audio/MonsterGrunt4_die.wav" type="AudioStream" id=4]
 
-[sub_resource type="BoxShape" id=16]
+[sub_resource type="BoxShape" id=1]
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=2]
 resource_name = "die"
 length = 2.0
 tracks/0/type = "value"
@@ -71,7 +71,7 @@ tracks/4/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=3]
 resource_name = "hurt"
 length = 0.8
 tracks/0/type = "value"
@@ -149,7 +149,7 @@ tracks/5/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=4]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -165,7 +165,7 @@ tracks/0/keys = {
 "values": [ 0, 2 ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=5]
 length = 1.8
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -194,7 +194,7 @@ tracks/1/keys = {
 "values": [ 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=6]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -210,28 +210,28 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="BoxShape" id=22]
+[sub_resource type="BoxShape" id=7]
 
-[sub_resource type="Gradient" id=23]
+[sub_resource type="Gradient" id=8]
 colors = PoolColorArray( 0.183594, 1, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=24]
-gradient = SubResource( 23 )
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
 
-[sub_resource type="ParticlesMaterial" id=15]
+[sub_resource type="ParticlesMaterial" id=10]
 emission_shape = 2
 emission_box_extents = Vector3( 0.25, 0.1, 0.1 )
 direction = Vector3( 0, 1, 0 )
 spread = 50.22
 initial_velocity = 5.0
 initial_velocity_random = 1.0
-color_ramp = SubResource( 24 )
+color_ramp = SubResource( 9 )
 
-[sub_resource type="SpatialMaterial" id=25]
+[sub_resource type="SpatialMaterial" id=11]
 vertex_color_use_as_albedo = true
 
-[sub_resource type="CubeMesh" id=26]
-material = SubResource( 25 )
+[sub_resource type="CubeMesh" id=12]
+material = SubResource( 11 )
 size = Vector3( 0.05, 0.05, 0.05 )
 
 [node name="Skeleton" type="KinematicBody"]
@@ -239,7 +239,7 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.75, 0, 0, 0, 0.5, 0, 0, 0 )
-shape = SubResource( 16 )
+shape = SubResource( 1 )
 disabled = true
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
@@ -253,11 +253,11 @@ hframes = 33
 frame = 19
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/die = SubResource( 17 )
-anims/hurt = SubResource( 18 )
-anims/idle = SubResource( 19 )
-anims/shoot = SubResource( 20 )
-anims/walkdown = SubResource( 21 )
+anims/die = SubResource( 2 )
+anims/hurt = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/shoot = SubResource( 5 )
+anims/walkdown = SubResource( 6 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 3 )
@@ -265,7 +265,7 @@ stream = ExtResource( 3 )
 [node name="Hitbox" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
-shape = SubResource( 22 )
+shape = SubResource( 7 )
 
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.19651 )
@@ -274,8 +274,8 @@ amount = 40
 lifetime = 0.75
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 15 )
-draw_pass_1 = SubResource( 26 )
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 12 )
 __meta__ = {
 "_editor_description_": ""
 }

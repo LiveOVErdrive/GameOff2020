@@ -39,7 +39,6 @@ func _input(event):
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - MOUSE_SENS * event.relative.y, -90, 90)
 
 func _physics_process(delta):
-	print(swordShape.disabled)
 	# System
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
@@ -125,7 +124,6 @@ func trySlashCollider():
 			target.slash()
 			
 func _on_SwordArea_area_entered(area):
-	print(area)
 	if area.get_parent().has_method("slash"):
 		area.get_parent().slash()
 
@@ -143,11 +141,8 @@ func tryStabCollider():
 		var target = rayCast.get_collider()
 		if target.has_method("stab"):
 			target.stab()
-			
-# outside effects:
 
-func arrowHit():
-	damage(1)
+# outside effects:
 
 # take damage
 func damage(d: int):
