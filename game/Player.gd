@@ -13,6 +13,7 @@ onready var rayCastClose = $Head/RayCastClose
 onready var animationPlayer = $AnimationPlayer
 onready var cameraAnimationPlayer = $Head/CameraAnimationPlayer
 onready var sprite = $Head/Camera/Sprite3D
+onready var swordShape = $SwordArea/SwordShape
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -38,6 +39,7 @@ func _input(event):
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - MOUSE_SENS * event.relative.y, -90, 90)
 
 func _physics_process(delta):
+	print(swordShape.disabled)
 	# System
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
@@ -121,6 +123,11 @@ func trySlashCollider():
 		var target = rayCast.get_collider()
 		if target.has_method("slash"):
 			target.slash()
+			
+func _on_SwordArea_area_entered(area):
+	print(area)
+	if area.get_parent().has_method("slash"):
+		area.get_parent().slash()
 
 func tryKickCollider():
 	if rayCast.is_colliding():
