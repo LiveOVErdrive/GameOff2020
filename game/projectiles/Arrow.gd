@@ -1,6 +1,6 @@
 extends KinematicBody
 
-const DAMAGE = 5
+const DAMAGE = 10
 
 enum {
 	BACK,
@@ -64,7 +64,7 @@ func _physics_process(delta):
 
 func _on_hitbox_area_entered(area):
 	var target = area.get_parent()
-	if target == source:
+	if target == source or target.is_in_group("enemies"):
 		return
 	if target.has_method("damage"):
 		target.damage(DAMAGE)

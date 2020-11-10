@@ -70,6 +70,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("ParticlesDeath:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "hurt"
@@ -222,9 +234,10 @@ gradient = SubResource( 8 )
 emission_shape = 2
 emission_box_extents = Vector3( 0.25, 0.1, 0.1 )
 direction = Vector3( 0, 1, 0 )
-spread = 50.22
+spread = 180.0
 initial_velocity = 5.0
 initial_velocity_random = 1.0
+angle_random = 1.0
 color_ramp = SubResource( 9 )
 
 [sub_resource type="SpatialMaterial" id=11]
@@ -260,7 +273,7 @@ anims/shoot = SubResource( 5 )
 anims/walkdown = SubResource( 6 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 3 )
+stream = ExtResource( 4 )
 
 [node name="Hitbox" type="Area" parent="."]
 
@@ -271,9 +284,21 @@ shape = SubResource( 7 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.19651 )
 emitting = false
 amount = 40
-lifetime = 0.75
+lifetime = 0.39
 one_shot = true
 explosiveness = 1.0
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 12 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ParticlesDeath" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.19651 )
+emitting = false
+amount = 80
+lifetime = 0.83
+one_shot = true
 process_material = SubResource( 10 )
 draw_pass_1 = SubResource( 12 )
 __meta__ = {

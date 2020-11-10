@@ -4,7 +4,7 @@ const SPEED = 5
 const MIN_DIST_TO_PLAYER = 4
 const MED_DIST_TO_PLAYER = 8
 const MAX_DIST_TO_PLAYER = 12
-const VIEW_DISTANCE = 20
+const VIEW_DISTANCE = 15
 const CORNER_CUT_DIST = 1
 const ARROW_SPEED = 12
 const ARROW_START_DISTANCE = 1
@@ -17,6 +17,7 @@ onready var nav = get_parent()
 onready var player
 onready var animationPlayer = $AnimationPlayer
 onready var collisionShape = $CollisionShape
+onready var hurtboxShape = $Hitbox/CollisionShape
 
 enum {
 	IDLE,
@@ -142,6 +143,7 @@ func hurt():
 
 func die():
 	animationPlayer.play("die")
+	hurtboxShape.disabled = true
 	state = DEAD
 
 func getPathToPlayer():

@@ -5,6 +5,7 @@ const SPEED = 10
 const ACCEL = 20
 const DASH_LENGTH = .75
 const MAX_HP = 100
+const BLOOD_SCALE = 5
 
 var velocity
 onready var head = $Head
@@ -14,6 +15,8 @@ onready var animationPlayer = $AnimationPlayer
 onready var cameraAnimationPlayer = $Head/CameraAnimationPlayer
 onready var sprite = $Head/Camera/Sprite3D
 onready var swordShape = $SwordArea/SwordShape
+onready var blood = $Blood
+onready var deathscreen = $CanvasLayer/Control/Sprite
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -22,16 +25,20 @@ func setFreezePlayer(f):
 
 var isDashing = false
 var dashRemaining = 0
-
+var dead = false
 var health = MAX_HP
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	head.rotation = Vector3()
+	head.translation.y = .25
 	velocity = Vector3()
 	freezePlayer = false
+	deathscreen.frame = 0
 	sprite.frame = 0
 	yield(get_tree(), "idle_frame")
 	get_tree().call_group("enemies", "setPlayer", self)
+
 
 func _input(event):
 	if event is InputEventMouseMotion and !freezePlayer:
@@ -44,6 +51,9 @@ func _physics_process(delta):
 		get_tree().quit()
 	elif Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
+		
+	if dead:
+		return
 	
 	# Actions
 	if Input.is_action_just_pressed("use"):
@@ -60,10 +70,7 @@ func _physics_process(delta):
 			isDashing = true
 			dashRemaining = DASH_LENGTH
 			animationPlayer.play("dashStart")
-			
-	if isDashing:
-		tryStabCollider()
-	
+
 	# Movement
 	var moveVector = Vector3()
 	if !freezePlayer:
@@ -75,19 +82,21 @@ func _physics_process(delta):
 			moveVector.x -= 1
 		if Input.is_action_pressed("move_right"):
 			moveVector.x += 1
-		
+
 	moveVector = moveVector.normalized() if !isDashing else Vector3(0,0,-2)
 	moveVector = moveVector.rotated(Vector3(0, 1, 0), rotation.y)
 	velocity = lerp(velocity, moveVector * SPEED, ACCEL * delta)
-	
+
 	if isDashing:
 		#TODO: use a timer instead
 		dashRemaining -= delta
 		if dashRemaining <=0:
 			animationPlayer.play("dashMiss")
 			isDashing = false
-	
-	move_and_slide(velocity)
+
+	var col = move_and_collide(velocity * delta)
+	if col and isDashing:
+		doStab(col.collider)
 
 # sword state machine
 
@@ -117,39 +126,36 @@ func doSlashOrReturn():
 func doDash():
 	animationPlayer.play("dash")
 
-func trySlashCollider():
-	if rayCast.is_colliding():
-		var target = rayCast.get_collider()
-		if target.has_method("slash"):
-			target.slash()
-			
 func _on_SwordArea_area_entered(area):
 	if area.get_parent().has_method("slash"):
 		area.get_parent().slash()
 
-func tryKickCollider():
-	if rayCast.is_colliding():
-		var target = rayCast.get_collider()
-		if target.has_method("kick"):
-			target.kick(Vector3(0,0,-1).rotated(Vector3(0, 1, 0), rotation.y))
+func _on_KickArea_area_entered(area):
+	if area.get_parent().has_method("kick"):
+		area.get_parent().kick(Vector3(0,0,-1).rotated(Vector3(0, 1, 0), rotation.y))
 
-func tryStabCollider():
-	if rayCastClose.is_colliding():
-		isDashing = false
-		dashRemaining = 0
-		animationPlayer.play("dashStab")
-		var target = rayCast.get_collider()
-		if target.has_method("stab"):
-			target.stab()
+func doStab(target):
+	isDashing = false
+	dashRemaining = 0
+	animationPlayer.play("dashStab")
+	if target.has_method("stab"):
+		target.stab()
 
 # outside effects:
 
 # take damage
 func damage(d: int):
+	if dead:
+		return
+	blood.amount = BLOOD_SCALE * d
 	cameraAnimationPlayer.play("take_damage")
 	health -= d
 	if health <= 0:
 		die()
 
 func die():
-	pass
+	dead = true
+	blood.amount = BLOOD_SCALE * 100
+	animationPlayer.play("rightExit")
+	cameraAnimationPlayer.play("die")
+

@@ -21,7 +21,7 @@ polygons = [ PoolIntArray( 1, 0, 2 ), PoolIntArray( 2, 0, 3 ), PoolIntArray( 7, 
 [node name="World" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.00750471, 0, 0.999972, 0, 1, 0, -0.999972, 0, 0.00750471, 3.96557, 0.808758, -23.992 )
+transform = Transform( 0.00750471, 0, 0.999972, 0, 1, 0, -0.999972, 0, 0.00750471, 0.861984, 0.808758, 0.291304 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
@@ -58,4 +58,13 @@ __meta__ = {
 }
 
 [node name="Skeleton" parent="Navigation" instance=ExtResource( 5 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -9.08974, 0.769733, -24.0371 )
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 8.78031, 0.769733, -12.9115 )
+
+[node name="Skeleton2" parent="Navigation" instance=ExtResource( 5 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -4.83227, 0.769733, -24.0371 )
+
+[node name="Skeleton3" parent="Navigation" instance=ExtResource( 5 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -11.7959, 0.769733, -21.445 )
+
+[node name="Skeleton4" parent="Navigation" instance=ExtResource( 5 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -11.1893, 0.769733, -27.4165 )

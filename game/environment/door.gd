@@ -2,7 +2,7 @@ extends KinematicBody
 
 export(bool) var open setget setOpen
 
-const KICK_SPEED = 20
+const KICK_SPEED = 10
 
 onready var animationPlayer = $AnimationPlayer
 onready var mi1 = $MeshInstance
