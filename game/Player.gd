@@ -14,7 +14,6 @@ onready var rayCastClose = $Head/RayCastClose
 onready var animationPlayer = $AnimationPlayer
 onready var cameraAnimationPlayer = $Head/CameraAnimationPlayer
 onready var sprite = $Head/Camera/Sprite3D
-onready var swordShape = $SwordArea/SwordShape
 onready var blood = $Blood
 onready var deathscreen = $CanvasLayer/Control/Sprite
 
@@ -88,15 +87,16 @@ func _physics_process(delta):
 	velocity = lerp(velocity, moveVector * SPEED, ACCEL * delta)
 
 	if isDashing:
-		#TODO: use a timer instead
-		dashRemaining -= delta
-		if dashRemaining <=0:
-			animationPlayer.play("dashMiss")
-			isDashing = false
+		var target = rayCastClose.get_collider()
+		if target and !target.is_in_group("projectiles"):
+			doStab(target)
+		else:
+			dashRemaining -= delta
+			if dashRemaining <=0:
+				animationPlayer.play("dashMiss")
+				isDashing = false
 
-	var col = move_and_collide(velocity * delta)
-	if col and isDashing:
-		doStab(col.collider)
+	move_and_slide(velocity)
 
 # sword state machine
 
@@ -127,13 +127,20 @@ func doDash():
 	animationPlayer.play("dash")
 
 func _on_SwordArea_area_entered(area):
-	if area.get_parent().has_method("slash"):
-		area.get_parent().slash()
+	var target = area.get_parent()
+	if target == self:
+		return
+	if target.has_method("slash"):
+		target.slash()
 
 func _on_KickArea_area_entered(area):
-	if area.get_parent().has_method("kick"):
-		area.get_parent().kick(Vector3(0,0,-1).rotated(Vector3(0, 1, 0), rotation.y))
+	var target = area.get_parent()
+	if target == self:
+		return
+	if target.has_method("kick"):
+		target.kick(Vector3(0,0,-1).rotated(Vector3(0, 1, 0), rotation.y))
 
+# TODO use a raycast again
 func doStab(target):
 	isDashing = false
 	dashRemaining = 0
@@ -158,4 +165,3 @@ func die():
 	blood.amount = BLOOD_SCALE * 100
 	animationPlayer.play("rightExit")
 	cameraAnimationPlayer.play("die")
-

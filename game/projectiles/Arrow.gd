@@ -23,8 +23,7 @@ func setVelocity(v):
 	velocity = v
 
 func _ready():
-	add_to_group("enemies")
-
+	add_to_group("projectiles")
 	look_at(velocity, Vector3(0,1,0))
 
 func setPlayer(p):
@@ -34,7 +33,9 @@ func _physics_process(delta):
 	if !player:
 		return
 
-	move_and_slide(velocity)
+	var col = move_and_collide(velocity * delta)
+	if col:
+		doHit(col.collider)
 
 	# 3d 2d sprite stuff
 	# TODO make a generic object to handle this elsewhere too?
@@ -60,12 +61,10 @@ func _physics_process(delta):
 	else:
 		sprite.frame = BACK
 
-
-
-func _on_hitbox_area_entered(area):
-	var target = area.get_parent()
+func doHit(target):
 	if target == source or target.is_in_group("enemies"):
 		return
 	if target.has_method("damage"):
 		target.damage(DAMAGE)
 	queue_free() #delete self
+

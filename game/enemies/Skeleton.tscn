@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/audio/MonsterGrunt1.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/audio/MonsterGrunt4_die.wav" type="AudioStream" id=4]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="CylinderShape" id=1]
 
 [sub_resource type="Animation" id=2]
 resource_name = "die"
@@ -222,7 +222,8 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="CylinderShape" id=7]
+radius = 0.5
 
 [sub_resource type="Gradient" id=8]
 colors = PoolColorArray( 0.183594, 1, 0, 1, 0, 0, 0, 0 )
