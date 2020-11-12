@@ -1,17 +1,12 @@
 extends KinematicBody
 
-const SPEED = 5
-const MIN_DIST_TO_PLAYER = 4
-const MED_DIST_TO_PLAYER = 8
-const MAX_DIST_TO_PLAYER = 12
+const SPEED = 6
+const MIN_DIST_TO_PLAYER = 0
+const MED_DIST_TO_PLAYER = 1.5
+const MAX_DIST_TO_PLAYER = 3
 const VIEW_DISTANCE = 15
 const CORNER_CUT_DIST = 1
-const ARROW_SPEED = 12
-const ARROW_START_DISTANCE = 1
-const ARROW_HEIGHT = 1.1
 const MAX_HEALTH = 3
-
-const arrowResource = preload("res://game/projectiles/Arrow.tscn")
 
 onready var nav = get_parent()
 onready var player
@@ -37,7 +32,7 @@ func _ready():
 	add_to_group("enemies")
 	state = IDLE
 	collisionShape.disabled = false
-	hurtboxShape.disabled = false
+	animationPlayer.play("idlemove")
 
 func setPlayer(p):
 	player = p
@@ -65,6 +60,8 @@ func damage(d):
 func _physics_process(delta):
 	if !player:
 		return
+	
+	look_at(player.translation, Vector3(0,1,0))
 
 	var distanceToPlayer = getDistanceToPlayer()
 
@@ -72,14 +69,7 @@ func _physics_process(delta):
 		if distanceToPlayer < VIEW_DISTANCE:
 			advance()
 	elif state == ATTACK:
-		# TODO check if we are doing an attack animation first
-		if !(animationPlayer.is_playing() and animationPlayer.current_animation == "shoot"):
-			if distanceToPlayer < MIN_DIST_TO_PLAYER:
-				retreat()
-			elif distanceToPlayer > MAX_DIST_TO_PLAYER:
-				advance()
-			else:
-				animationPlayer.play("shoot")
+		pass
 	elif state == RETREAT:
 		if distanceToPlayer > MED_DIST_TO_PLAYER:
 			attack()
@@ -101,18 +91,6 @@ func _physics_process(delta):
 	elif state == DEAD or state == HURT:
 		pass
 
-func releaseArrow():
-	var fireDirection = getVectorToPlayer()
-	fireDirection.y = 0
-	fireDirection = fireDirection.normalized()
-	var arrow = arrowResource.instance()
-	arrow.translation = translation + fireDirection * ARROW_START_DISTANCE
-	arrow.translation.y = ARROW_HEIGHT
-	arrow.setPlayer(player)
-	arrow.setVelocity(fireDirection * ARROW_SPEED)
-	arrow.setSource(self)
-	get_parent().get_parent().add_child(arrow)
-
 func getVectorToPlayer():
 	return player.translation - translation
 
@@ -123,23 +101,23 @@ func getDistanceToPlayer():
 
 func advance():
 	state = ADVANCE
-	animationPlayer.play("walkdown")
+	animationPlayer.play("idlemove")
 	getPathToPlayer()
 
 func attack():
-	animationPlayer.play("idle")
+	animationPlayer.play("idlemove")
 	state = ATTACK
 
 func retreat():
-	animationPlayer.play("walkdown")
+	animationPlayer.play("idlemove")
 	state = RETREAT
 
 func idle():
-	animationPlayer.play("idle")
+	animationPlayer.play("idlemove")
 	state = IDLE
 
 func hurt():
-	animationPlayer.play("hurt")
+	animationPlayer.play("idlemove")
 	state = HURT
 
 func die():
