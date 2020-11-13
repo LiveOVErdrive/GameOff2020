@@ -140,6 +140,9 @@ func _on_KickArea_area_entered(area):
 	if target.has_method("kick"):
 		target.kick(Vector3(0,0,-1).rotated(Vector3(0, 1, 0), rotation.y))
 
+func tellBlockersToBlock():
+	get_tree().call_group("blockers", "playerAttacking")
+
 # TODO use a raycast again
 func doStab(target):
 	isDashing = false

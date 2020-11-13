@@ -1,12 +1,15 @@
 extends KinematicBody
 
 const SPEED = 6
-const MIN_DIST_TO_PLAYER = 0
-const MED_DIST_TO_PLAYER = 1.5
-const MAX_DIST_TO_PLAYER = 3
+const BLOCK_SPEED = 3
+const TARGET_ATTACK_RANGE = 1
+const MAX_ATTACK_RANGE = 2
+const BLOCK_RANGE = 4
 const VIEW_DISTANCE = 15
 const CORNER_CUT_DIST = 1
-const MAX_HEALTH = 3
+const MAX_HEALTH = 10
+const KICK_STRENGTH = 10
+const KICK_DECCEL = -10
 
 onready var nav = get_parent()
 onready var player
@@ -17,19 +20,29 @@ onready var hurtboxShape = $Hitbox/CollisionShape
 enum {
 	IDLE,
 	ADVANCE,
-	RETREAT,
 	ATTACK,
 	DEAD,
+	KICKED,
 	HURT
 }
+
+# AI:
+# Advances to attack range
+# Attacks
+# Blocks in between attacks
+# Ripostes if he blocks the player
+# gets staggered if kicked
 
 var path = []
 var currentPathNode = 0
 var state
 var health = MAX_HEALTH
+var kickVelocity = Vector3()
+var blocking = false
 
 func _ready():
 	add_to_group("enemies")
+	add_to_group("blockers")
 	state = IDLE
 	collisionShape.disabled = false
 	animationPlayer.play("idlemove")
@@ -40,11 +53,24 @@ func setPlayer(p):
 # Interface Stuffs
 
 func kick(direction):
-	damage(3)
+	kickVelocity = direction * KICK_STRENGTH
+	animationPlayer.play("hurt")
+	state = KICKED
 func slash():
-	damage(1)
+	if blocking:
+		riposte()
+		# TODO return somtehing to make the player staggered for a second
+	else:
+		damage(5)
 func stab():
-	damage(2)
+	if blocking:
+		riposte()
+	else:
+		damage(2)
+
+func riposte():
+	animationPlayer.play("riposte")
+	pass
 	
 func damage(d):
 	health -= d
@@ -70,17 +96,18 @@ func _physics_process(delta):
 			advance()
 	elif state == ATTACK:
 		pass
-	elif state == RETREAT:
-		if distanceToPlayer > MED_DIST_TO_PLAYER:
-			attack()
+	elif state == KICKED:
+		kickVelocity = lerp(kickVelocity, Vector3(), KICK_DECCEL)
+		if kickVelocity.length() == 0:
+			idle()
 		else:
-			var fleeDirection = getVectorToPlayer().normalized() * -1
-			fleeDirection.y = 0 # just to make sure
-			move_and_slide(fleeDirection * SPEED)
+			move_and_slide(kickVelocity)
 	elif state == ADVANCE:
-		if distanceToPlayer < MED_DIST_TO_PLAYER:
+		if distanceToPlayer < TARGET_ATTACK_RANGE:
 			attack()
 		else:
+			if distanceToPlayer < BLOCK_RANGE and animationPlayer.current_animation == "idlemove":
+				animationPlayer.play("startBlock")
 			if currentPathNode >= path.size():
 				getPathToPlayer()
 			var moveDirection = path[currentPathNode] - global_transform.origin
@@ -105,19 +132,15 @@ func advance():
 	getPathToPlayer()
 
 func attack():
-	animationPlayer.play("idlemove")
+	animationPlayer.play("attack")
 	state = ATTACK
-
-func retreat():
-	animationPlayer.play("idlemove")
-	state = RETREAT
 
 func idle():
 	animationPlayer.play("idlemove")
 	state = IDLE
 
 func hurt():
-	animationPlayer.play("idlemove")
+	animationPlayer.play("hurt")
 	state = HURT
 
 func die():
