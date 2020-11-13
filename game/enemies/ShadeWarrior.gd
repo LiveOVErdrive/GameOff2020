@@ -2,20 +2,22 @@ extends KinematicBody
 
 const SPEED = 6
 const BLOCK_SPEED = 3
-const TARGET_ATTACK_RANGE = 1
-const MAX_ATTACK_RANGE = 2
-const BLOCK_RANGE = 4
+const TARGET_ATTACK_RANGE = 2
+const MAX_ATTACK_RANGE = 3
+const BLOCK_RANGE = 5
 const VIEW_DISTANCE = 15
 const CORNER_CUT_DIST = 1
 const MAX_HEALTH = 10
 const KICK_STRENGTH = 10
 const KICK_DECCEL = -10
+const DAMAGE = 25
 
 onready var nav = get_parent()
 onready var player
 onready var animationPlayer = $AnimationPlayer
 onready var collisionShape = $CollisionShape
 onready var hurtboxShape = $Hitbox/CollisionShape
+onready var raycast = $RayCast
 
 enum {
 	IDLE,
@@ -95,7 +97,17 @@ func _physics_process(delta):
 		if distanceToPlayer < VIEW_DISTANCE:
 			advance()
 	elif state == ATTACK:
-		pass
+		if animationPlayer.is_playing():
+			pass
+		else:
+			if distanceToPlayer > MAX_ATTACK_RANGE:
+				advance()
+			else:
+				if blocking:
+					print("was blocking now attacking")
+					animationPlayer.play("attack")
+				else:
+					animationPlayer.play("startBlock")
 	elif state == KICKED:
 		kickVelocity = lerp(kickVelocity, Vector3(), KICK_DECCEL)
 		if kickVelocity.length() == 0:
@@ -106,8 +118,14 @@ func _physics_process(delta):
 		if distanceToPlayer < TARGET_ATTACK_RANGE:
 			attack()
 		else:
-			if distanceToPlayer < BLOCK_RANGE and animationPlayer.current_animation == "idlemove":
-				animationPlayer.play("startBlock")
+			if distanceToPlayer < BLOCK_RANGE:
+				if animationPlayer.current_animation == "idlemove":
+					animationPlayer.play("startBlock")
+				elif !animationPlayer.is_playing():
+					# keep playing holdblock
+					animationPlayer.play("holdblock")
+			elif blocking:
+				animationPlayer.play("endBlock")
 			if currentPathNode >= path.size():
 				getPathToPlayer()
 			var moveDirection = path[currentPathNode] - global_transform.origin
@@ -123,7 +141,15 @@ func getVectorToPlayer():
 
 func getDistanceToPlayer():
 	return getVectorToPlayer().length()
-	
+
+func setBlock(b: bool):
+	blocking = b
+
+func tryToHitPlayer(): 
+	var target = raycast.get_collider()
+	if target and target.has_method("damage"):
+		target.damage(DAMAGE)
+
 # State Stuff
 
 func advance():
