@@ -9,14 +9,14 @@ const VIEW_DISTANCE = 15
 const CORNER_CUT_DIST = 1
 const MAX_HEALTH = 10
 const KICK_STRENGTH = 10
-const KICK_DECCEL = -10
-const DAMAGE = 25
+const KICK_DECCEL = 10
+const DAMAGE = 10
 
 onready var nav = get_parent()
 onready var player
 onready var animationPlayer = $AnimationPlayer
 onready var collisionShape = $CollisionShape
-onready var hurtboxShape = $Hitbox/CollisionShape
+onready var hurtboxShape = $Hurtbox/CollisionShape
 onready var raycast = $RayCast
 
 enum {
@@ -39,7 +39,8 @@ var path = []
 var currentPathNode = 0
 var state
 var health = MAX_HEALTH
-var kickVelocity = Vector3()
+var kickDirection = Vector3()
+var kickSpeed = 0
 var blocking = false
 
 func _ready():
@@ -55,7 +56,8 @@ func setPlayer(p):
 # Interface Stuffs
 
 func kick(direction):
-	kickVelocity = direction * KICK_STRENGTH
+	kickDirection = direction
+	kickSpeed = KICK_STRENGTH
 	animationPlayer.play("hurt")
 	state = KICKED
 func slash():
@@ -109,11 +111,11 @@ func _physics_process(delta):
 				else:
 					animationPlayer.play("startBlock")
 	elif state == KICKED:
-		kickVelocity = lerp(kickVelocity, Vector3(), KICK_DECCEL)
-		if kickVelocity.length() == 0:
+		kickSpeed = lerp(kickSpeed, 0, KICK_DECCEL * delta)
+		if kickSpeed == 0:
 			idle()
 		else:
-			move_and_slide(kickVelocity)
+			move_and_slide(kickDirection * kickSpeed)
 	elif state == ADVANCE:
 		if distanceToPlayer < TARGET_ATTACK_RANGE:
 			attack()
