@@ -15,7 +15,8 @@ onready var animationPlayer = $AnimationPlayer
 onready var cameraAnimationPlayer = $Head/CameraAnimationPlayer
 onready var sprite = $Head/Camera/Sprite3D
 onready var blood = $Blood
-onready var deathscreen = $CanvasLayer/Control/Sprite
+onready var deathscreen = $CanvasLayer/Control/YouDied
+onready var healthbar = $CanvasLayer/Control/Healthbar
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -160,6 +161,7 @@ func damage(d: int):
 	blood.amount = BLOOD_SCALE * d
 	cameraAnimationPlayer.play("take_damage")
 	health -= d
+	healthbar.rect_scale = Vector2(float(health)/MAX_HP, 1)
 	if health <= 0:
 		die()
 

@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/audio/PlayerGrunt1.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/audio/PlayerDie1.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/screens/youdied.png" type="Texture" id=6]
+[ext_resource path="res://assets/screens/helth.png" type="Texture" id=7]
 
 [sub_resource type="CylinderShape" id=1]
 
@@ -13,9 +14,6 @@
 extents = Vector3( 0.5, 0.5, 0.5 )
 
 [sub_resource type="CylinderShape" id=3]
-
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.25, 0.25, 0.25 )
 
 [sub_resource type="Animation" id=5]
 length = 3.6
@@ -80,7 +78,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("../CanvasLayer/Control/Sprite:frame")
+tracks/5/path = NodePath("../CanvasLayer/Control/YouDied:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -186,18 +184,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 35, 34, 0 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Head/StabArea/CollisionShape:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
 
 [sub_resource type="Animation" id=9]
 length = 1.3
@@ -236,18 +222,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true, false ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("Head/StabArea/CollisionShape:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
 
 [sub_resource type="Animation" id=10]
 length = 0.2
@@ -279,18 +253,6 @@ tracks/1/keys = {
 "args": [  ],
 "method": "doDash"
 } ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Head/StabArea/CollisionShape:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -525,7 +487,7 @@ albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="QuadMesh" id=23]
 material = SubResource( 22 )
-size = Vector2( 0.02, 0.02 )
+size = Vector2( 0.04, 0.04 )
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
@@ -536,7 +498,7 @@ transform = Transform( 0.5, 0, 0, 0, 0.75, 0, 0, 0, 0.5, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="Head" type="Spatial" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.5, 0 )
+transform = Transform( 1, -0.000285772, 0, 0.000285772, 1, 0, 0, 0, 1, 0, -0.5, 0 )
 
 [node name="KickArea" type="Area" parent="Head"]
 transform = Transform( -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0, 1, 0.5, -8.14605e-08, 0 )
@@ -554,13 +516,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 shape = SubResource( 3 )
 disabled = true
 
-[node name="StabArea" type="Area" parent="Head"]
-transform = Transform( -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0, 1, 0.5, -8.14605e-08, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Head/StabArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
-shape = SubResource( 4 )
-
 [node name="CameraAnimationPlayer" type="AnimationPlayer" parent="Head"]
 anims/die = SubResource( 5 )
 anims/take_damage = SubResource( 6 )
@@ -573,7 +528,7 @@ shaded = true
 double_sided = false
 texture = ExtResource( 1 )
 hframes = 52
-frame = 34
+frame = 39
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
@@ -609,6 +564,7 @@ __meta__ = {
 
 [node name="Blood" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.19651 )
+emitting = false
 amount = 40
 lifetime = 0.5
 one_shot = true
@@ -642,13 +598,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Control"]
+[node name="YouDied" type="Sprite" parent="CanvasLayer/Control"]
 scale = Vector2( 7, 7 )
 texture = ExtResource( 6 )
 centered = false
 hframes = 23
-frame = 22
+frame = 2
+
+[node name="Healthbar" type="ColorRect" parent="CanvasLayer/Control"]
+margin_left = 321.0
+margin_top = 704.0
+margin_right = 1023.0
+margin_bottom = 730.0
+color = Color( 0.996078, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Helth" type="Sprite" parent="CanvasLayer/Control"]
+scale = Vector2( 7, 7 )
+texture = ExtResource( 7 )
+centered = false
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]
-[connection signal="area_entered" from="Head/StabArea" to="." method="_on_StabArea_area_entered"]
-[connection signal="body_entered" from="Head/StabArea" to="." method="_on_StabArea_body_entered"]

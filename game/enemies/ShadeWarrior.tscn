@@ -277,7 +277,8 @@ anims/startBlock = SubResource( 10 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1 )
-light_color = Color( 1, 0.756863, 0.592157, 1 )
+light_color = Color( 1, 0.67451, 0.623529, 1 )
+omni_range = 3.8
 
 [node name="Hurtbox" type="Area" parent="."]
 

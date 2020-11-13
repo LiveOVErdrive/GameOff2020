@@ -18,6 +18,7 @@ onready var animationPlayer = $AnimationPlayer
 onready var collisionShape = $CollisionShape
 onready var hurtboxShape = $Hurtbox/CollisionShape
 onready var raycast = $RayCast
+onready var light = $OmniLight
 
 enum {
 	IDLE,
@@ -80,10 +81,9 @@ func damage(d):
 	health -= d
 	if health <= 0:
 		die()
-		animationPlayer.play("die")
 	else:
 		hurt()
-		animationPlayer.play("hurt")
+
 
 # runloop
 
@@ -106,7 +106,6 @@ func _physics_process(delta):
 				advance()
 			else:
 				if blocking:
-					print("was blocking now attacking")
 					animationPlayer.play("attack")
 				else:
 					animationPlayer.play("startBlock")
@@ -173,7 +172,9 @@ func hurt():
 
 func die():
 	animationPlayer.play("die")
-	hurtboxShape.disabled = true
+	hurtboxShape.queue_free()
+	collisionShape.queue_free()
+	light.queue_free()
 	state = DEAD
 
 func getPathToPlayer():
