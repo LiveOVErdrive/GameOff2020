@@ -41,6 +41,19 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "die"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 49, 50, 51, 52, 53, 54, 55 ]
+}
 
 [sub_resource type="Animation" id=4]
 length = 0.6
@@ -95,10 +108,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 43 ]
+"values": [ 43, 44, 45, 46, 47, 48, 43, 44, 45, 46 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -248,8 +261,8 @@ billboard = 2
 shaded = true
 double_sided = false
 texture = ExtResource( 1 )
-hframes = 44
-frame = 14
+hframes = 56
+frame = 55
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 2 )
