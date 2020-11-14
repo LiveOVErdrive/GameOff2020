@@ -4,10 +4,12 @@ const MOUSE_SENS = 0.25
 const SPEED = 10
 const ACCEL = 20
 const DASH_LENGTH = .75
-const MAX_HP = 100
 const BLOOD_SCALE = 5
 
 var velocity
+
+onready var global = get_node("/root/Global")
+
 onready var head = $Head
 onready var rayCast = $Head/RayCast
 onready var rayCastClose = $Head/RayCastClose
@@ -26,7 +28,6 @@ func setFreezePlayer(f):
 var isDashing = false
 var dashRemaining = 0
 var dead = false
-var health = MAX_HP
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -160,9 +161,9 @@ func damage(d: int):
 		return
 	blood.amount = BLOOD_SCALE * d
 	cameraAnimationPlayer.play("take_damage")
-	health -= d
-	healthbar.rect_scale = Vector2(float(health)/MAX_HP, 1)
-	if health <= 0:
+	global.playerHealth -= d
+	healthbar.rect_scale = Vector2(float(global.playerHealth)/global.MAX_HP, 1)
+	if global.playerHealth <= 0:
 		die()
 
 func die():
