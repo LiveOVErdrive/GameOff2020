@@ -598,24 +598,24 @@ __meta__ = {
 }
 
 [node name="YouDied" type="Sprite" parent="CanvasLayer/Control"]
-scale = Vector2( 7, 7 )
+scale = Vector2( 10, 10 )
 texture = ExtResource( 6 )
 centered = false
 hframes = 23
 frame = 2
 
 [node name="Healthbar" type="ColorRect" parent="CanvasLayer/Control"]
-margin_left = 321.0
-margin_top = 704.0
-margin_right = 1023.0
-margin_bottom = 730.0
+margin_left = 459.0
+margin_top = 1007.0
+margin_right = 1462.0
+margin_bottom = 1043.0
 color = Color( 0.996078, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Helth" type="Sprite" parent="CanvasLayer/Control"]
-scale = Vector2( 7, 7 )
+scale = Vector2( 10, 10 )
 texture = ExtResource( 7 )
 centered = false
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]

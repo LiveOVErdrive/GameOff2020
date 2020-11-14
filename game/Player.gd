@@ -162,7 +162,8 @@ func damage(d: int):
 	blood.amount = BLOOD_SCALE * d
 	cameraAnimationPlayer.play("take_damage")
 	global.playerHealth -= d
-	healthbar.rect_scale = Vector2(float(global.playerHealth)/global.MAX_HP, 1)
+	var hpPercent = global.playerHealth/global.MAX_HP
+	healthbar.rect_scale = Vector2(float(hpPercent), 1)
 	if global.playerHealth <= 0:
 		die()
 
