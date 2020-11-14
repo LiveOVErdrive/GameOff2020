@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="BloodMoon"
-run/main_scene="res://game/World.tscn"
+run/main_scene="res://game/Levels/HubWorld.tscn"
 config/icon="res://icon.png"
 
 [display]

@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://assets/floor_dirt.png" type="Texture" id=1]
-[ext_resource path="res://assets/floor_grass.png" type="Texture" id=2]
+[ext_resource path="res://assets/world/carpet.png" type="Texture" id=1]
+[ext_resource path="res://assets/world/grass.png" type="Texture" id=2]
+[ext_resource path="res://assets/world/dirt.png" type="Texture" id=3]
+[ext_resource path="res://assets/world/cobblestone.png" type="Texture" id=4]
+[ext_resource path="res://assets/world/stoneherringbone.png" type="Texture" id=5]
+[ext_resource path="res://assets/world/wood.png" type="Texture" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
-albedo_texture = ExtResource( 1 )
+albedo_texture = ExtResource( 3 )
 
 [sub_resource type="PlaneMesh" id=2]
 material = SubResource( 1 )
@@ -12,18 +16,51 @@ material = SubResource( 1 )
 [sub_resource type="ConcavePolygonShape" id=3]
 data = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1 )
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=4]
 albedo_texture = ExtResource( 2 )
 
-[sub_resource type="PlaneMesh" id=4]
-material = SubResource( 6 )
+[sub_resource type="PlaneMesh" id=5]
+material = SubResource( 4 )
 
-[sub_resource type="ConcavePolygonShape" id=5]
+[sub_resource type="ConcavePolygonShape" id=6]
+data = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1 )
+
+[sub_resource type="PlaneMesh" id=7]
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="ConcavePolygonShape" id=9]
+data = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1 )
+
+[sub_resource type="PlaneMesh" id=10]
+
+[sub_resource type="SpatialMaterial" id=11]
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="ConcavePolygonShape" id=12]
+data = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1 )
+
+[sub_resource type="PlaneMesh" id=13]
+
+[sub_resource type="SpatialMaterial" id=14]
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="ConcavePolygonShape" id=15]
+data = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1 )
+
+[sub_resource type="PlaneMesh" id=16]
+
+[sub_resource type="SpatialMaterial" id=17]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ConcavePolygonShape" id=18]
 data = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1 )
 
 [node name="Floors" type="Spatial"]
 
 [node name="Dirt" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 2 )
 material/0 = null
 
@@ -32,11 +69,51 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="Dirt/StaticBody"]
 shape = SubResource( 3 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 4 )
+[node name="Grass" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 5 )
 material/0 = null
 
-[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+[node name="StaticBody" type="StaticBody" parent="Grass"]
 
-[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
-shape = SubResource( 5 )
+[node name="CollisionShape" type="CollisionShape" parent="Grass/StaticBody"]
+shape = SubResource( 6 )
+
+[node name="Carpet" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="Carpet"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Carpet/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="Cobble" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 10 )
+material/0 = SubResource( 11 )
+
+[node name="StaticBody" type="StaticBody" parent="Cobble"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Cobble/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="Stone" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 13 )
+material/0 = SubResource( 14 )
+
+[node name="StaticBody" type="StaticBody" parent="Stone"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Stone/StaticBody"]
+shape = SubResource( 15 )
+
+[node name="Wood" type="MeshInstance" parent="."]
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[node name="StaticBody" type="StaticBody" parent="Wood"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Wood/StaticBody"]
+shape = SubResource( 18 )
