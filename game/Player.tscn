@@ -525,6 +525,7 @@ anims/take_damage = SubResource( 5 )
 
 [node name="Sprite3D" type="Sprite3D" parent="Head/Camera"]
 transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 1, 0, 0, -0.25 )
+visible = false
 shaded = true
 double_sided = false
 texture = ExtResource( 1 )
