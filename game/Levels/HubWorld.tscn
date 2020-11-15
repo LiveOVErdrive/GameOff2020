@@ -82,7 +82,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.80838, 1.18439, -26.8125 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.83759, 0.771422, -6.88315 )
 
 [node name="GreatGate" parent="." instance=ExtResource( 6 )]
-transform = Transform( -2, 0, -3.25841e-07, 0, 2, 0, 6.51683e-07, 0, -1, -0.954063, 3.10859, -28.9959 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -0.954063, 3.10859, -28.9959 )
 
 [node name="Moon" parent="." instance=ExtResource( 7 )]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -20, 50, -50 )
