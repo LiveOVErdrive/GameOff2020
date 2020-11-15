@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/world/nightsky.png" type="Texture" id=1]
 [ext_resource path="res://game/environment/walls.meshlib" type="MeshLibrary" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://game/environment/HeadStone.tscn" type="PackedScene" id=8]
 [ext_resource path="res://game/environment/StreetLamp.tscn" type="PackedScene" id=9]
 [ext_resource path="res://game/environment/GraveyardGate.tscn" type="PackedScene" id=10]
+[ext_resource path="res://game/collectibles/potion.tscn" type="PackedScene" id=11]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 1 )
@@ -127,4 +128,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -42.1099, 0.755208, -5.90125 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.39195, 0.755208, 3.10999 )
 
 [node name="GraveyardGate" parent="." instance=ExtResource( 10 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -34.8128, 1.09298, 0 )
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -35, 1.1, 0 )
+
+[node name="Potion" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.23486, 0.417218, 0 )

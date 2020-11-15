@@ -13,6 +13,8 @@ export var havePiece2 = false setget setHavePiece2
 export var havePiece3 = false setget setHavePiece3
 
 func setPlayerHealth(h):
+	if h > MAX_HP:
+		h = MAX_HP
 	playerHealth = h
 
 func setHavePiece1(h):
