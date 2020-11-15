@@ -22,3 +22,11 @@ func setHavePiece2(h):
 
 func setHavePiece3(h):
 	havePiece1 = h
+
+func getPiece(n):
+	if n == 1:
+		setHavePiece1(true)
+	elif n == 2:
+		setHavePiece2(true)
+	elif n == 3:
+		setHavePiece3(true)

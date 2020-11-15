@@ -39,6 +39,7 @@ func _ready():
 	sprite.frame = 0
 	yield(get_tree(), "idle_frame")
 	get_tree().call_group("enemies", "setPlayer", self)
+	get_tree().call_group("collectibles", "setPlayer", self)
 
 
 func _input(event):
@@ -172,3 +173,6 @@ func die():
 	blood.amount = BLOOD_SCALE * 100
 	animationPlayer.play("rightExit")
 	cameraAnimationPlayer.play("die")
+	
+func updateHud():
+	pass
