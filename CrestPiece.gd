@@ -27,4 +27,5 @@ func _on_PickupArea_area_entered(area):
 		return
 	global.getPiece(pieceNumber)
 	player.updateHud()
+	queue_free()
 

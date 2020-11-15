@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://assets/Greatsword.png" type="Texture" id=1]
 [ext_resource path="res://game/Player.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/audio/PlayerDie1.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/screens/youdied.png" type="Texture" id=6]
 [ext_resource path="res://assets/screens/helth.png" type="Texture" id=7]
+[ext_resource path="res://assets/world/seal.png" type="Texture" id=8]
 
 [sub_resource type="CylinderShape" id=1]
 
@@ -618,5 +619,29 @@ __meta__ = {
 scale = Vector2( 10, 10 )
 texture = ExtResource( 7 )
 centered = false
+
+[node name="crests" type="Node2D" parent="CanvasLayer/Control"]
+position = Vector2( 240, 0 )
+
+[node name="Crest1" type="Sprite" parent="CanvasLayer/Control/crests"]
+position = Vector2( 70, 960 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 8 )
+hframes = 4
+frame = 1
+
+[node name="Crest2" type="Sprite" parent="CanvasLayer/Control/crests"]
+position = Vector2( 110, 960 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 8 )
+hframes = 4
+frame = 2
+
+[node name="Crest3" type="Sprite" parent="CanvasLayer/Control/crests"]
+position = Vector2( 150, 960 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 8 )
+hframes = 4
+frame = 3
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]

@@ -18,10 +18,10 @@ func setHavePiece1(h):
 	havePiece1 = h
 
 func setHavePiece2(h):
-	havePiece1 = h
+	havePiece2 = h
 
 func setHavePiece3(h):
-	havePiece1 = h
+	havePiece3 = h
 
 func getPiece(n):
 	if n == 1:

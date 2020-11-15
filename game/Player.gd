@@ -19,6 +19,9 @@ onready var sprite = $Head/Camera/Sprite3D
 onready var blood = $Blood
 onready var deathscreen = $CanvasLayer/Control/YouDied
 onready var healthbar = $CanvasLayer/Control/Healthbar
+onready var crest1 = $CanvasLayer/Control/crests/Crest1
+onready var crest2 = $CanvasLayer/Control/crests/Crest2
+onready var crest3 = $CanvasLayer/Control/crests/Crest3
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -37,6 +40,7 @@ func _ready():
 	freezePlayer = false
 	deathscreen.frame = 0
 	sprite.frame = 0
+	updateHud()
 	yield(get_tree(), "idle_frame")
 	get_tree().call_group("enemies", "setPlayer", self)
 	get_tree().call_group("collectibles", "setPlayer", self)
@@ -175,4 +179,6 @@ func die():
 	cameraAnimationPlayer.play("die")
 	
 func updateHud():
-	pass
+	crest1.visible = global.havePiece1
+	crest2.visible = global.havePiece2
+	crest3.visible = global.havePiece3
