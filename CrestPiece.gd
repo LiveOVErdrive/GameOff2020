@@ -14,6 +14,8 @@ func setPieceNumber(p):
 	pieceNumber = p
 
 func _ready():
+	if global.havePiece(pieceNumber):
+		queue_free()
 	add_to_group("collectibles")
 	animationPlayer.play("rotate")
 	sprite.frame = pieceNumber

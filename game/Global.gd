@@ -7,6 +7,7 @@ const MAX_HP = 100
 
 # Global Vars
 export var playerHealth = MAX_HP setget setPlayerHealth
+# TODO use an array. Seriously. What is this nonsense?
 export var havePiece1 = false setget setHavePiece1
 export var havePiece2 = false setget setHavePiece2
 export var havePiece3 = false setget setHavePiece3
@@ -30,3 +31,11 @@ func getPiece(n):
 		setHavePiece2(true)
 	elif n == 3:
 		setHavePiece3(true)
+
+func havePiece(n):
+	if n == 1:
+		return havePiece1
+	elif n == 2:
+		return havePiece2
+	elif n == 3:
+		return havePiece3
