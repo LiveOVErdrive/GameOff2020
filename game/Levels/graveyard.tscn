@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/world/nightsky.png" type="Texture" id=1]
 [ext_resource path="res://game/environment/walls.meshlib" type="MeshLibrary" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://game/environment/StreetLamp.tscn" type="PackedScene" id=9]
 [ext_resource path="res://game/environment/GraveyardGate.tscn" type="PackedScene" id=10]
 [ext_resource path="res://game/collectibles/potion.tscn" type="PackedScene" id=11]
+[ext_resource path="res://game/enemies/Ghoul.tscn" type="PackedScene" id=12]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 1 )
@@ -61,6 +62,9 @@ data = {
 __meta__ = {
 "_editor_clip_": 0
 }
+
+[node name="Ghoul" parent="Navigation" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.7061, 1.03211, 0 )
 
 [node name="Moon" parent="." instance=ExtResource( 4 )]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -20, 50, -50 )

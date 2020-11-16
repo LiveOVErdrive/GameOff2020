@@ -1,0 +1,146 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/ghoul.png" type="Texture" id=1]
+[ext_resource path="res://game/enemies/Ghoul.gd" type="Script" id=2]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 0.6
+
+[sub_resource type="Animation" id=9]
+resource_name = "attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7, 8, 9 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "tryToHitPlayer"
+}, {
+"args": [  ],
+"method": "tryToHitPlayer"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "die"
+length = 0.7
+
+[sub_resource type="Animation" id=6]
+resource_name = "hurt"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 7 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "idle"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 2 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "kicked"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 7 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "walk"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[node name="Ghoul" type="KinematicBody"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.562257, 0 )
+pixel_size = 0.025
+billboard = 2
+shaded = true
+double_sided = false
+alpha_cut = 2
+texture = ExtResource( 1 )
+hframes = 10
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/attack = SubResource( 9 )
+anims/die = SubResource( 3 )
+anims/hurt = SubResource( 6 )
+anims/idle = SubResource( 10 )
+anims/kicked = SubResource( 11 )
+anims/walk = SubResource( 7 )
+
+[node name="Hurtbox" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Hurtbox"]
+shape = SubResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="RayCast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, 0, -3 )
