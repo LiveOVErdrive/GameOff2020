@@ -16,7 +16,7 @@ onready var rayCastClose = $Head/RayCastClose
 onready var animationPlayer = $AnimationPlayer
 onready var cameraAnimationPlayer = $Head/CameraAnimationPlayer
 onready var sprite = $Head/Camera/Sprite3D
-onready var blood = $Blood
+onready var blood = $Head/Blood
 onready var deathscreen = $CanvasLayer/Control/YouDied
 onready var healthbar = $CanvasLayer/Control/Healthbar
 onready var crest1 = $CanvasLayer/Control/crests/Crest1
@@ -167,10 +167,9 @@ func damage(d: int):
 	blood.amount = BLOOD_SCALE * d
 	cameraAnimationPlayer.play("take_damage")
 	global.playerHealth -= d
-	var hpPercent = float(global.playerHealth)/float(global.MAX_HP)
-	healthbar.rect_scale = Vector2(hpPercent, 1)
 	if global.playerHealth <= 0:
 		die()
+	updateHud()
 
 func die():
 	dead = true
@@ -182,3 +181,5 @@ func updateHud():
 	crest1.visible = global.havePiece1
 	crest2.visible = global.havePiece2
 	crest3.visible = global.havePiece3
+	var hpPercent = float(global.playerHealth)/float(global.MAX_HP)
+	healthbar.rect_scale = Vector2(hpPercent, 1)

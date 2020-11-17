@@ -24,5 +24,6 @@ func _on_PickupArea_area_entered(area):
 	if global.playerHealth >= global.MAX_HP:
 		return
 	global.setPlayerHealth(global.playerHealth + POTION_HP)
+	player.updateHud()
 	queue_free()
 
