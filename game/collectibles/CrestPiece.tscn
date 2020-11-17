@@ -62,8 +62,7 @@ transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
 shape = SubResource( 2 )
 
 [node name="Particles" type="Particles" parent="."]
-visible = false
-amount = 10
+amount = 20
 process_material = SubResource( 5 )
 draw_pass_1 = SubResource( 7 )
 
