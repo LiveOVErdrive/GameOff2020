@@ -14,12 +14,12 @@ var allowSkip = false
 var frame = 0
 
 const slideTexts = [
-	"A thousand years ago, the powerful lich, NUR, ravaged the world with his army of the living dead.",
-	"But through the efforts of the mighty Paladin, he was defeated, and magically imprisoned in the Castle Bloodmoon, which vanished from existence in all but the red light of a Lunar Eclipse.",
-	"The Earth prospered!, but as centuries passed, and flowers grew upon the forgotten tomb of the Paladin, the Lich labored in his purgatory.",
-	"Eventually, the people learned to dread the bloodmoon, for on those rare nights, the armies of the dead rose to plague them once again.",
-	"It was on one such night, that the people turned to me, the wizard Nodrog, to raise their long-lost champion, that he might venture into the Castle Bloodmoon, and end the Lich, Nur, once and for all.",
-	"And that, dear Paladin, is how you come to be alive again, after one thousand years.  Will you save us again, in our hour of need?"
+	"A thousand years ago, the powerful LICH NUR, ravaged the world with his army of the living dead.",
+	"But NUR was defeated by the mighty PALADIN. who imprisoned him in CASTLE BLOODMOON, cursed to exist only during the red light of a LUNAR ECLIPSE.",
+	"The Earth prospered! But as the centuries passed, and the story fell to legend, LICH NUR's power grew from within his purgatory.",
+	"Soon NUR was powerful enough, even from his exile, to raise his armies of the dead every BLOODMOON, and terrorize the people of Earth",
+	"This BLOODMOON TERROR has become unbearable, and the people have turned to me, WIZARD NODROG, to raise the PALADIN from the dead to destroy LICH NUR for good",
+	"And that, dear PALADIN, is how you come to be alive again, after one thousand years.  Will you save us again, in our hour of need?"
 ]
 
 func _physics_process(delta):
