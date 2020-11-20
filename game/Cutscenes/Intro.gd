@@ -4,14 +4,18 @@ extends Node2D
 onready var animationPlayer = $AnimationPlayer
 onready var text = $Control/Sprite/Text
 onready var space = $Control/Sprite/Spacebar
+onready var sprite = $Control/Sprite
+
+var allowSkip = false
+var frame = 0
 
 func _ready():
 	text.text = slideTexts[frame]
 	animationPlayer.play("DisplayText")
 	space.visible = false
+	frame = 0
+	sprite.frame = frame
 
-var allowSkip = false
-var frame = 0
 
 const slideTexts = [
 	"A thousand years ago, the powerful LICH NUR, ravaged the world with his army of the living dead.",
@@ -37,6 +41,7 @@ func _physics_process(delta):
 			get_tree().change_scene("res://game/Levels/HubWorld.tscn")
 			return
 		text.text = slideTexts[frame]
+		sprite.frame = frame
 		animationPlayer.play("DisplayText")
 
 func waitForPlayer():

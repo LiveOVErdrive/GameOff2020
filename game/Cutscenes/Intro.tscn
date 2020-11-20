@@ -72,6 +72,7 @@ __meta__ = {
 scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )
 centered = false
+hframes = 6
 
 [node name="Text" type="Label" parent="Control/Sprite"]
 margin_left = 12.0
