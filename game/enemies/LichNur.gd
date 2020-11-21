@@ -12,4 +12,6 @@ func setPlayer(p):
 func _physics_process(delta):
 	if !player:
 		return
-	look_at(player.translation, Vector3(0,1,0))
+	var playerPoint = player.translation
+	playerPoint.y = translation.y
+	look_at(playerPoint, Vector3(0,1,0))
