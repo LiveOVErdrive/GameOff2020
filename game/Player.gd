@@ -22,6 +22,7 @@ onready var healthbar = $CanvasLayer/Control/Healthbar
 onready var crest1 = $CanvasLayer/Control/crests/Crest1
 onready var crest2 = $CanvasLayer/Control/crests/Crest2
 onready var crest3 = $CanvasLayer/Control/crests/Crest3
+onready var tooltip = $CanvasLayer/Control/Pixelator/tooltip
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -44,6 +45,7 @@ func _ready():
 	yield(get_tree(), "idle_frame")
 	get_tree().call_group("enemies", "setPlayer", self)
 	get_tree().call_group("collectibles", "setPlayer", self)
+	tooltip.text = ""
 
 
 func _input(event):
@@ -60,12 +62,15 @@ func _physics_process(delta):
 		
 	if dead:
 		return
-	
-	# Actions
-	if Input.is_action_just_pressed("use"):
-		var target = rayCast.get_collider()
-		if rayCast.is_colliding() and target.has_method("use"):
+
+	var target = rayCast.get_collider()
+	if target:
+		if target.has_method("getTooltip"):
+			tooltip.text = target.getTooltip()
+		if Input.is_action_just_pressed("use") and target.has_method("use"):
 			target.use()
+	elif tooltip.text != "":
+		tooltip.text = ""
 	
 	if isIdle():
 		if Input.is_action_pressed("slash"):
@@ -94,9 +99,9 @@ func _physics_process(delta):
 	velocity = lerp(velocity, moveVector * SPEED, ACCEL * delta)
 
 	if isDashing:
-		var target = rayCastClose.get_collider()
-		if target and !target.is_in_group("projectiles"):
-			doStab(target)
+		var dashTarget = rayCastClose.get_collider()
+		if dashTarget and !dashTarget.is_in_group("projectiles"):
+			doStab(dashTarget)
 		else:
 			dashRemaining -= delta
 			if dashRemaining <=0:
