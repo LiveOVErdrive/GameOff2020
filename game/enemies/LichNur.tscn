@@ -10,7 +10,6 @@ height = 3.1
 [sub_resource type="Animation" id=2]
 resource_name = "doubleshot"
 length = 1.4
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -205,3 +204,7 @@ visible = false
 light_color = Color( 0.690196, 1, 0.654902, 1 )
 shadow_enabled = true
 omni_range = 2.9
+
+[node name="RayCast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, 0, -20 )

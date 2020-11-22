@@ -8,6 +8,9 @@ const PROJECTILE_START_HEIGHT = 1.3
 const FIRING_WIDTH = .2
 const PROJECTILE_SPEED = 15
 const TRANSFORM_DISTANCE = 20
+const CORNER_CUT_DIST = 1
+const SPEED = 5
+const ATTACK_RANGE = 20
 
 enum {
 	WIZARD,
@@ -17,9 +20,14 @@ enum {
 	RETREAT
 }
 
+var path = []
+var currentPathNode = 0
 var state = WIZARD
 
+onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
+onready var raycast = $RayCast
+onready var nav = get_parent()
 
 func _ready():
 	add_to_group("enemies")
@@ -39,6 +47,10 @@ func _physics_process(delta):
 	
 	var distanceToPlayer = getDistanceToPlayer()
 	
+	var unitVecToPlayer = getVectorToPlayer()
+	unitVecToPlayer.y = 0
+	unitVecToPlayer = unitVecToPlayer.normalized()
+	raycast.cast_to = unitVecToPlayer * ATTACK_RANGE
 	
 	# State Machine
 	if state == WIZARD:
@@ -46,22 +58,17 @@ func _physics_process(delta):
 	elif state == ATTACK:
 		# TODO check if we are doing an attack animation first
 		if !(animationPlayer.is_playing() and animationPlayer.current_animation == "doubleshot"):
-			if distanceToPlayer < MIN_DIST_TO_PLAYER:
-				retreat()
-			elif distanceToPlayer > MAX_DIST_TO_PLAYER:
-				advance()
+			if !canSeePlayer():
+				print("advancing")
+				state = ADVANCE
+				return
 			else:
-				animationPlayer.play("shoot")
-	elif state == RETREAT:
-		if distanceToPlayer > MED_DIST_TO_PLAYER:
-			attack()
-		else:
-			var fleeDirection = getVectorToPlayer().normalized() * -1
-			fleeDirection.y = 0 # just to make sure
-			move_and_slide(fleeDirection * SPEED)
+				animationPlayer.play("doubleshot")
 	elif state == ADVANCE:
-		if distanceToPlayer < MED_DIST_TO_PLAYER:
-			attack()
+		if canSeePlayer():
+			print("attacking")
+			state = ATTACK
+			return
 		else:
 			if currentPathNode >= path.size():
 				getPathToPlayer()
@@ -70,8 +77,17 @@ func _physics_process(delta):
 				currentPathNode += 1
 			else:
 				move_and_slide(moveDirection.normalized() * SPEED)
-	elif state == DEAD or state == HURT:
-		pass
+
+func advance():
+	state = ADVANCE
+
+func attack():
+	state = ATTACK
+
+func canSeePlayer():
+	var col = raycast.get_collider()
+	print(col)
+	return col == player
 
 func transform():
 	animationPlayer.play("transform")
@@ -94,3 +110,7 @@ func shootOne(offsetFactor: float):
 	arrow.setVelocity(fireDirection * PROJECTILE_SPEED)
 	arrow.setSource(self)
 	get_parent().get_parent().add_child(arrow)
+	
+func getPathToPlayer():
+	path = nav.get_simple_path(global_transform.origin, player.translation)
+	currentPathNode = 0

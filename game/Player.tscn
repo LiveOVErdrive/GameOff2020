@@ -650,6 +650,7 @@ text = "CATS: All your base are belong to us. We set us up the bomb. The years s
 align = 1
 valign = 1
 autowrap = true
+percent_visible = 0.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

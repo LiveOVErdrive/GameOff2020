@@ -7,8 +7,8 @@ onready var animationPlayer = $AnimationPlayer
 
 const introDialogue = [
 	"WIZARD NODROG: Congratulations PALADIN, you have made it into CASTLE BLOODMOON.",
-	"WIZARD NODROG: Freeing LICH NUR for the chance to destroy him for good is a risky move",
-	"LICH NUR: Almost as risky as tricking my oldest enemy to come free me.",
+	"WIZARD NODROG: Freeing LICH NUR for the chance to destroy him for good is a bold move",
+	"LICH NUR: Almost as bold as tricking my oldest enemy to come free me.",
 	"LICH NUR: Come, PALADIN, let us see which of us will have their MOONSHOT pay off!"
 ]
 
@@ -41,5 +41,5 @@ func clearDialogue():
 func freezePlayer():
 	player.setFreezePlayer(true)
 
-func funFeezePlayer():
+func unFreezePlayer():
 	player.setFreezePlayer(false)

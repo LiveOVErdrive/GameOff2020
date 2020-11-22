@@ -4,9 +4,11 @@ extends Node
 
 # Constants
 const MAX_HP = 100
+const BOSS_HP = 100
 
 # Global Vars
 export var playerHealth = MAX_HP setget setPlayerHealth
+export var bossHealth = 100 setget setBossHealth
 # TODO use an array. Seriously. What is this nonsense?
 export var havePiece1 = false setget setHavePiece1
 export var havePiece2 = false setget setHavePiece2
@@ -16,6 +18,9 @@ func setPlayerHealth(h):
 	if h > MAX_HP:
 		h = MAX_HP
 	playerHealth = h
+
+func setBossHealth(h):
+	bossHealth = h
 
 func setHavePiece1(h):
 	havePiece1 = h
