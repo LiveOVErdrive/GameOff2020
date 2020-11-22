@@ -101,9 +101,9 @@ pieceNumber = 3
 [node name="LevelDoor" parent="." instance=ExtResource( 10 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -11.8421, 0.920794, 0 )
 targetScene = "res://game/Levels/graveyard.tscn"
-tooltip = "Enter the GHOULISH GRAVEYARD"
+tooltip = "GHOULISH GRAVEYARD"
 
 [node name="LevelDoor2" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.07841, 0.920794, 11.9184 )
 targetScene = "res://game/Levels/Catacombs.tscn"
-tooltip = "Enter the LABYRINTHINE CATACOMBS"
+tooltip = "LABYRINTHINE CATACOMBS"

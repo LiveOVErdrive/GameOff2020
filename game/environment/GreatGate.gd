@@ -13,5 +13,11 @@ func use():
 		return
 	get_tree().change_scene(bossRoomScene)
 	
+func getTooltip():
+	if !canOpen():
+		return "CASTLE BLOODMOON\nThe gate is sealed until all 3 shards of the PALADIN CREST are recovered."
+	else:
+		return "CASTLE BLOODMOON"
+	
 func canOpen():
 	return global.havePiece1 and global.havePiece2 and global.havePiece3

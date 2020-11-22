@@ -8,12 +8,23 @@ const PROJECTILE_START_DISTANCE = 1
 const PROJECTILE_START_HEIGHT = 1.3
 const FIRING_WIDTH = .2
 const PROJECTILE_SPEED = 15
+const TRANSFORM_DISTANCE = 20
+
+enum {
+	WIZARD,
+	ATTACK,
+	BLOCK,
+	ADVANCE,
+	RETREAT
+}
+
+var state = WIZARD
 
 onready var animationPlayer = $AnimationPlayer
 
 func _ready():
 	add_to_group("enemies")
-	animationPlayer.play("doubleshot")
+	animationPlayer.play("wizard")
 
 func setPlayer(p):
 	player = p
@@ -21,9 +32,16 @@ func setPlayer(p):
 func _physics_process(delta):
 	if !player:
 		return
+	
+	# Manual Billboard
 	var playerPoint = player.translation
 	playerPoint.y = translation.y
 	look_at(playerPoint, Vector3(0,1,0))
+	
+	# State Machine
+	if state == WIZARD:
+		return
+
 
 func getVectorToPlayer():
 	return player.translation - translation
