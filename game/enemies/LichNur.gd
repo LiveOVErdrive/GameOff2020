@@ -47,10 +47,10 @@ func _physics_process(delta):
 	
 	var distanceToPlayer = getDistanceToPlayer()
 	
-	var unitVecToPlayer = getVectorToPlayer()
-	unitVecToPlayer.y = 0
-	unitVecToPlayer = unitVecToPlayer.normalized()
-	raycast.cast_to = unitVecToPlayer * ATTACK_RANGE
+#	var unitVecToPlayer = getVectorToPlayer()
+#	unitVecToPlayer.y = 0
+#	unitVecToPlayer = unitVecToPlayer.normalized()
+	raycast.cast_to = player.translation
 	
 	# State Machine
 	if state == WIZARD:
