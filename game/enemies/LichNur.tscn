@@ -7,7 +7,7 @@
 radius = 0.6
 height = 3.1
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=2]
 resource_name = "doubleshot"
 length = 1.4
 loop = true
@@ -53,7 +53,7 @@ tracks/2/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=3]
 resource_name = "idle"
 length = 1.2
 loop = true
@@ -71,8 +71,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "transform"
+[sub_resource type="Animation" id=4]
 length = 2.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -125,8 +124,7 @@ tracks/3/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "wizard"
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -140,20 +138,20 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Gradient" id=9]
+[sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0, 0.377778, 0.677778, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 0.0500584, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=10]
-gradient = SubResource( 9 )
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=8]
 _data = [ Vector2( 0.0125786, 0.943908 ), 0.0, 0.0, 0, 0, Vector2( 0.72956, 0.711903 ), -1.01113, -1.01113, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticlesMaterial" id=10]
 emission_shape = 2
 emission_box_extents = Vector3( 1, 0.25, 1 )
 spread = 180.0
@@ -161,17 +159,17 @@ flatness = 1.0
 gravity = Vector3( 0, 10, 0 )
 initial_velocity = 1.0
 initial_velocity_random = 1.0
-scale_curve = SubResource( 5 )
-color_ramp = SubResource( 10 )
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
 hue_variation = 0.1
 hue_variation_random = 1.0
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=11]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
-[sub_resource type="CubeMesh" id=8]
-material = SubResource( 7 )
+[sub_resource type="CubeMesh" id=12]
+material = SubResource( 11 )
 size = Vector3( 0.3, 0.3, 0.3 )
 
 [node name="LichNur" type="KinematicBody"]
@@ -186,20 +184,20 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 31
-frame = 20
+frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/doubleshot = SubResource( 12 )
-anims/idle = SubResource( 11 )
-anims/transform = SubResource( 2 )
-anims/wizard = SubResource( 3 )
+anims/doubleshot = SubResource( 2 )
+anims/idle = SubResource( 3 )
+anims/transform = SubResource( 4 )
+anims/wizard = SubResource( 5 )
 
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50598, 0 )
 emitting = false
 amount = 100
-process_material = SubResource( 6 )
-draw_pass_1 = SubResource( 8 )
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 12 )
 
 [node name="GreenLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.939822 )

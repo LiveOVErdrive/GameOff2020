@@ -30,7 +30,7 @@ polygons = [ PoolIntArray( 1, 0, 2 ), PoolIntArray( 2, 0, 3 ), PoolIntArray( 7, 
 [node name="World" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-transform = Transform( 0.00750471, 0, 0.999972, 0, 1, 0, -0.999972, 0, 0.00750471, 0, 0.809, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.809, 0 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )

@@ -1,6 +1,5 @@
 extends KinematicBody
 
-
 var player
 var fireballResource = preload("res://game/projectiles/Fireball.tscn")
 
@@ -38,10 +37,44 @@ func _physics_process(delta):
 	playerPoint.y = translation.y
 	look_at(playerPoint, Vector3(0,1,0))
 	
+	var distanceToPlayer = getDistanceToPlayer()
+	
+	
 	# State Machine
 	if state == WIZARD:
 		return
+	elif state == ATTACK:
+		# TODO check if we are doing an attack animation first
+		if !(animationPlayer.is_playing() and animationPlayer.current_animation == "doubleshot"):
+			if distanceToPlayer < MIN_DIST_TO_PLAYER:
+				retreat()
+			elif distanceToPlayer > MAX_DIST_TO_PLAYER:
+				advance()
+			else:
+				animationPlayer.play("shoot")
+	elif state == RETREAT:
+		if distanceToPlayer > MED_DIST_TO_PLAYER:
+			attack()
+		else:
+			var fleeDirection = getVectorToPlayer().normalized() * -1
+			fleeDirection.y = 0 # just to make sure
+			move_and_slide(fleeDirection * SPEED)
+	elif state == ADVANCE:
+		if distanceToPlayer < MED_DIST_TO_PLAYER:
+			attack()
+		else:
+			if currentPathNode >= path.size():
+				getPathToPlayer()
+			var moveDirection = path[currentPathNode] - global_transform.origin
+			if moveDirection.length() < CORNER_CUT_DIST:
+				currentPathNode += 1
+			else:
+				move_and_slide(moveDirection.normalized() * SPEED)
+	elif state == DEAD or state == HURT:
+		pass
 
+func transform():
+	animationPlayer.play("transform")
 
 func getVectorToPlayer():
 	return player.translation - translation

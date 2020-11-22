@@ -23,6 +23,9 @@ onready var crest1 = $CanvasLayer/Control/crests/Crest1
 onready var crest2 = $CanvasLayer/Control/crests/Crest2
 onready var crest3 = $CanvasLayer/Control/crests/Crest3
 onready var tooltip = $CanvasLayer/Control/Pixelator/tooltip
+onready var dialogue = $CanvasLayer/Control/Pixelator/Dialogue
+onready var dialoguePlayer = $DialogueAnimationPlayer
+onready var crosshair = $CanvasLayer/Control/Crosshair
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -46,6 +49,7 @@ func _ready():
 	get_tree().call_group("enemies", "setPlayer", self)
 	get_tree().call_group("collectibles", "setPlayer", self)
 	tooltip.text = ""
+	clearDialogue()
 
 
 func _input(event):
@@ -188,3 +192,15 @@ func updateHud():
 	crest3.visible = global.havePiece3
 	var hpPercent = float(global.playerHealth)/float(global.MAX_HP)
 	healthbar.rect_scale = Vector2(hpPercent, 1)
+
+func clearDialogue():
+	dialogue.visible = false
+	dialogue.text = ""
+	crosshair.visible = true
+
+func playDialogue(s):
+	dialogue.percent_visible = 0
+	dialogue.text = s
+	crosshair.visible = false
+	dialogue.visible = true
+	dialoguePlayer.play("print")

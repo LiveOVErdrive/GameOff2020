@@ -501,6 +501,18 @@ font_data = ExtResource( 9 )
 [sub_resource type="Animation" id=24]
 resource_name = "print"
 length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Control/Pixelator/Dialogue:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
@@ -690,7 +702,7 @@ frame = 3
 
 [node name="Crosshair" type="Sprite" parent="CanvasLayer/Control"]
 position = Vector2( 960, 540 )
-scale = Vector2( 5, 5 )
+scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 10 )
 
 [node name="DialogueAnimationPlayer" type="AnimationPlayer" parent="."]
