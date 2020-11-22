@@ -534,6 +534,7 @@ anims/take_damage = SubResource( 5 )
 transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 1, 0, 0, -0.25 )
 shaded = true
 double_sided = false
+alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 52
 frame = 39
