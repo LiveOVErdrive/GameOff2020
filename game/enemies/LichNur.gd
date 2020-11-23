@@ -11,6 +11,7 @@ const TRANSFORM_DISTANCE = 20
 const CORNER_CUT_DIST = 1
 const SPEED = 5
 const ATTACK_RANGE = 20
+const BURST_SIZE = 3
 
 enum {
 	WIZARD,
@@ -23,6 +24,7 @@ enum {
 var path = []
 var currentPathNode = 0
 var state = WIZARD
+var attacksLeft = BURST_SIZE
 
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
@@ -56,8 +58,8 @@ func _physics_process(delta):
 	if state == WIZARD:
 		return
 	elif state == ATTACK:
-		# TODO check if we are doing an attack animation first
-		if !(animationPlayer.is_playing() and animationPlayer.current_animation == "doubleshot"):
+		# do a doubleshot 3 times directly at the player once one LOS is confirmed, then go into a block, finishing with a burst in all directions
+		if !(animationPlayer.is_playing() and (animationPlayer.current_animation == "doubleshot" or animationPlayer.current_animation == "block")):
 			if !canSeePlayer():
 				print("advancing")
 				state = ADVANCE
