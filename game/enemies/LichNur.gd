@@ -12,6 +12,8 @@ const CORNER_CUT_DIST = 1
 const SPEED = 5
 const ATTACK_RANGE = 20
 const BURST_SIZE = 3
+const BLOCK_CYCLES_BEFORE_BURST = 3
+const BURST_PROJECTILES = 10
 
 enum {
 	WIZARD,
@@ -25,6 +27,7 @@ var path = []
 var currentPathNode = 0
 var state = WIZARD
 var attacksLeft = BURST_SIZE
+var blockCounter = 0
 
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
@@ -61,14 +64,12 @@ func _physics_process(delta):
 		# do a doubleshot 3 times directly at the player once one LOS is confirmed, then go into a block, finishing with a burst in all directions
 		if !(animationPlayer.is_playing() and (animationPlayer.current_animation == "doubleshot" or animationPlayer.current_animation == "block")):
 			if !canSeePlayer():
-				print("advancing")
 				state = ADVANCE
 				return
 			else:
 				animationPlayer.play("doubleshot")
 	elif state == ADVANCE:
 		if canSeePlayer():
-			print("attacking")
 			state = ATTACK
 			return
 		else:
@@ -88,7 +89,6 @@ func attack():
 
 func canSeePlayer():
 	var col = raycast.get_collider()
-	print(col)
 	return col == player
 
 func transform():
@@ -116,3 +116,15 @@ func shootOne(offsetFactor: float):
 func getPathToPlayer():
 	path = nav.get_simple_path(global_transform.origin, player.translation)
 	currentPathNode = 0
+
+func incrementBlock():
+	blockCounter += 1
+	if blockCounter >= BLOCK_CYCLES_BEFORE_BURST:
+		animationPlayer.play("burst")
+
+func burst():
+	var degreeDifference = PI*2 / BURST_PROJECTILES
+	var angle = 0
+	for n in range(BURST_PROJECTILES):
+		# TODO create the projectiles at the different rotations
+		angle += degreeDifference
