@@ -8,24 +8,29 @@ const PROJECTILE_START_HEIGHT = 1.3
 const FIRING_WIDTH = .2
 const PROJECTILE_SPEED = 20
 const CORNER_CUT_DIST = 1
-const SPEED = 5
+const SPEED = 12
 const ATTACK_RANGE = 20
 const CONSECUTIVE_PROJECTILES = 3
 const BLOCK_CYCLES_BEFORE_BURST = 3
 const BURST_PROJECTILES = 20
+const KICK_STRENGTH = 10
+const KICK_DECCEL = 10
 
 enum {
 	WIZARD,
 	ATTACK,
 	BLOCK,
 	ADVANCE,
-	RETREAT
+	KICKED
 }
 
 var path = []
 var currentPathNode = 0
 var state = WIZARD
 var repeatCounter = 0
+var kickDirection = Vector3()
+var kickSpeed = 0
+var blocking = false
 
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
@@ -39,6 +44,9 @@ func _ready():
 func setPlayer(p):
 	player = p
 
+func setBlocking(b: bool):
+	blocking = b
+
 func _physics_process(delta):
 	if !player:
 		return
@@ -50,15 +58,14 @@ func _physics_process(delta):
 	
 	var distanceToPlayer = getDistanceToPlayer()
 	
-#	var unitVecToPlayer = getVectorToPlayer()
-#	unitVecToPlayer.y = 0
-#	unitVecToPlayer = unitVecToPlayer.normalized()
-	raycast.cast_to = player.translation
+	var unitVecToPlayer = getVectorToPlayer()
+	unitVecToPlayer.y = 0
+	unitVecToPlayer = unitVecToPlayer.normalized()
+	raycast.cast_to = translation + unitVecToPlayer * ATTACK_RANGE
 	
 	# State Machine
 	if state == WIZARD:
-		return
-		
+		pass
 	elif state == ATTACK:
 		if !animationPlayer.is_playing():
 			if repeatCounter > 0:
@@ -66,15 +73,14 @@ func _physics_process(delta):
 				repeatCounter -= 1
 			else:
 				block()
-
 	elif state == BLOCK:
 		if !animationPlayer.is_playing():
 			if repeatCounter > 0:
 				animationPlayer.play("holdblock")
 				repeatCounter -= 1
 			else:
+				setBlocking(false)
 				animationPlayer.play("burst")
-				
 	elif state == ADVANCE:
 		if canSeePlayer():
 			attack()
@@ -82,10 +88,46 @@ func _physics_process(delta):
 			if currentPathNode >= path.size():
 				getPathToPlayer()
 			var moveDirection = path[currentPathNode] - global_transform.origin
+			moveDirection.y = 0
 			if moveDirection.length() < CORNER_CUT_DIST:
 				currentPathNode += 1
 			else:
 				move_and_slide(moveDirection.normalized() * SPEED)
+
+# Interface Stuffs
+
+func kick(direction):
+	kickDirection = direction
+	kickSpeed = KICK_STRENGTH
+	animationPlayer.play("hurt")
+	state = KICKED
+	
+func slash():
+	if blocking:
+		riposte()
+		# TODO return somtehing to make the player staggered for a second
+	else:
+		damage(5)
+func stab():
+	if blocking:
+		riposte()
+	else:
+		damage(2)
+
+func riposte():
+	animationPlayer.play("riposte")
+	pass
+	
+func damage(d):
+	global.bossHealth -= d
+	if global.bossHealth <= 0:
+		pass
+		#die()
+	else:
+		pass
+		# TODO blood particles and hurt sound
+
+# state changes
 
 func advance():
 	state = ADVANCE

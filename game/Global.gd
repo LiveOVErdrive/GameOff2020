@@ -4,7 +4,7 @@ extends Node
 
 # Constants
 const MAX_HP = 100
-const BOSS_HP = 100
+const BOSS_MAX_HP = 100
 
 # Global Vars
 export var playerHealth = MAX_HP setget setPlayerHealth
