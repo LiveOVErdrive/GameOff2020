@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://game/environment/floors.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://game/environment/StreetLamp.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/world/nightsky.png" type="Texture" id=8]
 [ext_resource path="res://game/collectibles/CrestPiece.tscn" type="PackedScene" id=9]
 [ext_resource path="res://game/environment/LevelDoor.tscn" type="PackedScene" id=10]
+[ext_resource path="res://game/Levels/HubWorld.gd" type="Script" id=11]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 8 )
@@ -28,6 +29,7 @@ vertices = PoolVector3Array( -3.4, 0.4, -16.2, -2.5, 0.4, -16.2, -2.2, 0.4, -18.
 polygons = [ PoolIntArray( 1, 0, 2 ), PoolIntArray( 2, 0, 3 ), PoolIntArray( 7, 6, 4 ), PoolIntArray( 4, 6, 5 ), PoolIntArray( 9, 8, 10 ), PoolIntArray( 10, 8, 11 ), PoolIntArray( 15, 14, 12 ), PoolIntArray( 12, 14, 13 ), PoolIntArray( 19, 18, 16 ), PoolIntArray( 16, 18, 17 ), PoolIntArray( 20, 23, 21 ), PoolIntArray( 21, 23, 22 ), PoolIntArray( 27, 26, 24 ), PoolIntArray( 24, 26, 25 ), PoolIntArray( 29, 28, 30 ), PoolIntArray( 32, 31, 33 ), PoolIntArray( 33, 31, 34 ), PoolIntArray( 40, 39, 35 ), PoolIntArray( 35, 39, 36 ), PoolIntArray( 36, 39, 37 ), PoolIntArray( 37, 39, 38 ), PoolIntArray( 43, 42, 41 ), PoolIntArray( 44, 47, 45 ), PoolIntArray( 45, 47, 46 ), PoolIntArray( 49, 48, 50 ), PoolIntArray( 50, 48, 51 ), PoolIntArray( 54, 53, 52 ), PoolIntArray( 58, 57, 55 ), PoolIntArray( 55, 57, 56 ) ]
 
 [node name="World" type="Spatial"]
+script = ExtResource( 11 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.809, 0 )

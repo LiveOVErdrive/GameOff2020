@@ -5,6 +5,7 @@ onready var global = get_node("/root/Global")
 export var pieceNumber = 0 setget setPieceNumber
 
 var player
+var level
 
 
 onready var animationPlayer = $AnimationPlayer
@@ -19,6 +20,7 @@ func _ready():
 	add_to_group("collectibles")
 	animationPlayer.play("rotate")
 	sprite.frame = pieceNumber
+	level = get_parent()
 
 func setPlayer(p):
 	player = p
@@ -29,5 +31,6 @@ func _on_PickupArea_area_entered(area):
 		return
 	global.getPiece(pieceNumber)
 	player.updateHud()
+	player.teleportHome()
 	queue_free()
 

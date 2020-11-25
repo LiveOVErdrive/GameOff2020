@@ -28,6 +28,8 @@ onready var dialoguePlayer = $DialogueAnimationPlayer
 onready var crosshair = $CanvasLayer/Control/Crosshair
 onready var redkey = $CanvasLayer/Control/keys/redkey
 onready var bluekey = $CanvasLayer/Control/keys/bluekey
+onready var colorrect = $CanvasLayer/Control/ColorRect
+onready var teleportAnimationPlayer = $EffectAnimationPlayer
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -54,7 +56,7 @@ func _ready():
 	get_tree().call_group("collectibles", "setPlayer", self)
 	tooltip.text = ""
 	clearDialogue()
-
+	colorrect.color = Color(0,0,0,0)
 
 func _input(event):
 	if event is InputEventMouseMotion and !freezePlayer:
@@ -194,8 +196,8 @@ func updateHud():
 	crest1.visible = global.havePiece1
 	crest2.visible = global.havePiece2
 	crest3.visible = global.havePiece3
-	redkey.visible = level.playerHasKey(0)
-	bluekey.visible = level.playerHasKey(1)
+	redkey.visible = level.has_method("playerHasKey") and level.playerHasKey(0)
+	bluekey.visible = level.has_method("playerHasKey") and level.playerHasKey(1)
 	var hpPercent = float(global.playerHealth)/float(global.MAX_HP)
 	healthbar.rect_scale = Vector2(hpPercent, 1)
 
@@ -210,3 +212,12 @@ func playDialogue(s):
 	crosshair.visible = false
 	dialogue.visible = true
 	dialoguePlayer.play("print")
+
+func teleportHome():
+	teleportAnimationPlayer.play("teleport")
+	
+func fadeIn():
+	teleportAnimationPlayer.play("fadein")
+
+func doTeleport():
+	get_tree().change_scene("res://game/Levels/HubWorld.tscn")

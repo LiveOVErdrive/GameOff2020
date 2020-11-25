@@ -9,7 +9,7 @@ const introDialogue = [
 	"WIZARD NODROG: Congratulations, PALADIN, you have made it into CASTLE BLOODMOON.",
 	"WIZARD NODROG: Oh, you are wondering why I am here, and not the LICH NUR?",
 	"LICH NUR: I AM the LICH NUR!",
-	"LICH NUR: Come, PALADIN, let us finish what we started one thousand years ago!"
+	"LICH NUR: Come, PALADIN, let us finish what we started, one thousand years ago!"
 ]
 
 enum {
