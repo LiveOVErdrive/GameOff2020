@@ -18,12 +18,15 @@ func _ready():
 
 
 const slideTexts = [
-	"A thousand years ago, the powerful LICH NUR, ravaged the world with his army of the living dead.",
-	"But NUR was defeated by the mighty PALADIN. who imprisoned him in CASTLE BLOODMOON, cursed to exist only during the red light of a LUNAR ECLIPSE.",
-	"The Earth prospered! But as the centuries passed, and the story fell to legend, LICH NUR's power grew from within his purgatory.",
-	"Soon NUR was powerful enough, even from his exile, to raise his armies of the dead every BLOODMOON, and terrorize the people of Earth",
-	"This BLOODMOON TERROR has become unbearable, and the people have turned to me, WIZARD NODROG, to raise the PALADIN from the dead to destroy LICH NUR for good",
-	"And that, dear PALADIN, is how you come to be alive again, after one thousand years.  Will you save us again, in our hour of need?"
+	"One thousand years ago, the powerful LICH NUR, ravaged the world with his ARMIES OF THE DEAD.",
+	"But a mighty PALADIN defeated NUR, and imprisoned him in CASTLE BLOODMOON, cursed to exist only during the red light of a LUNAR ECLIPSE.",
+	"The Earth prospered! But as the centuries passed, LICH NUR's power grew from within his purgatory.",
+	"Soon NUR was powerful enough to raise his ARMIES OF THE DEAD to terrorize the world of the living on every BLOODMOON.",
+	"The ARMIES OF THE LIVING joined together every BLOODMOON to beat back the ARMIES OF THE DEAD, but this was not a war the living could win.",
+	"They needed a MOONSHOT SOLUTION; a crazy plan to end this BLOODMOON TERROR once and for all.",
+	"So they turned to me, WIZARD NODROG, to raise the PALADIN from the dead, that he might reopen CASTLE BLOODMOON, and destroy the LICH NUR forever.",
+	# picture of the paladin facing forward holding his sword wtih a badass gritted teeth look like dredd. ready to kick skeleton ass.
+	"And that, PALADIN, is how you come to be alive again, on this night of the BLOODMOON.  Will you help us?  Will you end this BLOODMOON TERROR?"
 ]
 
 func _physics_process(delta):
