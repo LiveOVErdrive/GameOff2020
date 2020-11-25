@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://assets/Greatsword.png" type="Texture" id=1]
 [ext_resource path="res://game/Player.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/world/seal.png" type="Texture" id=8]
 [ext_resource path="res://assets/fonts/IBMPlexMono-Medium.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://assets/screens/crosshair.png" type="Texture" id=10]
+[ext_resource path="res://assets/keys.png" type="Texture" id=11]
 
 [sub_resource type="CylinderShape" id=1]
 
@@ -705,6 +706,21 @@ frame = 3
 position = Vector2( 960, 540 )
 scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 10 )
+
+[node name="keys" type="Node2D" parent="CanvasLayer/Control"]
+position = Vector2( 90, 960 )
+
+[node name="redkey" type="Sprite" parent="CanvasLayer/Control/keys"]
+scale = Vector2( 10, 10 )
+texture = ExtResource( 11 )
+hframes = 2
+
+[node name="bluekey" type="Sprite" parent="CanvasLayer/Control/keys"]
+position = Vector2( 100, 0 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 11 )
+hframes = 2
+frame = 1
 
 [node name="DialogueAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/print = SubResource( 24 )

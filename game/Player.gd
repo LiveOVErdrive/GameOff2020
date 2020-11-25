@@ -26,6 +26,8 @@ onready var tooltip = $CanvasLayer/Control/Pixelator/tooltip
 onready var dialogue = $CanvasLayer/Control/Pixelator/Dialogue
 onready var dialoguePlayer = $DialogueAnimationPlayer
 onready var crosshair = $CanvasLayer/Control/Crosshair
+onready var redkey = $CanvasLayer/Control/keys/redkey
+onready var bluekey = $CanvasLayer/Control/keys/bluekey
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -35,8 +37,10 @@ func setFreezePlayer(f):
 var isDashing = false
 var dashRemaining = 0
 var dead = false
+var level
 
 func _ready():
+	level = get_parent()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	head.rotation = Vector3()
 	head.translation.y = .25
@@ -190,6 +194,8 @@ func updateHud():
 	crest1.visible = global.havePiece1
 	crest2.visible = global.havePiece2
 	crest3.visible = global.havePiece3
+	redkey.visible = level.playerHasKey(0)
+	bluekey.visible = level.playerHasKey(1)
 	var hpPercent = float(global.playerHealth)/float(global.MAX_HP)
 	healthbar.rect_scale = Vector2(hpPercent, 1)
 
