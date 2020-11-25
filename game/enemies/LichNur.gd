@@ -6,14 +6,13 @@ var fireballResource = preload("res://game/projectiles/Fireball.tscn")
 const PROJECTILE_START_DISTANCE = 1
 const PROJECTILE_START_HEIGHT = 1.3
 const FIRING_WIDTH = .2
-const PROJECTILE_SPEED = 15
-const TRANSFORM_DISTANCE = 20
+const PROJECTILE_SPEED = 20
 const CORNER_CUT_DIST = 1
 const SPEED = 5
 const ATTACK_RANGE = 20
-const BURST_SIZE = 3
+const CONSECUTIVE_PROJECTILES = 3
 const BLOCK_CYCLES_BEFORE_BURST = 3
-const BURST_PROJECTILES = 10
+const BURST_PROJECTILES = 20
 
 enum {
 	WIZARD,
@@ -26,8 +25,7 @@ enum {
 var path = []
 var currentPathNode = 0
 var state = WIZARD
-var attacksLeft = BURST_SIZE
-var blockCounter = 0
+var repeatCounter = 0
 
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
@@ -60,18 +58,26 @@ func _physics_process(delta):
 	# State Machine
 	if state == WIZARD:
 		return
+		
 	elif state == ATTACK:
-		# do a doubleshot 3 times directly at the player once one LOS is confirmed, then go into a block, finishing with a burst in all directions
-		if !(animationPlayer.is_playing() and (animationPlayer.current_animation == "doubleshot" or animationPlayer.current_animation == "block")):
-			if !canSeePlayer():
-				state = ADVANCE
-				return
-			else:
+		if !animationPlayer.is_playing():
+			if repeatCounter > 0:
 				animationPlayer.play("doubleshot")
+				repeatCounter -= 1
+			else:
+				block()
+
+	elif state == BLOCK:
+		if !animationPlayer.is_playing():
+			if repeatCounter > 0:
+				animationPlayer.play("holdblock")
+				repeatCounter -= 1
+			else:
+				animationPlayer.play("burst")
+				
 	elif state == ADVANCE:
 		if canSeePlayer():
-			state = ATTACK
-			return
+			attack()
 		else:
 			if currentPathNode >= path.size():
 				getPathToPlayer()
@@ -83,9 +89,18 @@ func _physics_process(delta):
 
 func advance():
 	state = ADVANCE
+	getPathToPlayer()
+	animationPlayer.play("idle")
 
 func attack():
+	repeatCounter = CONSECUTIVE_PROJECTILES - 1
 	state = ATTACK
+	animationPlayer.play("doubleshot")
+
+func block():
+	repeatCounter = BLOCK_CYCLES_BEFORE_BURST
+	state = BLOCK
+	animationPlayer.play("startblock")
 
 func canSeePlayer():
 	var col = raycast.get_collider()
@@ -117,14 +132,18 @@ func getPathToPlayer():
 	path = nav.get_simple_path(global_transform.origin, player.translation)
 	currentPathNode = 0
 
-func incrementBlock():
-	blockCounter += 1
-	if blockCounter >= BLOCK_CYCLES_BEFORE_BURST:
-		animationPlayer.play("burst")
-
 func burst():
 	var degreeDifference = PI*2 / BURST_PROJECTILES
-	var angle = 0
+	var launchPoint = Vector3(0,0,-1)
 	for n in range(BURST_PROJECTILES):
 		# TODO create the projectiles at the different rotations
-		angle += degreeDifference
+		launchPoint = launchPoint.rotated(Vector3(0,1,0), degreeDifference)
+		var arrow = fireballResource.instance()
+		arrow.translation = translation + launchPoint * PROJECTILE_START_DISTANCE
+		arrow.translation.y = PROJECTILE_START_HEIGHT
+		arrow.setPlayer(player)
+		arrow.setVelocity(launchPoint * PROJECTILE_SPEED)
+		arrow.setSource(self)
+		get_parent().get_parent().add_child(arrow)
+	advance()
+		

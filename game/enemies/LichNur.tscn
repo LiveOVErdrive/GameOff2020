@@ -9,6 +9,33 @@ height = 3.1
 
 [sub_resource type="Animation" id=15]
 resource_name = "burst"
+length = 0.6
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "burst"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite3D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 31, 32, 33, 34, 35, 36 ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "doubleshot"
@@ -58,7 +85,6 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=14]
 resource_name = "holdblock"
 length = 0.6
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -105,27 +131,13 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 21, 22, 23, 24 ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath("AnimationPlayer")
+tracks/1/type = "value"
+tracks/1/path = NodePath("GreenLight:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.4 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "holdblock", -1, 1.0, false ],
-"method": "play"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("GreenLight:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -244,7 +256,7 @@ pixel_size = 0.025
 shaded = true
 alpha_cut = 2
 texture = ExtResource( 1 )
-hframes = 31
+hframes = 64
 frame = 30
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
