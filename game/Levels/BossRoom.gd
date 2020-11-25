@@ -7,9 +7,9 @@ onready var animationPlayer = $AnimationPlayer
 
 const introDialogue = [
 	"WIZARD NODROG: Congratulations PALADIN, you have made it into CASTLE BLOODMOON.",
-	"WIZARD NODROG: Freeing LICH NUR for the chance to destroy him for good is a bold move",
-	"LICH NUR: Almost as bold as tricking my oldest enemy to come free me.",
-	"LICH NUR: Come, PALADIN, let us see which of us will have their MOONSHOT pay off!"
+	"WIZARD NODROG: Oh, you are wondering why I am here, and not the LICH NUR?",
+	"LICH NUR: I AM the LICH NUR!",
+	"LICH NUR: Come, PALADIN, let us finish the fight we started one thousand years ago!"
 ]
 
 enum {
