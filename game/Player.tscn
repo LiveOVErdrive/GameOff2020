@@ -772,7 +772,6 @@ frame = 1
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
