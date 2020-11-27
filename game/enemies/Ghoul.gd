@@ -67,8 +67,6 @@ func damage(d):
 	health -= d
 	if health <= 0:
 		die()
-	else:
-		hurt()
 
 # runloop
 

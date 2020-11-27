@@ -6,7 +6,7 @@
 [sub_resource type="CylinderShape" id=1]
 radius = 0.6
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=2]
 resource_name = "attack"
 length = 0.8
 tracks/0/type = "value"
@@ -55,7 +55,7 @@ tracks/0/keys = {
 "values": [ 10, 11, 12, 13, 14, 15, 16 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 resource_name = "hurt"
 length = 0.6
 tracks/0/type = "value"
@@ -71,7 +71,7 @@ tracks/0/keys = {
 "values": [ 7 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=5]
 resource_name = "idle"
 length = 2.0
 loop = true
@@ -88,7 +88,7 @@ tracks/0/keys = {
 "values": [ 0, 2 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=6]
 resource_name = "kicked"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -135,11 +135,11 @@ hframes = 17
 frame = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack = SubResource( 9 )
+anims/attack = SubResource( 2 )
 anims/die = SubResource( 3 )
-anims/hurt = SubResource( 6 )
-anims/idle = SubResource( 10 )
-anims/kicked = SubResource( 11 )
+anims/hurt = SubResource( 4 )
+anims/idle = SubResource( 5 )
+anims/kicked = SubResource( 6 )
 anims/walk = SubResource( 7 )
 
 [node name="Hurtbox" type="Area" parent="."]

@@ -515,7 +515,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=27]
 resource_name = "fadein"
 length = 3.0
 tracks/0/type = "value"
@@ -779,7 +779,7 @@ __meta__ = {
 anims/print = SubResource( 24 )
 
 [node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fadein = SubResource( 25 )
+anims/fadein = SubResource( 27 )
 anims/teleport = SubResource( 26 )
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]
