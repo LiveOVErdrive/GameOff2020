@@ -106,6 +106,7 @@ tracks/1/keys = {
 [node name="door" type="Spatial"]
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0 )
 script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]

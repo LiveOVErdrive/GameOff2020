@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://CrestPiece.gd" type="Script" id=1]
 [ext_resource path="res://assets/world/seal.png" type="Texture" id=2]
@@ -24,16 +24,27 @@ tracks/0/keys = {
 
 [sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.544444, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 0, 0.99584, 1, 1, 0.752941, 1, 1, 0 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 0.752941, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=4]
 gradient = SubResource( 3 )
 
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -0.239101, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
 [sub_resource type="ParticlesMaterial" id=5]
 emission_shape = 2
-emission_box_extents = Vector3( 0.4, 0.4, 0.4 )
-gravity = Vector3( 0, 2, 0 )
+emission_box_extents = Vector3( 0.5, 0.5, 0.5 )
+direction = Vector3( 0, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1.0
+scale_curve = SubResource( 9 )
 color_ramp = SubResource( 4 )
+hue_variation_random = 1.0
 
 [sub_resource type="SpatialMaterial" id=6]
 flags_transparent = true
@@ -42,7 +53,7 @@ vertex_color_use_as_albedo = true
 
 [sub_resource type="CubeMesh" id=7]
 material = SubResource( 6 )
-size = Vector3( 0.05, 0.05, 0.05 )
+size = Vector3( 0.06, 0.06, 0.06 )
 
 [node name="CrestPiece" type="Spatial"]
 script = ExtResource( 1 )
@@ -62,11 +73,11 @@ transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
 shape = SubResource( 2 )
 
 [node name="Particles" type="Particles" parent="."]
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.200727, 0 )
 amount = 20
 process_material = SubResource( 5 )
 draw_pass_1 = SubResource( 7 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
-omni_range = 1.2
+omni_range = 1.4
 [connection signal="area_entered" from="PickupArea" to="." method="_on_PickupArea_area_entered"]

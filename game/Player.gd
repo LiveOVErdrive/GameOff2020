@@ -5,6 +5,7 @@ const SPEED = 10
 const ACCEL = 20
 const DASH_LENGTH = .75
 const BLOOD_SCALE = 5
+const FEATURE_FLAG_DASH = false
 
 var velocity
 
@@ -87,7 +88,7 @@ func _physics_process(delta):
 			animationPlayer.play("slashWindup")
 		elif Input.is_action_pressed("kick"):
 			animationPlayer.play("kick")
-		elif Input.is_action_pressed("dash"):
+		elif Input.is_action_pressed("dash") and FEATURE_FLAG_DASH:
 			isDashing = true
 			dashRemaining = DASH_LENGTH
 			animationPlayer.play("dashStart")

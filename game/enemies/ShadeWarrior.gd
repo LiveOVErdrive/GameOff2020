@@ -5,9 +5,9 @@ const BLOCK_SPEED = 3
 const TARGET_ATTACK_RANGE = 2
 const MAX_ATTACK_RANGE = 3
 const BLOCK_RANGE = 5
-const VIEW_DISTANCE = 15
+const VIEW_DISTANCE = 25
 const CORNER_CUT_DIST = 1
-const MAX_HEALTH = 10
+const MAX_HEALTH = 50
 const KICK_STRENGTH = 10
 const KICK_DECCEL = 10
 const DAMAGE = 10
@@ -25,8 +25,7 @@ enum {
 	ADVANCE,
 	ATTACK,
 	DEAD,
-	KICKED,
-	HURT
+	KICKED
 }
 
 # AI:
@@ -83,9 +82,6 @@ func damage(d):
 	health -= d
 	if health <= 0:
 		die()
-	else:
-		hurt()
-
 
 # runloop
 
@@ -135,8 +131,9 @@ func _physics_process(delta):
 			if moveDirection.length() < CORNER_CUT_DIST:
 				currentPathNode += 1
 			else:
-				move_and_slide(moveDirection.normalized() * SPEED)
-	elif state == DEAD or state == HURT:
+				var speed = BLOCK_SPEED if blocking else SPEED
+				move_and_slide(moveDirection.normalized() * speed)
+	elif state == DEAD:
 		pass
 
 func getVectorToPlayer():
@@ -167,10 +164,6 @@ func attack():
 func idle():
 	animationPlayer.play("idlemove")
 	state = IDLE
-
-func hurt():
-	animationPlayer.play("hurt")
-	state = HURT
 
 func die():
 	animationPlayer.play("die")

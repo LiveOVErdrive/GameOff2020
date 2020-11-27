@@ -4,12 +4,12 @@ const SPEED = 5
 const MIN_DIST_TO_PLAYER = 4
 const MED_DIST_TO_PLAYER = 8
 const MAX_DIST_TO_PLAYER = 12
-const VIEW_DISTANCE = 15
+const VIEW_DISTANCE = 20
 const CORNER_CUT_DIST = 1
 const ARROW_SPEED = 12
 const ARROW_START_DISTANCE = 1
 const ARROW_HEIGHT = 1.1
-const MAX_HEALTH = 3
+const MAX_HEALTH = 15
 
 const arrowResource = preload("res://game/projectiles/Arrow.tscn")
 
@@ -35,7 +35,7 @@ var health = MAX_HEALTH
 
 func _ready():
 	add_to_group("enemies")
-	state = IDLE
+	idle()
 	collisionShape.disabled = false
 	hurtboxShape.disabled = false
 
@@ -45,11 +45,11 @@ func setPlayer(p):
 # Interface Stuffs
 
 func kick(direction):
-	damage(3)
+	damage(0)
 func slash():
-	damage(1)
+	damage(5)
 func stab():
-	damage(2)
+	damage(5)
 	
 func damage(d):
 	health -= d

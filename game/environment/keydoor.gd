@@ -29,15 +29,6 @@ func _ready():
 	rotation.y = 0
 	level = get_parent().get_parent()
 	colorname = generateColorName()
-	setTexture()
-
-func setTexture():
-	if keyNum == 0:
-		return # this is default
-	else:
-		var texture = load("res://assets/keydoorBlue.png")
-		mi1.material_override.set_param("albedo_texture", texture)
-		mi2.material_override.set_param("albedo_texture", texture)
 
 func setPlayer(p):
 	player = p

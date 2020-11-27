@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/keydoorBlue.png-70c5b9bd58c247056058b0cb14b1617b.stex"
+path="res://.import/wall-darkstone.png-4ac2374a3b25db32cf827129065dadfe.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/keydoorBlue.png"
-dest_files=[ "res://.import/keydoorBlue.png-70c5b9bd58c247056058b0cb14b1617b.stex" ]
+source_file="res://assets/world/wall-darkstone.png"
+dest_files=[ "res://.import/wall-darkstone.png-4ac2374a3b25db32cf827129065dadfe.stex" ]
 
 [params]
 
