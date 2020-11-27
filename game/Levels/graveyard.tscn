@@ -91,7 +91,6 @@ targetScene = "res://game/Levels/HubWorld.tscn"
 
 [node name="CrestPiece" parent="." instance=ExtResource( 7 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -48.0079, 0.419754, 0 )
-pieceNumber = 1
 
 [node name="GraveyardGate" parent="." instance=ExtResource( 10 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -35, 1.1, 0 )

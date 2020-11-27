@@ -115,5 +115,5 @@ pieceNumber = 1
 
 [node name="LevelDoor3" parent="." instance=ExtResource( 10 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 9.9877, 1, 0 )
-targetScene = "res://game/Levels/graveyard.tscn"
+targetScene = "res://game/Levels/colosseum.tscn"
 pieceNumber = 2

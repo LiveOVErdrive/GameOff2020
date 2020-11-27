@@ -18,7 +18,7 @@ func _process(delta):
 	pass
 
 func updateVis():
-	crest1.visible = global.havePiece1
-	crest2.visible = global.havePiece2
-	crest3.visible = global.havePiece3
+	crest1.visible = global.havePiece(0)
+	crest2.visible = global.havePiece(1)
+	crest3.visible = global.havePiece(2)
 	light.visible = crest1.visible or crest2.visible or crest3.visible

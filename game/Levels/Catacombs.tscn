@@ -44,7 +44,7 @@ __meta__ = {
 
 [node name="CrestPiece" parent="Walls" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.19375, 0.807806, -0.178013 )
-pieceNumber = 2
+pieceNumber = 1
 
 [node name="LevelDoor" parent="Walls/CrestPiece" instance=ExtResource( 7 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 10.101, 0.155575, 0 )

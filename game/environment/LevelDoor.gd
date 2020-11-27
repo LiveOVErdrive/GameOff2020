@@ -33,7 +33,7 @@ func _ready():
 	sprite.frame = frame
 
 func use():
-	if havePiece():
+	if !havePiece():
 		get_tree().change_scene(targetScene)
 
 func getTooltip():

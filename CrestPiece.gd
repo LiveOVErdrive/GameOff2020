@@ -19,7 +19,7 @@ func _ready():
 		queue_free()
 	add_to_group("collectibles")
 	animationPlayer.play("rotate")
-	sprite.frame = pieceNumber
+	sprite.frame = pieceNumber + 1
 	level = get_parent()
 
 func setPlayer(p):

@@ -20,4 +20,4 @@ func getTooltip():
 		return "CASTLE BLOODMOON"
 	
 func canOpen():
-	return global.havePiece1 and global.havePiece2 and global.havePiece3
+	return global.havePiece(0) and global.havePiece(1) and global.havePiece(2)

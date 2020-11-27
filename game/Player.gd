@@ -193,9 +193,9 @@ func die():
 	cameraAnimationPlayer.play("die")
 	
 func updateHud():
-	crest1.visible = global.havePiece1
-	crest2.visible = global.havePiece2
-	crest3.visible = global.havePiece3
+	crest1.visible = global.havePiece(0)
+	crest2.visible = global.havePiece(1)
+	crest3.visible = global.havePiece(2)
 	redkey.visible = level.has_method("playerHasKey") and level.playerHasKey(0)
 	bluekey.visible = level.has_method("playerHasKey") and level.playerHasKey(1)
 	var hpPercent = float(global.playerHealth)/float(global.MAX_HP)

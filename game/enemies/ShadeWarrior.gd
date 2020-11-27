@@ -43,6 +43,7 @@ var health = MAX_HEALTH
 var kickDirection = Vector3()
 var kickSpeed = 0
 var blocking = false
+var level
 
 func _ready():
 	add_to_group("enemies")
@@ -50,6 +51,7 @@ func _ready():
 	state = IDLE
 	collisionShape.disabled = false
 	animationPlayer.play("idlemove")
+	level = get_parent().get_parent()
 
 func setPlayer(p):
 	player = p
@@ -176,6 +178,8 @@ func die():
 	collisionShape.queue_free()
 	light.queue_free()
 	state = DEAD
+	if level.has_method("reportDeath"):
+		level.reportDeath(self)
 
 func getPathToPlayer():
 	path = nav.get_simple_path(global_transform.origin, player.translation)
