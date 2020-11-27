@@ -9,8 +9,8 @@ const BOSS_MAX_HP = 100
 # Global Vars
 export var playerHealth = MAX_HP setget setPlayerHealth
 export var bossHealth = 100 setget setBossHealth
-# TODO use an array. Seriously. What is this nonsense?
 var piece = [false, false, false]
+var tutorialDone = false
 
 func setPlayerHealth(h):
 	if h > MAX_HP:
