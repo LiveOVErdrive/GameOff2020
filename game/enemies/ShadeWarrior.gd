@@ -60,7 +60,7 @@ func setPlayer(p):
 func kick(direction):
 	kickDirection = direction
 	kickSpeed = KICK_STRENGTH
-	animationPlayer.play("hurt")
+	animationPlayer.play("kicked")
 	state = KICKED
 func slash():
 	if blocking:
@@ -82,6 +82,8 @@ func damage(d):
 	health -= d
 	if health <= 0:
 		die()
+	else:
+		animationPlayer.play("hurt")
 
 # runloop
 

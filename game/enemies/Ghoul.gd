@@ -5,7 +5,7 @@ const TARGET_ATTACK_RANGE = 2
 const MAX_ATTACK_RANGE = 3
 const VIEW_DISTANCE = 15
 const CORNER_CUT_DIST = 1
-const MAX_HEALTH = 10
+const MAX_HEALTH = 5
 const KICK_STRENGTH = 10
 const KICK_DECCEL = 10
 const DAMAGE = 3
@@ -67,6 +67,8 @@ func damage(d):
 	health -= d
 	if health <= 0:
 		die()
+	else:
+		hurt()
 
 # runloop
 
