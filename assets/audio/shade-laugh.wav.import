@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shade-laugh.wav-9ce3efd30c4bc72e7dc3f29a6e2cfecf.sample"
+
+[deps]
+
+source_file="res://assets/audio/shade-laugh.wav"
+dest_files=[ "res://.import/shade-laugh.wav-9ce3efd30c4bc72e7dc3f29a6e2cfecf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

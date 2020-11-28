@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shade-attack.wav-f8f51d2a4be53a6c5c3777c68bf3e90d.sample"
+
+[deps]
+
+source_file="res://assets/audio/shade-attack.wav"
+dest_files=[ "res://.import/shade-attack.wav-f8f51d2a4be53a6c5c3777c68bf3e90d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

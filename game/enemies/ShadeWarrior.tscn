@@ -1,7 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/shadeWarrior.png" type="Texture" id=1]
 [ext_resource path="res://game/enemies/ShadeWarrior.gd" type="Script" id=2]
+[ext_resource path="res://assets/audio/shade-attack.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/audio/shade-laugh.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/swordh.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/audio/shade-hurt.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/audio/shade-die.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/audio/swordHit.wav" type="AudioStream" id=8]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.6
@@ -38,10 +44,24 @@ tracks/1/keys = {
 "method": "tryToHitPlayer"
 } ]
 }
+tracks/2/type = "audio"
+tracks/2/path = NodePath("AttackSFX")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "die"
-length = 0.7
+length = 2.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -53,6 +73,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 49, 50, 51, 52, 53, 54, 55 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("HurtSFX")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 7 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=4]
@@ -101,7 +135,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=6]
 resource_name = "hurt"
-length = 0.7
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -121,12 +155,26 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.7 ),
+"times": PoolRealArray( 0.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "attack"
 } ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("HurtSFX")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 6 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=7]
@@ -173,6 +221,20 @@ tracks/1/keys = {
 "method": "idle"
 } ]
 }
+tracks/2/type = "audio"
+tracks/2/path = NodePath("HurtSFX")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="Animation" id=9]
 length = 0.8
@@ -204,6 +266,38 @@ tracks/1/keys = {
 "args": [  ],
 "method": "tryToHitPlayer"
 } ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("AttackSFX")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("HurtSFX")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 5 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 8 )
+} ],
+"times": PoolRealArray( 0, 0.001 )
 }
 
 [sub_resource type="Animation" id=10]
@@ -264,7 +358,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 57
-frame = 48
+frame = 46
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 2 )
@@ -293,3 +387,9 @@ __meta__ = {
 [node name="RayCast" type="RayCast" parent="."]
 enabled = true
 cast_to = Vector3( 0, 0, -3 )
+
+[node name="HurtSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+
+[node name="AttackSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )

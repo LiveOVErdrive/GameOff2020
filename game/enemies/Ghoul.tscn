@@ -1,7 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/ghoul.png" type="Texture" id=1]
 [ext_resource path="res://game/enemies/Ghoul.gd" type="Script" id=2]
+[ext_resource path="res://assets/audio/whiff.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/audio/ghoul-hurt.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/ghoul-die.wav" type="AudioStream" id=5]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.6
@@ -37,10 +40,28 @@ tracks/1/keys = {
 "method": "tryToHitPlayer"
 } ]
 }
+tracks/2/type = "audio"
+tracks/2/path = NodePath("AttackPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.103144,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+}, {
+"end_offset": 0.103144,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0.1, 0.6 )
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "die"
-length = 0.7
+length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -60,15 +81,29 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1.4 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ true, false ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("HurtPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 5 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=4]
 resource_name = "hurt"
-length = 0.6
+length = 0.9
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -88,7 +123,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.6 ),
+"times": PoolRealArray( 0.9 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -106,6 +141,20 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("HurtPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0362617,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=5]
@@ -157,26 +206,26 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Curve" id=10]
+[sub_resource type="Curve" id=8]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=11]
-curve = SubResource( 10 )
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
 
-[sub_resource type="ParticlesMaterial" id=15]
+[sub_resource type="ParticlesMaterial" id=10]
 direction = Vector3( 0, 1, 0 )
 spread = 180.0
 initial_velocity = 5.0
 initial_velocity_random = 1.0
 angle_random = 1.0
-scale_curve = SubResource( 11 )
+scale_curve = SubResource( 9 )
 color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=11]
 vertex_color_use_as_albedo = true
 
-[sub_resource type="CubeMesh" id=14]
-material = SubResource( 13 )
+[sub_resource type="CubeMesh" id=12]
+material = SubResource( 11 )
 size = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="Ghoul" type="KinematicBody"]
@@ -191,7 +240,7 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 19
-frame = 10
+frame = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 2 )
@@ -220,8 +269,14 @@ amount = 40
 lifetime = 0.39
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 15 )
-draw_pass_1 = SubResource( 14 )
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 12 )
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="AttackPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+
+[node name="HurtPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 5 )
