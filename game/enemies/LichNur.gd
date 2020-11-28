@@ -31,11 +31,13 @@ var repeatCounter = 0
 var kickDirection = Vector3()
 var kickSpeed = 0
 var blocking = false
+var isDemon = false
 
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
 onready var raycast = $RayCast
 onready var nav = get_parent()
+onready var level = get_parent().get_parent()
 
 func _ready():
 	add_to_group("enemies")
@@ -121,23 +123,37 @@ func riposte():
 func damage(d):
 	global.bossHealth -= d
 	if global.bossHealth <= 0:
-		pass
-		#die()
+		if !isDemon:
+			becomeDemon()
+		else:
+			die()
 	else:
 		pass
 		# TODO blood particles and hurt sound
+
+func becomeDemon():
+	isDemon = true
+	state = WIZARD
+	
+	animationPlayer.play("transformAgain")
 
 # state changes
 
 func advance():
 	state = ADVANCE
 	getPathToPlayer()
-	animationPlayer.play("idle")
+	if !isDemon:
+		animationPlayer.play("idle")
+	else:
+		animationPlayer.play("demonWalk")
 
 func attack():
-	repeatCounter = CONSECUTIVE_PROJECTILES - 1
 	state = ATTACK
-	animationPlayer.play("doubleshot")
+	if !isDemon:
+		repeatCounter = CONSECUTIVE_PROJECTILES - 1
+		animationPlayer.play("doubleshot")
+	else:
+		animationPlayer.play("demonAttack")
 
 func block():
 	repeatCounter = BLOCK_CYCLES_BEFORE_BURST
@@ -150,6 +166,10 @@ func canSeePlayer():
 
 func transform():
 	animationPlayer.play("transform")
+	
+func die():
+	state = WIZARD
+	animationPlayer.play("demonDie")
 
 func getVectorToPlayer():
 	return player.translation - translation
@@ -188,4 +208,4 @@ func burst():
 		arrow.setSource(self)
 		get_parent().get_parent().add_child(arrow)
 	advance()
-		
+
