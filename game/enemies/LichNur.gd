@@ -45,12 +45,14 @@ onready var hurtAnimator = $HurtAnimator
 onready var demonHitbox = $demonHitbox/CollisionShape
 onready var sprite = $Sprite3D
 onready var light = $GreenLight
+onready var particles = $Particles
 
 func _ready():
 	add_to_group("enemies")
 	animationPlayer.play("wizard")
 	flashWhiteOff()
 	light.visible = false
+	particles.visible = global.particlesEnabled
 
 func setPlayer(p):
 	player = p

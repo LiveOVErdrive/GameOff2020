@@ -6,13 +6,14 @@ const POTION_HP = 25
 
 var player
 
-
 onready var animationPlayer = $AnimationPlayer
 onready var sprite = $Sprite3D
+onready var particles = $Particles
 
 func _ready():
 	add_to_group("collectibles")
 	animationPlayer.play("rotate")
+	particles.visible = global.particlesEnabled
 
 func setPlayer(p):
 	player = p

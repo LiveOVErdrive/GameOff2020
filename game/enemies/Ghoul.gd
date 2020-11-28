@@ -5,7 +5,7 @@ const TARGET_ATTACK_RANGE = 2
 const MAX_ATTACK_RANGE = 3
 const VIEW_DISTANCE = 15
 const CORNER_CUT_DIST = 1
-const MAX_HEALTH = 5
+const MAX_HEALTH = 10
 const KICK_STRENGTH = 10
 const KICK_DECCEL = 10
 const DAMAGE = 3
@@ -16,6 +16,7 @@ onready var animationPlayer = $AnimationPlayer
 onready var collisionShape = $CollisionShape
 onready var hurtboxShape = $Hurtbox/CollisionShape
 onready var raycast = $RayCast
+onready var particles = $Particles
 
 enum {
 	IDLE,
@@ -41,10 +42,13 @@ var kickDirection = Vector3()
 var kickSpeed = 0
 var blocking = false
 
+onready var global = get_node("/root/Global")
+
 func _ready():
 	add_to_group("enemies")
 	idle()
 	collisionShape.disabled = false
+	particles.visible = global.particlesEnabled
 
 func setPlayer(p):
 	player = p

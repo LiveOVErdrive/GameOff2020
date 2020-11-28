@@ -7,6 +7,9 @@ var level
 
 onready var animationPlayer = $AnimationPlayer
 onready var sprite = $Sprite3D
+onready var particles = $Particles
+
+onready var global = get_node("/root/Global")
 
 export(int) var keyNum setget setKeyNum
 
@@ -18,6 +21,7 @@ func _ready():
 	animationPlayer.play("rotate")
 	level = get_parent()
 	sprite.frame = keyNum
+	particles.visible = global.particlesEnabled
 
 func setPlayer(p):
 	player = p

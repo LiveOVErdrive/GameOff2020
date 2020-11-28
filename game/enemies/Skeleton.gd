@@ -12,12 +12,15 @@ const ARROW_HEIGHT = 1.1
 const MAX_HEALTH = 15
 
 const arrowResource = preload("res://game/projectiles/Arrow.tscn")
+onready var global = get_node("/root/Global")
 
 onready var nav = get_parent()
 onready var player
 onready var animationPlayer = $AnimationPlayer
 onready var collisionShape = $CollisionShape
 onready var hurtboxShape = $Hitbox/CollisionShape
+onready var particles = $Particles
+onready var deathParticles = $ParticlesDeath
 
 enum {
 	IDLE,
@@ -38,6 +41,8 @@ func _ready():
 	idle()
 	collisionShape.disabled = false
 	hurtboxShape.disabled = false
+	particles.visible = global.particlesEnabled
+	deathParticles.visible = global.particlesEnabled
 
 func setPlayer(p):
 	player = p

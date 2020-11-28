@@ -10,6 +10,7 @@ var level
 
 onready var animationPlayer = $AnimationPlayer
 onready var sprite = $Sprite3D
+onready var particles = $Particles
 
 func setPieceNumber(p):
 	pieceNumber = p
@@ -21,6 +22,7 @@ func _ready():
 	animationPlayer.play("rotate")
 	sprite.frame = pieceNumber + 1
 	level = get_parent()
+	particles.visible = global.particlesEnabled
 
 func setPlayer(p):
 	player = p

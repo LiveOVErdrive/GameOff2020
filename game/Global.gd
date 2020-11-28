@@ -12,6 +12,7 @@ export var bossHealth = 100 setget setBossHealth
 var piece = [false, false, false]
 var tutorialDone = false
 var inBossFight = false
+var particlesEnabled = false
 
 func setPlayerHealth(h):
 	if h > MAX_HP:

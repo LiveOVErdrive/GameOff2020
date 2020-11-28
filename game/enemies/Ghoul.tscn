@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/ghoul.png" type="Texture" id=1]
 [ext_resource path="res://game/enemies/Ghoul.gd" type="Script" id=2]
@@ -8,7 +8,6 @@ radius = 0.6
 
 [sub_resource type="Animation" id=2]
 resource_name = "attack"
-length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -16,7 +15,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.5, 0.6 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5, 0.7, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 4, 5, 6, 7, 8, 9 ]
@@ -28,7 +27,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.1, 0.5 ),
+"times": PoolRealArray( 0.2, 0.7 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -54,6 +53,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 10, 11, 12, 13, 14, 15, 16 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "hurt"
@@ -65,10 +76,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 7 ]
+"values": [ 17, 18 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -81,8 +92,20 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "idle"
+"method": "attack"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -134,6 +157,28 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
+[sub_resource type="Curve" id=10]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=11]
+curve = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+direction = Vector3( 0, 1, 0 )
+spread = 180.0
+initial_velocity = 5.0
+initial_velocity_random = 1.0
+angle_random = 1.0
+scale_curve = SubResource( 11 )
+color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=13]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="CubeMesh" id=14]
+material = SubResource( 13 )
+size = Vector3( 0.2, 0.2, 0.2 )
+
 [node name="Ghoul" type="KinematicBody"]
 script = ExtResource( 2 )
 
@@ -145,8 +190,8 @@ pixel_size = 0.02
 shaded = true
 alpha_cut = 2
 texture = ExtResource( 1 )
-hframes = 17
-frame = 7
+hframes = 19
+frame = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 2 )
@@ -167,3 +212,16 @@ __meta__ = {
 [node name="RayCast" type="RayCast" parent="."]
 enabled = true
 cast_to = Vector3( 0, 0, -3 )
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.19651 )
+emitting = false
+amount = 40
+lifetime = 0.39
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 15 )
+draw_pass_1 = SubResource( 14 )
+__meta__ = {
+"_editor_description_": ""
+}

@@ -31,10 +31,10 @@ func _on_EntranceArea_area_entered(area):
 	introDialogue()
 
 func introDialogue():
-	boss.attack()
+	#boss.attack()
 	# TODO REMOVE THE ABOVE AND TURN THE ANIMATION BACK ON
 	state = DIALOGUE
-	#animationPlayer.play("introDialogue")
+	animationPlayer.play("introDialogue")
 
 func playIntroDialogue(i:int):
 	player.playDialogue(introDialogue[i])

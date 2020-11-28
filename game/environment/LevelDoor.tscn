@@ -15,6 +15,7 @@ shape = SubResource( 1 )
 [node name="Sprite3D" type="Sprite3D" parent="."]
 pixel_size = 0.04
 shaded = true
+double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 hframes = 6
