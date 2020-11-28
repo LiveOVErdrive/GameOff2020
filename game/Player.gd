@@ -31,6 +31,8 @@ onready var redkey = $CanvasLayer/Control/keys/redkey
 onready var bluekey = $CanvasLayer/Control/keys/bluekey
 onready var colorrect = $CanvasLayer/Control/ColorRect
 onready var teleportAnimationPlayer = $EffectAnimationPlayer
+onready var bossHealthAssembly = $CanvasLayer/Control/Boss
+onready var bossHealthBar = $CanvasLayer/Control/Boss/BossHealth
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -69,7 +71,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	elif Input.is_action_just_pressed("reset"):
-		global.setBossHealth(global.MAX_HP)
+		global.setPlayerHealth(global.MAX_HP)
 		get_tree().reload_current_scene()
 		
 	if dead:
@@ -202,6 +204,12 @@ func updateHud():
 	bluekey.visible = level.has_method("playerHasKey") and level.playerHasKey(1)
 	var hpPercent = float(global.playerHealth)/float(global.MAX_HP)
 	healthbar.rect_scale = Vector2(hpPercent, 1)
+	var bossHpPercent = float(global.bossHealth)/float(global.BOSS_MAX_HP)
+	bossHealthBar.rect_scale = Vector2(bossHpPercent, 1)
+	if global.inBossFight:
+		bossHealthAssembly.visible = true
+	else:
+		bossHealthAssembly.visible = false
 
 func clearDialogue():
 	dialogue.visible = false
@@ -220,6 +228,12 @@ func teleportHome():
 	
 func fadeIn():
 	teleportAnimationPlayer.play("fadein")
+	
+func fadeToFinish():
+	teleportAnimationPlayer.play("fadeToFinish")
+
+func doFinish():
+	get_tree().change_scene("res://game/Cutscenes/Outro.tscn")
 
 func doTeleport():
 	get_tree().change_scene("res://game/Levels/HubWorld.tscn")

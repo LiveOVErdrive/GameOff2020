@@ -5,6 +5,8 @@ onready var player = $Player
 onready var boss = $Navigation/LichNur
 onready var animationPlayer = $AnimationPlayer
 
+onready var global = get_node("/root/Global")
+
 const introDialogue = [
 	"WIZARD NODROG: Congratulations, PALADIN, you have made it into CASTLE BLOODMOON.",
 	"WIZARD NODROG: Oh, you are wondering why I am here, and not the LICH NUR?",

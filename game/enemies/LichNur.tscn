@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/lichnur.png" type="Texture" id=1]
 [ext_resource path="res://game/enemies/LichNur.gd" type="Script" id=2]
@@ -62,6 +62,20 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "advance"
+} ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -412,11 +426,17 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 2.6 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 2.3, 2.5, 2.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "advance"
+"method": "replenishHealth"
+}, {
+"args": [ false ],
+"method": "invuln"
+}, {
+"args": [  ],
+"method": "attack"
 } ]
 }
 
@@ -478,6 +498,27 @@ height = 3.0
 radius = 1.2
 height = 3.0
 
+[sub_resource type="Animation" id=26]
+resource_name = "hurt"
+length = 0.2
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "flashWhite"
+}, {
+"args": [  ],
+"method": "flashWhiteOff"
+} ]
+}
+
 [node name="LichNur" type="KinematicBody"]
 script = ExtResource( 2 )
 
@@ -486,13 +527,14 @@ shape = SubResource( 1 )
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.340713, 0 )
+modulate = Color( 1, 0, 0, 1 )
 pixel_size = 0.025
 shaded = true
 alpha_cut = 2
 texture = ExtResource( 1 )
 vframes = 12
 hframes = 10
-frame = 77
+frame = 44
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/burst = SubResource( 2 )
@@ -512,6 +554,7 @@ anims/wizard = SubResource( 10 )
 
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50598, 0 )
+visible = false
 emitting = false
 amount = 100
 process_material = SubResource( 15 )
@@ -532,14 +575,20 @@ cast_to = Vector3( 0, 0, -20 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 18 )
+disabled = true
 
 [node name="demonHitbox" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="demonHitbox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.761, -1 )
 shape = SubResource( 23 )
+disabled = true
 
 [node name="demonHurtbox" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="demonHurtbox"]
 shape = SubResource( 24 )
+
+[node name="HurtAnimator" type="AnimationPlayer" parent="."]
+anims/hurt = SubResource( 26 )
+[connection signal="area_entered" from="demonHitbox" to="." method="_on_demonHitbox_area_entered"]

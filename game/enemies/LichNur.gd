@@ -8,13 +8,14 @@ const PROJECTILE_START_HEIGHT = 1.3
 const FIRING_WIDTH = .2
 const PROJECTILE_SPEED = 20
 const CORNER_CUT_DIST = 1
-const SPEED = 12
+const SPEED = 8
 const ATTACK_RANGE = 20
 const CONSECUTIVE_PROJECTILES = 3
 const BLOCK_CYCLES_BEFORE_BURST = 3
 const BURST_PROJECTILES = 20
 const KICK_STRENGTH = 10
 const KICK_DECCEL = 10
+const DEMON_ATTACK_RANGE = 2
 
 enum {
 	WIZARD,
@@ -38,10 +39,18 @@ onready var animationPlayer = $AnimationPlayer
 onready var raycast = $RayCast
 onready var nav = get_parent()
 onready var level = get_parent().get_parent()
+onready var lichHurtbox = $Area/CollisionShape
+onready var demonHurtbox = $demonHurtbox/CollisionShape
+onready var hurtAnimator = $HurtAnimator
+onready var demonHitbox = $demonHitbox/CollisionShape
+onready var sprite = $Sprite3D
+onready var light = $GreenLight
 
 func _ready():
 	add_to_group("enemies")
 	animationPlayer.play("wizard")
+	flashWhiteOff()
+	light.visible = false
 
 func setPlayer(p):
 	player = p
@@ -70,7 +79,9 @@ func _physics_process(delta):
 		pass
 	elif state == ATTACK:
 		if !animationPlayer.is_playing():
-			if repeatCounter > 0:
+			if isDemon:
+				animationPlayer.play("demonAttack")
+			elif repeatCounter > 0:
 				animationPlayer.play("doubleshot")
 				repeatCounter -= 1
 			else:
@@ -84,7 +95,9 @@ func _physics_process(delta):
 				setBlocking(false)
 				animationPlayer.play("burst")
 	elif state == ADVANCE:
-		if canSeePlayer():
+		if !isDemon and canSeePlayer():
+			attack()
+		elif isDemon and getDistanceToPlayer() < DEMON_ATTACK_RANGE:
 			attack()
 		else:
 			if currentPathNode >= path.size():
@@ -122,20 +135,33 @@ func riposte():
 	
 func damage(d):
 	global.bossHealth -= d
+	player.updateHud()
 	if global.bossHealth <= 0:
 		if !isDemon:
 			becomeDemon()
 		else:
 			die()
 	else:
-		pass
-		# TODO blood particles and hurt sound
+		hurtAnimator.play("hurt")
 
 func becomeDemon():
 	isDemon = true
 	state = WIZARD
-	
+	invuln(true)
 	animationPlayer.play("transformAgain")
+	light.visible = true
+
+func replenishHealth():
+	global.bossHealth = global.BOSS_MAX_HP
+	
+func invuln(b: bool):
+	if b:
+		demonHurtbox.disabled = true
+		lichHurtbox.disabled = true
+		demonHitbox.disabled = true
+	else:
+		demonHurtbox.disabled = !isDemon
+		lichHurtbox.disabled = isDemon
 
 # state changes
 
@@ -149,6 +175,9 @@ func advance():
 
 func attack():
 	state = ATTACK
+	if !global.inBossFight:
+		global.inBossFight = true
+		player.updateHud()
 	if !isDemon:
 		repeatCounter = CONSECUTIVE_PROJECTILES - 1
 		animationPlayer.play("doubleshot")
@@ -170,6 +199,7 @@ func transform():
 func die():
 	state = WIZARD
 	animationPlayer.play("demonDie")
+	player.fadeToFinish()
 
 func getVectorToPlayer():
 	return player.translation - translation
@@ -209,3 +239,14 @@ func burst():
 		get_parent().get_parent().add_child(arrow)
 	advance()
 
+func _on_demonHitbox_area_entered(area):
+	var target = area.get_parent()
+	if target != player:
+		return
+	target.damage(20)
+
+func flashWhite():
+	sprite.modulate = Color(10,10,10,10)
+
+func flashWhiteOff():
+	sprite.modulate = Color(1,1,1,1)
