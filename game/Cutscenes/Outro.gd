@@ -18,8 +18,9 @@ func _ready():
 
 
 const slideTexts = [
-	"With one final blow, the LICH NUR fell to his death; this time for good",
-	""
+	"With a final blow, the LICH NUR died - for good",
+	"From that night on, the BLOODMOON remained silent; nothing more than an astronomical oddity.",
+	"The world was safe.  And I, the PALADIN, finally knew peace."
 ]
 
 func _physics_process(delta):
