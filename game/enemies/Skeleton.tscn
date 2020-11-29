@@ -335,7 +335,6 @@ __meta__ = {
 
 [node name="ParticlesDeath" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.19651 )
-emitting = false
 amount = 80
 lifetime = 0.83
 one_shot = true

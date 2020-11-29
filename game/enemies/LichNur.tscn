@@ -37,7 +37,7 @@ tracks/1/keys = {
 "values": [ 31, 32, 33, 34, 35, 36 ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=3]
 resource_name = "demonAttack"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -78,7 +78,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=4]
 resource_name = "demonDie"
 length = 4.5
 tracks/0/type = "value"
@@ -117,7 +117,7 @@ tracks/2/keys = {
 "values": [  ]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=5]
 resource_name = "demonKicked"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -132,7 +132,7 @@ tracks/0/keys = {
 "values": [ 86 ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=6]
 resource_name = "demonWalk"
 length = 0.8
 loop = true
@@ -149,7 +149,7 @@ tracks/0/keys = {
 "values": [ 71, 72, 73, 74, 75, 76, 69, 70 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=7]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -193,8 +193,7 @@ tracks/2/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "holdblock"
+[sub_resource type="Animation" id=8]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -209,8 +208,7 @@ tracks/0/keys = {
 "values": [ 25, 26, 27, 28, 29, 30 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "hurt"
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -224,7 +222,7 @@ tracks/0/keys = {
 "values": [ 20 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=10]
 length = 1.2
 loop = true
 step = 0.2
@@ -241,8 +239,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "riposte"
+[sub_resource type="Animation" id=11]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -286,7 +283,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=12]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -327,7 +324,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=13]
 length = 2.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -380,7 +377,7 @@ tracks/3/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=14]
 resource_name = "transformAgain"
 length = 2.6
 tracks/0/type = "value"
@@ -440,7 +437,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=15]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -454,20 +451,20 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Gradient" id=11]
+[sub_resource type="Gradient" id=16]
 offsets = PoolRealArray( 0, 0.377778, 0.677778, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 0.0500584, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=12]
-gradient = SubResource( 11 )
+[sub_resource type="GradientTexture" id=17]
+gradient = SubResource( 16 )
 
-[sub_resource type="Curve" id=13]
+[sub_resource type="Curve" id=18]
 _data = [ Vector2( 0.0125786, 0.943908 ), 0.0, 0.0, 0, 0, Vector2( 0.72956, 0.711903 ), -1.01113, -1.01113, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=14]
-curve = SubResource( 13 )
+[sub_resource type="CurveTexture" id=19]
+curve = SubResource( 18 )
 
-[sub_resource type="ParticlesMaterial" id=15]
+[sub_resource type="ParticlesMaterial" id=20]
 emission_shape = 2
 emission_box_extents = Vector3( 1, 0.25, 1 )
 spread = 180.0
@@ -475,26 +472,26 @@ flatness = 1.0
 gravity = Vector3( 0, 10, 0 )
 initial_velocity = 1.0
 initial_velocity_random = 1.0
-scale_curve = SubResource( 14 )
-color_ramp = SubResource( 12 )
+scale_curve = SubResource( 19 )
+color_ramp = SubResource( 17 )
 hue_variation = 0.1
 hue_variation_random = 1.0
 
-[sub_resource type="SpatialMaterial" id=16]
+[sub_resource type="SpatialMaterial" id=21]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
-[sub_resource type="CubeMesh" id=17]
-material = SubResource( 16 )
+[sub_resource type="CubeMesh" id=22]
+material = SubResource( 21 )
 size = Vector3( 0.3, 0.3, 0.3 )
 
-[sub_resource type="CylinderShape" id=18]
+[sub_resource type="CylinderShape" id=23]
 radius = 0.75
 height = 3.0
 
-[sub_resource type="BoxShape" id=23]
+[sub_resource type="BoxShape" id=24]
 
-[sub_resource type="CylinderShape" id=24]
+[sub_resource type="CylinderShape" id=25]
 radius = 1.2
 height = 3.0
 
@@ -526,10 +523,10 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.340713, 0 )
-modulate = Color( 1, 0, 0, 1 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0.340713, 0 )
 pixel_size = 0.025
 shaded = true
+double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 vframes = 12
@@ -538,27 +535,26 @@ frame = 44
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/burst = SubResource( 2 )
-anims/demonAttack = SubResource( 21 )
-anims/demonDie = SubResource( 22 )
-anims/demonKicked = SubResource( 25 )
-anims/demonWalk = SubResource( 20 )
-anims/doubleshot = SubResource( 3 )
-anims/holdblock = SubResource( 4 )
-anims/hurt = SubResource( 5 )
-anims/idle = SubResource( 6 )
-anims/riposte = SubResource( 7 )
-anims/startblock = SubResource( 8 )
-anims/transform = SubResource( 9 )
-anims/transformAgain = SubResource( 19 )
-anims/wizard = SubResource( 10 )
+anims/demonAttack = SubResource( 3 )
+anims/demonDie = SubResource( 4 )
+anims/demonKicked = SubResource( 5 )
+anims/demonWalk = SubResource( 6 )
+anims/doubleshot = SubResource( 7 )
+anims/holdblock = SubResource( 8 )
+anims/hurt = SubResource( 9 )
+anims/idle = SubResource( 10 )
+anims/riposte = SubResource( 11 )
+anims/startblock = SubResource( 12 )
+anims/transform = SubResource( 13 )
+anims/transformAgain = SubResource( 14 )
+anims/wizard = SubResource( 15 )
 
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50598, 0 )
 visible = false
-emitting = false
 amount = 100
-process_material = SubResource( 15 )
-draw_pass_1 = SubResource( 17 )
+process_material = SubResource( 20 )
+draw_pass_1 = SubResource( 22 )
 
 [node name="GreenLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.939822 )
@@ -574,20 +570,20 @@ cast_to = Vector3( 0, 0, -20 )
 [node name="Area" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-shape = SubResource( 18 )
+shape = SubResource( 23 )
 disabled = true
 
 [node name="demonHitbox" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="demonHitbox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.761, -1 )
-shape = SubResource( 23 )
+shape = SubResource( 24 )
 disabled = true
 
 [node name="demonHurtbox" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="demonHurtbox"]
-shape = SubResource( 24 )
+shape = SubResource( 25 )
 
 [node name="HurtAnimator" type="AnimationPlayer" parent="."]
 anims/hurt = SubResource( 26 )
