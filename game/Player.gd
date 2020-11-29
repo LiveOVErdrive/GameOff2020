@@ -60,6 +60,7 @@ func _ready():
 	tooltip.text = ""
 	clearDialogue()
 	colorrect.color = Color(0,0,0,0)
+	blood.emitting = false
 
 func _input(event):
 	if event is InputEventMouseMotion and !freezePlayer:
