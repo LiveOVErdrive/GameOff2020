@@ -1,6 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game/Cutscenes/OpeningMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/screens/openingmenu.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/IBMPlexMono-Medium.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
@@ -10,38 +11,20 @@ outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
 [sub_resource type="Animation" id=2]
-resource_name = "DisplayText"
-length = 1.3
+resource_name = "blink"
+loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Control/Sprite/Text:percent_visible")
+tracks/0/path = NodePath("Control/Sprite/Text2:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 1.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 0.0, 1.0 ]
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 1.3 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "waitForPlayer"
-} ]
-}
-
-[sub_resource type="Animation" id=3]
-loop = true
-step = 0.25
 
 [node name="Menu" type="Node2D"]
 script = ExtResource( 1 )
@@ -55,23 +38,39 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="Control"]
 scale = Vector2( 5, 5 )
+texture = ExtResource( 2 )
 centered = false
-hframes = 6
 
 [node name="Text" type="Label" parent="Control/Sprite"]
-margin_left = 12.0
-margin_top = 139.37
-margin_right = 371.0
-margin_bottom = 203.37
+margin_left = 287.038
+margin_top = 17.038
+margin_right = 366.038
+margin_bottom = 65.038
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "A thousand years ago, the powerful lich, NUR, ravaged the world with his army of the living dead."
+text = "A game by
+Phil Breczinski"
+align = 2
 autowrap = true
-percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text2" type="Label" parent="Control/Sprite"]
+margin_left = 3.41973
+margin_top = 135.348
+margin_right = 381.42
+margin_bottom = 178.348
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "press SPACE to start a NEW GAME"
+align = 1
+valign = 2
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/DisplayText = SubResource( 2 )
-anims/spacebar = SubResource( 3 )
+anims/blink = SubResource( 2 )

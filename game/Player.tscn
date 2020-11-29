@@ -639,7 +639,6 @@ anims/take_damage = SubResource( 5 )
 
 [node name="Sprite3D" type="Sprite3D" parent="Head/Camera"]
 transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 1, 0, 0, -0.25 )
-visible = false
 shaded = true
 double_sided = false
 alpha_cut = 2
@@ -718,7 +717,6 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {

@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="BloodMoon"
-run/main_scene="res://game/Cutscenes/Intro.tscn"
+run/main_scene="res://game/Cutscenes/OpeningMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
