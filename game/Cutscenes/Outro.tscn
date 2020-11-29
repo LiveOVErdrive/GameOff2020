@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game/Cutscenes/Outro.gd" type="Script" id=1]
-[ext_resource path="res://assets/screens/cutsceneFrame.png" type="Texture" id=2]
+[ext_resource path="res://assets/screens/outro.png" type="Texture" id=2]
 [ext_resource path="res://assets/screens/spaceGoForward.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/IBMPlexMono-Medium.ttf" type="DynamicFontData" id=4]
 
@@ -41,6 +41,67 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=4]
+resource_name = "credits"
+length = 30.0
+step = 0.5
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 5, 5.5, 10, 10.5, 15, 15.5, 20, 20.5, 28 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "hideCredits"
+}, {
+"args": [  ],
+"method": "showNextCredits"
+}, {
+"args": [  ],
+"method": "hideCredits"
+}, {
+"args": [  ],
+"method": "showNextCredits"
+}, {
+"args": [  ],
+"method": "hideCredits"
+}, {
+"args": [  ],
+"method": "showNextCredits"
+}, {
+"args": [  ],
+"method": "hideCredits"
+}, {
+"args": [  ],
+"method": "showNextCredits"
+}, {
+"args": [  ],
+"method": "hideCredits"
+}, {
+"args": [  ],
+"method": "showNextCredits"
+}, {
+"args": [  ],
+"method": "exit"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Control/Sprite/Text2:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
 [sub_resource type="Animation" id=3]
 loop = true
 step = 0.25
@@ -71,7 +132,7 @@ __meta__ = {
 scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 centered = false
-hframes = 6
+hframes = 3
 
 [node name="Text" type="Label" parent="Control/Sprite"]
 margin_left = 12.0
@@ -93,6 +154,30 @@ texture = ExtResource( 3 )
 hframes = 4
 frame = 1
 
+[node name="ColorRect" type="ColorRect" parent="Control/Sprite"]
+margin_right = 384.0
+margin_bottom = 216.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text2" type="Label" parent="Control/Sprite"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 371.0
+margin_bottom = 203.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "The End"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/DisplayText = SubResource( 2 )
+anims/credits = SubResource( 4 )
 anims/spacebar = SubResource( 3 )

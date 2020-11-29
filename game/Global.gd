@@ -3,7 +3,7 @@ extends Node
 # GLOBAL GAME STATE SINGLETON FILE
 
 # Constants
-const MAX_HP = 100
+const MAX_HP = 1000
 const BOSS_MAX_HP = 100
 
 # Global Vars

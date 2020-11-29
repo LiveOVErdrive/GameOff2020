@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://assets/Greatsword.png" type="Texture" id=1]
 [ext_resource path="res://game/Player.gd" type="Script" id=2]
@@ -141,27 +141,15 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Gradient" id=6]
-colors = PoolColorArray( 0.183594, 1, 0, 1, 0, 0, 0, 0 )
-
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 6 )
-
-[sub_resource type="ParticlesMaterial" id=8]
-emission_shape = 2
-emission_box_extents = Vector3( 0.25, 0.1, 0.1 )
-direction = Vector3( 0, 1, 0 )
-spread = 50.22
-initial_velocity = 5.0
-initial_velocity_random = 1.0
-color_ramp = SubResource( 7 )
-
 [sub_resource type="SpatialMaterial" id=9]
 albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="QuadMesh" id=10]
 material = SubResource( 9 )
 size = Vector2( 0.04, 0.04 )
+
+[sub_resource type="Gradient" id=6]
+colors = PoolColorArray( 0.183594, 1, 0, 1, 0, 0, 0, 0 )
 
 [sub_resource type="Animation" id=11]
 length = 0.4
@@ -542,7 +530,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=25]
 resource_name = "fadeToFinish"
-length = 3.0
+length = 4.0
 step = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/Control/ColorRect:color")
@@ -563,9 +551,12 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"values": [  ]
+"times": PoolRealArray( 4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "doFinish"
+} ]
 }
 
 [sub_resource type="Animation" id=26]
@@ -648,12 +639,13 @@ anims/take_damage = SubResource( 5 )
 
 [node name="Sprite3D" type="Sprite3D" parent="Head/Camera"]
 transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 1, 0, 0, -0.25 )
+visible = false
 shaded = true
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 52
-frame = 6
+frame = 36
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
@@ -663,15 +655,21 @@ cast_to = Vector3( 0, 0, -2 )
 enabled = true
 cast_to = Vector3( 0, 0, -0.6 )
 
-[node name="Blood" type="Particles" parent="Head"]
+[node name="Blood" type="CPUParticles" parent="Head"]
 transform = Transform( 1, 0.000285772, 0, -0.000285772, 1, 0, 0, 0, 1, -7.1443e-05, -0.25, -0.19651 )
 emitting = false
 amount = 40
 lifetime = 0.25
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 8 )
-draw_pass_1 = SubResource( 10 )
+mesh = SubResource( 10 )
+emission_shape = 2
+emission_box_extents = Vector3( 0.25, 0.1, 0.1 )
+direction = Vector3( 0, 1, 0 )
+spread = 50.22
+initial_velocity = 5.0
+initial_velocity_random = 1.0
+color_ramp = SubResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.5
@@ -720,6 +718,7 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
