@@ -653,7 +653,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 52
-frame = 12
+frame = 6
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
@@ -665,6 +665,7 @@ cast_to = Vector3( 0, 0, -0.6 )
 
 [node name="Blood" type="Particles" parent="Head"]
 transform = Transform( 1, 0.000285772, 0, -0.000285772, 1, 0, 0, 0, 1, -7.1443e-05, -0.25, -0.19651 )
+emitting = false
 amount = 40
 lifetime = 0.25
 one_shot = true

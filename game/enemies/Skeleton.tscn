@@ -303,6 +303,7 @@ shaded = true
 double_sided = false
 texture = ExtResource( 1 )
 hframes = 33
+frame = 19
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/die = SubResource( 2 )
@@ -313,7 +314,6 @@ anims/walkdown = SubResource( 6 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 3 )
-unit_db = -80.0
 
 [node name="Hitbox" type="Area" parent="."]
 
@@ -323,7 +323,6 @@ disabled = true
 
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.19651 )
-emitting = false
 amount = 40
 lifetime = 0.39
 one_shot = true
