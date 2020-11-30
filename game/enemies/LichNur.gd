@@ -116,6 +116,7 @@ func _physics_process(delta):
 # Interface Stuffs
 
 func kick(direction):
+	blocking = false
 	kickDirection = direction
 	kickSpeed = KICK_STRENGTH
 	if !isDemon:
@@ -138,7 +139,7 @@ func stab():
 
 func riposte():
 	animationPlayer.play("riposte")
-	pass
+	player.damage(10)
 	
 func damage(d):
 	global.bossHealth -= d

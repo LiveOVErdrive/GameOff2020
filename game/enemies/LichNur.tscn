@@ -360,7 +360,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=12]
 resource_name = "kicked"
 length = 1.1
 tracks/0/type = "value"
@@ -390,7 +390,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -448,7 +448,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -489,7 +489,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=15]
 length = 2.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -542,7 +542,7 @@ tracks/3/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=16]
 length = 2.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -615,7 +615,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=17]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -629,28 +629,28 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="SpatialMaterial" id=17]
+[sub_resource type="SpatialMaterial" id=18]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
-[sub_resource type="CubeMesh" id=18]
-material = SubResource( 17 )
+[sub_resource type="CubeMesh" id=19]
+material = SubResource( 18 )
 size = Vector3( 0.3, 0.3, 0.3 )
 
-[sub_resource type="Curve" id=19]
+[sub_resource type="Curve" id=20]
 _data = [ Vector2( 0.0125786, 0.943908 ), 0.0, 0.0, 0, 0, Vector2( 0.72956, 0.711903 ), -1.01113, -1.01113, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=20]
+[sub_resource type="Gradient" id=21]
 offsets = PoolRealArray( 0, 0.377778, 0.677778, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 0.0500584, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="CylinderShape" id=21]
+[sub_resource type="CylinderShape" id=22]
 radius = 0.75
 height = 3.0
 
-[sub_resource type="BoxShape" id=22]
+[sub_resource type="BoxShape" id=23]
 
-[sub_resource type="CylinderShape" id=23]
+[sub_resource type="CylinderShape" id=24]
 radius = 1.2
 height = 3.0
 
@@ -682,18 +682,18 @@ anims/doubleshot = SubResource( 8 )
 anims/holdblock = SubResource( 9 )
 anims/hurt = SubResource( 10 )
 anims/idle = SubResource( 11 )
-anims/kicked = SubResource( 24 )
-anims/riposte = SubResource( 12 )
-anims/startblock = SubResource( 13 )
-anims/transform = SubResource( 14 )
-anims/transformAgain = SubResource( 15 )
-anims/wizard = SubResource( 16 )
+anims/kicked = SubResource( 12 )
+anims/riposte = SubResource( 13 )
+anims/startblock = SubResource( 14 )
+anims/transform = SubResource( 15 )
+anims/transformAgain = SubResource( 16 )
+anims/wizard = SubResource( 17 )
 
 [node name="Particles" type="CPUParticles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50598, 0 )
 emitting = false
 amount = 100
-mesh = SubResource( 18 )
+mesh = SubResource( 19 )
 emission_shape = 2
 emission_box_extents = Vector3( 1, 0.25, 1 )
 spread = 180.0
@@ -701,8 +701,8 @@ flatness = 1.0
 gravity = Vector3( 0, 10, 0 )
 initial_velocity = 1.0
 initial_velocity_random = 1.0
-scale_amount_curve = SubResource( 19 )
-color_ramp = SubResource( 20 )
+scale_amount_curve = SubResource( 20 )
+color_ramp = SubResource( 21 )
 hue_variation = 0.1
 hue_variation_random = 1.0
 
@@ -720,20 +720,20 @@ cast_to = Vector3( 0, 0, -20 )
 [node name="Area" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-shape = SubResource( 21 )
+shape = SubResource( 22 )
 disabled = true
 
 [node name="demonHitbox" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="demonHitbox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.761, -1 )
-shape = SubResource( 22 )
+shape = SubResource( 23 )
 disabled = true
 
 [node name="demonHurtbox" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="demonHurtbox"]
-shape = SubResource( 23 )
+shape = SubResource( 24 )
 
 [node name="kyle" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 10 )
