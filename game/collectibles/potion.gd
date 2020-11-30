@@ -2,7 +2,7 @@ extends Spatial
 
 onready var global = get_node("/root/Global")
 
-const POTION_HP = 25
+const POTION_HP = 50
 
 var player
 

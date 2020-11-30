@@ -17,7 +17,7 @@ _global_script_class_icons={
 
 config/name="BloodMoon"
 run/main_scene="res://game/Cutscenes/OpeningMenu.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/MOON.png"
 
 [autoload]
 
@@ -95,6 +95,8 @@ actualQuit={
 [rendering]
 
 quality/driver/driver_name="GLES2"
+quality/reflections/texture_array_reflections=false
+quality/reflections/high_quality_ggx=false
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false
 quality/filters/anisotropic_filter_level=2

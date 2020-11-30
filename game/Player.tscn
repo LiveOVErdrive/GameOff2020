@@ -384,7 +384,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=18]
-length = 0.6
+length = 0.7
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
@@ -405,7 +405,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.6 ),
+"times": PoolRealArray( 0.7 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -440,7 +440,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="Animation" id=19]
-length = 0.6
+length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
 tracks/0/interp = 1
@@ -460,7 +460,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.6 ),
+"times": PoolRealArray( 0.7 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -678,7 +678,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 52
-frame = 26
+frame = 12
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
