@@ -33,6 +33,7 @@ onready var colorrect = $CanvasLayer/Control/ColorRect
 onready var teleportAnimationPlayer = $EffectAnimationPlayer
 onready var bossHealthAssembly = $CanvasLayer/Control/Boss
 onready var bossHealthBar = $CanvasLayer/Control/Boss/BossHealth
+onready var pauseMenu = $PauseMenu
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -71,8 +72,9 @@ func _physics_process(delta):
 	# System
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
-	elif Input.is_action_just_pressed("reset"):
+	elif Input.is_action_just_pressed("reset") or (dead and Input.is_action_just_pressed("actualReset")):
 		global.setPlayerHealth(global.MAX_HP)
+		global.setBossHealth(global.BOSS_MAX_HP)
 		get_tree().reload_current_scene()
 		
 	if dead:

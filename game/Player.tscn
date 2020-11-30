@@ -1,7 +1,8 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://assets/Greatsword.png" type="Texture" id=1]
 [ext_resource path="res://game/Player.gd" type="Script" id=2]
+[ext_resource path="res://game/PauseMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/audio/PlayerGrunt1.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/audio/PlayerDie1.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/screens/youdied.png" type="Texture" id=6]
@@ -883,5 +884,7 @@ anims/print = SubResource( 23 )
 anims/fadeToFinish = SubResource( 24 )
 anims/fadein = SubResource( 25 )
 anims/teleport = SubResource( 26 )
+
+[node name="PauseMenu" parent="." instance=ExtResource( 3 )]
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]

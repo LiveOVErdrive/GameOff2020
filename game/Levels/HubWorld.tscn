@@ -158,7 +158,7 @@ surfaces/0 = {
 "vertex_count": 152
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=14]
 resource_name = "delay"
 length = 2.0
 tracks/0/type = "method"
@@ -176,7 +176,7 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=15]
 length = 6.0
 step = 1.0
 tracks/0/type = "method"
@@ -272,8 +272,8 @@ targetScene = "res://game/Levels/colosseum.tscn"
 pieceNumber = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/delay = SubResource( 15 )
-anims/tutorial = SubResource( 14 )
+anims/delay = SubResource( 14 )
+anims/tutorial = SubResource( 15 )
 
 [node name="Streetlamp" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79545, 1.18439, -5.49131 )

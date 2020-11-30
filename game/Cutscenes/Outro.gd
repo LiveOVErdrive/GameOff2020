@@ -9,6 +9,7 @@ onready var creditsText = $Control/Sprite/Text2
 onready var colorrect = $Control/Sprite/ColorRect
 onready var outroAudio = $outroAudio
 onready var creditsAudio = $creditsAudio
+onready var phil = $phil
 
 var allowSkip = false
 var frame = 0
@@ -22,6 +23,8 @@ func _ready():
 	colorrect.visible = false
 	creditsText.visible = false
 	creditsText.percent_visible = 0
+	phil.stream = load(slideAudio[frame])
+	phil.playing = true
 
 
 const slideTexts = [
@@ -30,12 +33,18 @@ const slideTexts = [
 	"The world was safe.  And I, the PALADIN, finally knew peace."
 ]
 
+const slideAudio = [
+	"res://assets/audio/outro1.wav",
+	"res://assets/audio/outro2.wav",
+	"res://assets/audio/outro3.wav",
+]
+
 const credits = [
 	"THE END",
 	"Created for GITHUB GAME JAM 2020 by Phil Breczinski",
 	"Special Thanks to Kyle Fay for voicing NODROG/NUR",
 	"Thank you to Richard Anderson, Alex Brick, Sam Collins, and Nathan Gaida for playtesting.",
-	"Thank YOU for playing BLOODMOON."
+	"and thank YOU for playing BLOODMOON."
 ]
 
 func _physics_process(delta):
@@ -58,9 +67,12 @@ func _physics_process(delta):
 			allowSkip = false
 			animationPlayer.play("credits")
 			return
+		text.percent_visible = 0
 		text.text = slideTexts[frame]
 		sprite.frame = frame
 		animationPlayer.play("DisplayText")
+		phil.stream = load(slideAudio[frame])
+		phil.playing = true
 
 func waitForPlayer():
 	space.visible = true

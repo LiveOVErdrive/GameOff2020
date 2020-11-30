@@ -186,9 +186,12 @@ anims/spacebar = SubResource( 4 )
 
 [node name="outroAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-volume_db = -9.0
+volume_db = -16.0
 autoplay = true
 
 [node name="creditsAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+volume_db = -9.0
+
+[node name="phil" type="AudioStreamPlayer" parent="."]
 volume_db = -9.0
