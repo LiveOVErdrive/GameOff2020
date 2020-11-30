@@ -4,6 +4,7 @@ onready var ceiling = $Ceiling
 onready var player = $Player
 onready var boss = $Navigation/LichNur
 onready var animationPlayer = $AnimationPlayer
+onready var music = $AudioStreamPlayer
 
 onready var global = get_node("/root/Global")
 
@@ -47,3 +48,6 @@ func freezePlayer():
 
 func unFreezePlayer():
 	player.setFreezePlayer(false)
+
+func playmusic():
+	music.playing=true
