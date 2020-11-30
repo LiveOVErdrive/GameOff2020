@@ -5,14 +5,22 @@ onready var player = $Player
 onready var boss = $Navigation/LichNur
 onready var animationPlayer = $AnimationPlayer
 onready var music = $AudioStreamPlayer
+onready var kyle = $kyle
 
 onready var global = get_node("/root/Global")
 
 const introDialogue = [
 	"WIZARD NODROG: Congratulations, PALADIN, you have made it into CASTLE BLOODMOON.",
 	"WIZARD NODROG: Oh, you are wondering why I am here, and not the LICH NUR?",
-	"LICH NUR: I AM the LICH NUR!",
+	"I AM THE LICH NUR!",
 	"LICH NUR: Come, PALADIN, let us finish what we started, one thousand years ago!"
+]
+
+const introSounds = [
+	"res://assets/audio/wizard/final1.wav",
+	"res://assets/audio/wizard/final2.wav",
+	"res://assets/audio/wizard/final3.wav",
+	"res://assets/audio/wizard/final4.wav",
 ]
 
 enum {
@@ -39,6 +47,8 @@ func introDialogue():
 
 func playIntroDialogue(i:int):
 	player.playDialogue(introDialogue[i])
+	kyle.stream = load(introSounds[i])
+	kyle.playing = true
 
 func clearDialogue():
 	player.clearDialogue()

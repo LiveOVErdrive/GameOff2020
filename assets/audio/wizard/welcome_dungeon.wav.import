@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/welcome_dungeon.wav-0cfa67091ac9032cf262b011994bcae0.sample"
+
+[deps]
+
+source_file="res://assets/audio/wizard/welcome_dungeon.wav"
+dest_files=[ "res://.import/welcome_dungeon.wav-0cfa67091ac9032cf262b011994bcae0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
