@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/demon_attack.wav-0110b0ddd4713567dd1551509fb6330a.sample"
+
+[deps]
+
+source_file="res://assets/audio/wizard/demon_attack.wav"
+dest_files=[ "res://.import/demon_attack.wav-0110b0ddd4713567dd1551509fb6330a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

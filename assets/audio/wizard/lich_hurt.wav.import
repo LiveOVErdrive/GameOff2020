@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lich_hurt.wav-2fc10805050878a7078118a64d86a998.sample"
+
+[deps]
+
+source_file="res://assets/audio/wizard/lich_hurt.wav"
+dest_files=[ "res://.import/lich_hurt.wav-2fc10805050878a7078118a64d86a998.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

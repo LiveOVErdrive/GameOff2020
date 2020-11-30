@@ -46,6 +46,7 @@ onready var demonHitbox = $demonHitbox/CollisionShape
 onready var sprite = $Sprite3D
 onready var light = $GreenLight
 onready var particles = $Particles
+onready var kyle = $kyle
 
 func _ready():
 	add_to_group("enemies")
@@ -53,6 +54,7 @@ func _ready():
 	flashWhiteOff()
 	light.visible = false
 	particles.visible = global.particlesEnabled
+	particles.emitting = false
 
 func setPlayer(p):
 	player = p
@@ -116,7 +118,10 @@ func _physics_process(delta):
 func kick(direction):
 	kickDirection = direction
 	kickSpeed = KICK_STRENGTH
-	animationPlayer.play("hurt")
+	if !isDemon:
+		animationPlayer.play("kicked")
+	else:
+		animationPlayer.play("demonKicked")
 	state = KICKED
 	
 func slash():
@@ -144,7 +149,10 @@ func damage(d):
 		else:
 			die()
 	else:
-		hurtAnimator.play("hurt")
+		if !isDemon:
+			animationPlayer.play("hurt")
+		else:
+			animationPlayer.play("demonHurt")
 
 func becomeDemon():
 	isDemon = true
@@ -190,6 +198,8 @@ func block():
 	repeatCounter = BLOCK_CYCLES_BEFORE_BURST
 	state = BLOCK
 	animationPlayer.play("startblock")
+	kyle.stream = load("res://assets/audio/wizard/lich_block.wav")
+	kyle.playing = true
 
 func canSeePlayer():
 	var col = raycast.get_collider()

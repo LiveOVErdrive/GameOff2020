@@ -1,7 +1,15 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://assets/lichnur.png" type="Texture" id=1]
 [ext_resource path="res://game/enemies/LichNur.gd" type="Script" id=2]
+[ext_resource path="res://assets/audio/wizard/lich_burst.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/audio/wizard/demon_die.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/wizard/demon_attack.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/audio/wizard/lich_hurt.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/audio/wizard/demon_hurt.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/audio/wizard/lich_doubleshot.wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/audio/wizard/lich_block.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/audio/wizard/lich_die.wav" type="AudioStream" id=10]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.6
@@ -35,6 +43,20 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 31, 32, 33, 34, 35, 36 ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("kyle")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.2,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=3]
@@ -77,6 +99,20 @@ tracks/2/keys = {
 "method": "advance"
 } ]
 }
+tracks/3/type = "audio"
+tracks/3/path = NodePath("kyle")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 5 )
+} ],
+"times": PoolRealArray( 0.1 )
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "demonDie"
@@ -116,9 +152,52 @@ tracks/2/keys = {
 "transitions": PoolRealArray(  ),
 "values": [  ]
 }
+tracks/3/type = "audio"
+tracks/3/path = NodePath("kyle")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="Animation" id=5]
-resource_name = "demonKicked"
+resource_name = "demonHurt"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 111, 112 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("kyle")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.2,
+"stream": ExtResource( 7 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -131,9 +210,22 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 86 ]
 }
+tracks/1/type = "audio"
+tracks/1/path = NodePath("kyle")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.2,
+"stream": ExtResource( 7 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
-[sub_resource type="Animation" id=6]
-resource_name = "demonWalk"
+[sub_resource type="Animation" id=7]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -149,7 +241,7 @@ tracks/0/keys = {
 "values": [ 71, 72, 73, 74, 75, 76, 69, 70 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -192,8 +284,22 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/3/type = "audio"
+tracks/3/path = NodePath("kyle")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.3,
+"stream": ExtResource( 8 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -208,7 +314,8 @@ tracks/0/keys = {
 "values": [ 25, 26, 27, 28, 29, 30 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
+length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -216,13 +323,27 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 20 ]
+"values": [ 113, 114, 115, 116, 117, 118 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("kyle")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 6 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 1.2
 loop = true
 step = 0.2
@@ -239,7 +360,37 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=24]
+resource_name = "kicked"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 113, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("kyle")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 6 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=12]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -282,8 +433,22 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/3/type = "audio"
+tracks/3/path = NodePath("kyle")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 9 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -324,7 +489,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 length = 2.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -377,8 +542,7 @@ tracks/3/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=14]
-resource_name = "transformAgain"
+[sub_resource type="Animation" id=15]
 length = 2.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
@@ -436,8 +600,22 @@ tracks/3/keys = {
 "method": "attack"
 } ]
 }
+tracks/4/type = "audio"
+tracks/4/path = NodePath("kyle")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 10 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=16]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -451,51 +629,30 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="SpatialMaterial" id=21]
+[sub_resource type="SpatialMaterial" id=17]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
-[sub_resource type="CubeMesh" id=22]
-material = SubResource( 21 )
+[sub_resource type="CubeMesh" id=18]
+material = SubResource( 17 )
 size = Vector3( 0.3, 0.3, 0.3 )
 
-[sub_resource type="Curve" id=18]
+[sub_resource type="Curve" id=19]
 _data = [ Vector2( 0.0125786, 0.943908 ), 0.0, 0.0, 0, 0, Vector2( 0.72956, 0.711903 ), -1.01113, -1.01113, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=16]
+[sub_resource type="Gradient" id=20]
 offsets = PoolRealArray( 0, 0.377778, 0.677778, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 0.0500584, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="CylinderShape" id=23]
+[sub_resource type="CylinderShape" id=21]
 radius = 0.75
 height = 3.0
 
-[sub_resource type="BoxShape" id=24]
+[sub_resource type="BoxShape" id=22]
 
-[sub_resource type="CylinderShape" id=25]
+[sub_resource type="CylinderShape" id=23]
 radius = 1.2
 height = 3.0
-
-[sub_resource type="Animation" id=26]
-resource_name = "hurt"
-length = 0.2
-tracks/0/type = "method"
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "flashWhite"
-}, {
-"args": [  ],
-"method": "flashWhiteOff"
-} ]
-}
 
 [node name="LichNur" type="KinematicBody"]
 script = ExtResource( 2 )
@@ -512,29 +669,31 @@ alpha_cut = 2
 texture = ExtResource( 1 )
 vframes = 12
 hframes = 10
-frame = 44
+frame = 69
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/burst = SubResource( 2 )
 anims/demonAttack = SubResource( 3 )
 anims/demonDie = SubResource( 4 )
-anims/demonKicked = SubResource( 5 )
-anims/demonWalk = SubResource( 6 )
-anims/doubleshot = SubResource( 7 )
-anims/holdblock = SubResource( 8 )
-anims/hurt = SubResource( 9 )
-anims/idle = SubResource( 10 )
-anims/riposte = SubResource( 11 )
-anims/startblock = SubResource( 12 )
-anims/transform = SubResource( 13 )
-anims/transformAgain = SubResource( 14 )
-anims/wizard = SubResource( 15 )
+anims/demonHurt = SubResource( 5 )
+anims/demonKicked = SubResource( 6 )
+anims/demonWalk = SubResource( 7 )
+anims/doubleshot = SubResource( 8 )
+anims/holdblock = SubResource( 9 )
+anims/hurt = SubResource( 10 )
+anims/idle = SubResource( 11 )
+anims/kicked = SubResource( 24 )
+anims/riposte = SubResource( 12 )
+anims/startblock = SubResource( 13 )
+anims/transform = SubResource( 14 )
+anims/transformAgain = SubResource( 15 )
+anims/wizard = SubResource( 16 )
 
 [node name="Particles" type="CPUParticles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50598, 0 )
 emitting = false
 amount = 100
-mesh = SubResource( 22 )
+mesh = SubResource( 18 )
 emission_shape = 2
 emission_box_extents = Vector3( 1, 0.25, 1 )
 spread = 180.0
@@ -542,8 +701,8 @@ flatness = 1.0
 gravity = Vector3( 0, 10, 0 )
 initial_velocity = 1.0
 initial_velocity_random = 1.0
-scale_amount_curve = SubResource( 18 )
-color_ramp = SubResource( 16 )
+scale_amount_curve = SubResource( 19 )
+color_ramp = SubResource( 20 )
 hue_variation = 0.1
 hue_variation_random = 1.0
 
@@ -561,21 +720,21 @@ cast_to = Vector3( 0, 0, -20 )
 [node name="Area" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-shape = SubResource( 23 )
+shape = SubResource( 21 )
 disabled = true
 
 [node name="demonHitbox" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="demonHitbox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.761, -1 )
-shape = SubResource( 24 )
+shape = SubResource( 22 )
 disabled = true
 
 [node name="demonHurtbox" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="demonHurtbox"]
-shape = SubResource( 25 )
+shape = SubResource( 23 )
 
-[node name="HurtAnimator" type="AnimationPlayer" parent="."]
-anims/hurt = SubResource( 26 )
+[node name="kyle" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 10 )
 [connection signal="area_entered" from="demonHitbox" to="." method="_on_demonHitbox_area_entered"]
