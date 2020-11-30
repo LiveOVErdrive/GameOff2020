@@ -238,3 +238,6 @@ func doFinish():
 
 func doTeleport():
 	get_tree().change_scene("res://game/Levels/HubWorld.tscn")
+	
+func playHealthPickupAnim():
+	cameraAnimationPlayer.play("healthpickup")

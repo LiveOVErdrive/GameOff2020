@@ -7,6 +7,8 @@ onready var space = $Control/Sprite/Spacebar
 onready var sprite = $Control/Sprite
 onready var creditsText = $Control/Sprite/Text2
 onready var colorrect = $Control/Sprite/ColorRect
+onready var outroAudio = $outroAudio
+onready var creditsAudio = $creditsAudio
 
 var allowSkip = false
 var frame = 0
@@ -66,6 +68,9 @@ func waitForPlayer():
 	animationPlayer.play("spacebar")
 	
 func showNextCredits():
+	if frame == 1:
+		outroAudio.playing = false
+		creditsAudio.playing = true
 	creditsText.visible = true
 	creditsText.text = credits[frame]
 	frame += 1

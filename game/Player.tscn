@@ -1,8 +1,7 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://assets/Greatsword.png" type="Texture" id=1]
 [ext_resource path="res://game/Player.gd" type="Script" id=2]
-[ext_resource path="res://assets/audio/bg1.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/audio/PlayerGrunt1.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/audio/PlayerDie1.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/screens/youdied.png" type="Texture" id=6]
@@ -13,6 +12,7 @@
 [ext_resource path="res://assets/keys.png" type="Texture" id=11]
 [ext_resource path="res://assets/audio/whiff.wav" type="AudioStream" id=12]
 [ext_resource path="res://assets/audio/player-attack.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/audio/gulp.wav" type="AudioStream" id=14]
 
 [sub_resource type="CylinderShape" id=1]
 
@@ -49,48 +49,36 @@ tracks/1/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, 100 ), Vector3( 0, 0, 90 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../MusicPlayer:playing")
+tracks/2/path = NodePath("../CanvasLayer/Control/YouDied:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.1 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("../CanvasLayer/Control/YouDied:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
 "times": PoolRealArray( 0.1, 1.4, 1.5, 1.6, 1.7, 1.8, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("Blood:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/path = NodePath("Blood:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
 }
-tracks/5/type = "audio"
-tracks/5/path = NodePath("../HurtSFX")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
+tracks/4/type = "audio"
+tracks/4/path = NodePath("../HurtSFX")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
@@ -100,6 +88,36 @@ tracks/5/keys = {
 }
 
 [sub_resource type="Animation" id=5]
+resource_name = "healthpickup"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("../CanvasLayer/Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0.619608 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("../HurtSFX")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 14 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=6]
 length = 0.3
 step = 0.025
 tracks/0/type = "value"
@@ -141,17 +159,17 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=7]
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="QuadMesh" id=10]
-material = SubResource( 9 )
+[sub_resource type="QuadMesh" id=8]
+material = SubResource( 7 )
 size = Vector2( 0.04, 0.04 )
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=9]
 colors = PoolColorArray( 0.183594, 1, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=10]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -167,7 +185,7 @@ tracks/0/keys = {
 "values": [ 36, 37, 38, 39 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=11]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
@@ -182,7 +200,7 @@ tracks/0/keys = {
 "values": [ 35, 34, 0 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=12]
 length = 1.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
@@ -220,7 +238,7 @@ tracks/2/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=13]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
@@ -252,7 +270,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=14]
 length = 0.9
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
@@ -305,7 +323,7 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=15]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
@@ -320,7 +338,7 @@ tracks/0/keys = {
 "values": [ 18, 19, 20, 21, 22 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=16]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
@@ -335,7 +353,7 @@ tracks/0/keys = {
 "values": [ 23, 24, 25 ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=17]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
@@ -350,7 +368,7 @@ tracks/0/keys = {
 "values": [ 48, 49, 50, 51 ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=18]
 length = 0.6
 step = 0.05
 tracks/0/type = "value"
@@ -406,7 +424,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=19]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
@@ -461,7 +479,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=20]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
@@ -504,15 +522,15 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="CapsuleMesh" id=22]
+[sub_resource type="CapsuleMesh" id=21]
 
-[sub_resource type="DynamicFont" id=23]
+[sub_resource type="DynamicFont" id=22]
 size = 10
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 9 )
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=23]
 resource_name = "print"
 length = 2.0
 tracks/0/type = "value"
@@ -528,7 +546,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=24]
 resource_name = "fadeToFinish"
 length = 4.0
 step = 0.5
@@ -559,7 +577,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=26]
+[sub_resource type="Animation" id=25]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/Control/ColorRect:color")
@@ -574,7 +592,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="Animation" id=26]
 length = 3.0
 step = 0.5
 tracks/0/type = "method"
@@ -633,7 +651,8 @@ disabled = true
 
 [node name="CameraAnimationPlayer" type="AnimationPlayer" parent="Head"]
 anims/die = SubResource( 4 )
-anims/take_damage = SubResource( 5 )
+anims/healthpickup = SubResource( 5 )
+anims/take_damage = SubResource( 6 )
 
 [node name="Camera" type="Camera" parent="Head"]
 
@@ -644,7 +663,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 52
-frame = 36
+frame = 6
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
@@ -661,49 +680,45 @@ amount = 40
 lifetime = 0.25
 one_shot = true
 explosiveness = 1.0
-mesh = SubResource( 10 )
+mesh = SubResource( 8 )
 emission_shape = 2
 emission_box_extents = Vector3( 0.25, 0.1, 0.1 )
 direction = Vector3( 0, 1, 0 )
 spread = 50.22
 initial_velocity = 5.0
 initial_velocity_random = 1.0
-color_ramp = SubResource( 6 )
+color_ramp = SubResource( 9 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.5
-anims/dash = SubResource( 11 )
-anims/dashMiss = SubResource( 12 )
-anims/dashStab = SubResource( 13 )
-anims/dashStart = SubResource( 14 )
-anims/kick = SubResource( 15 )
-anims/leftReturn = SubResource( 16 )
-anims/rightExit = SubResource( 17 )
-anims/rightReturn = SubResource( 18 )
-anims/slash = SubResource( 19 )
-anims/slashBack = SubResource( 20 )
-anims/slashWindup = SubResource( 21 )
+anims/dash = SubResource( 10 )
+anims/dashMiss = SubResource( 11 )
+anims/dashStab = SubResource( 12 )
+anims/dashStart = SubResource( 13 )
+anims/kick = SubResource( 14 )
+anims/leftReturn = SubResource( 15 )
+anims/rightExit = SubResource( 16 )
+anims/rightReturn = SubResource( 17 )
+anims/slash = SubResource( 18 )
+anims/slashBack = SubResource( 19 )
+anims/slashWindup = SubResource( 20 )
 
 [node name="shadowcaster" type="MeshInstance" parent="."]
 transform = Transform( 0.25, 0, 0, 0, -4.07302e-08, -0.5, 0, 0.25, -8.14603e-08, 0, 0, 0 )
 cast_shadow = 3
-mesh = SubResource( 22 )
+mesh = SubResource( 21 )
 material/0 = null
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-volume_db = -2.438
-autoplay = true
-
 [node name="AttackSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
-volume_db = -10.221
+volume_db = -9.0
 
 [node name="HurtSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 14 )
+volume_db = -9.0
 
 [node name="Hurtbox" type="Area" parent="."]
 
@@ -731,7 +746,7 @@ margin_left = 91.0
 margin_top = 130.0
 margin_right = 292.0
 margin_bottom = 197.0
-custom_fonts/font = SubResource( 23 )
+custom_fonts/font = SubResource( 22 )
 text = "Test Text"
 align = 1
 valign = 2
@@ -745,7 +760,7 @@ margin_left = 52.0
 margin_top = 62.0
 margin_right = 333.0
 margin_bottom = 151.0
-custom_fonts/font = SubResource( 23 )
+custom_fonts/font = SubResource( 22 )
 text = "CATS: All your base are belong to us. We set us up the bomb. The years start coming and they don't stop coming."
 align = 1
 valign = 1
@@ -842,17 +857,17 @@ centered = false
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-color = Color( 1, 1, 1, 0 )
+color = Color( 1, 0, 0, 0.619608 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="DialogueAnimationPlayer" type="AnimationPlayer" parent="."]
-anims/print = SubResource( 24 )
+anims/print = SubResource( 23 )
 
 [node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fadeToFinish = SubResource( 25 )
-anims/fadein = SubResource( 26 )
-anims/teleport = SubResource( 27 )
+anims/fadeToFinish = SubResource( 24 )
+anims/fadein = SubResource( 25 )
+anims/teleport = SubResource( 26 )
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]
