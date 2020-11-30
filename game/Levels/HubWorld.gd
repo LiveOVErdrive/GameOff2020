@@ -3,6 +3,7 @@ extends Spatial
 onready var player = $Player
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
+onready var kyle = $AudioStreamPlayer2
 
 const tutorialText = [
 	"WIZARD NODROG: Welcome back, PALADIN.\nLICH NUR is imprisoned in CASTLE BLOODMOON, behind me",
@@ -14,13 +15,23 @@ const tutorialText = [
 	"WIZARD NODROG: Now go, and destroy LICH NUR."
 ]
 
+const kyleAudio = [
+	"res://assets/audio/wizard/tut0.wav",
+	"res://assets/audio/wizard/tut1.wav",
+	"res://assets/audio/wizard/tut2.wav",
+	"res://assets/audio/wizard/tut3.wav",
+	"res://assets/audio/wizard/tut4.wav",
+	"res://assets/audio/wizard/tut5.wav",
+	"res://assets/audio/wizard/tut6.wav",
+]
+
 var tutorialLine = 0
 
 func _ready():
 	player.fadeIn()
 	if !global.tutorialDone:
 		global.tutorialDone = true
-		showNextSlide()
+		animationPlayer.play("delay")
 
 func showNextSlide():
 	if tutorialLine < tutorialText.size():
@@ -28,4 +39,6 @@ func showNextSlide():
 
 func showSlide():
 	player.playDialogue(tutorialText[tutorialLine])
+	kyle.stream = load(kyleAudio[tutorialLine])
+	kyle.playing = true
 	tutorialLine += 1

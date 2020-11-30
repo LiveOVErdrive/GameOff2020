@@ -5,6 +5,7 @@ onready var animationPlayer = $AnimationPlayer
 onready var text = $Control/Sprite/Text
 onready var space = $Control/Sprite/Spacebar
 onready var sprite = $Control/Sprite
+onready var kyle = $kyle
 
 var allowSkip = false
 var frame = 0
@@ -26,6 +27,15 @@ const slideTexts = [
 	"And that, PALADIN, is how you come to be alive again, on this night of the BLOODMOON.  Will you help us?  Will you end this BLOODMOON TERROR?",
 ]
 
+const audioLines = [
+	"res://assets/audio/wizard/intro1.wav",
+	"res://assets/audio/wizard/intro2.wav",
+	"res://assets/audio/wizard/intro3.wav",
+	"res://assets/audio/wizard/intro4.wav",
+	"res://assets/audio/wizard/intro5.wav",
+	"res://assets/audio/wizard/intro6.wav"
+]
+
 func _physics_process(delta):
 	# System
 	if Input.is_action_just_pressed("quit"):
@@ -40,8 +50,11 @@ func _physics_process(delta):
 		if frame >= slideTexts.size():
 			get_tree().change_scene("res://game/Levels/HubWorld.tscn")
 			return
+		text.percent_visible = 0
 		text.text = slideTexts[frame]
 		sprite.frame = frame
+		kyle.stream = load(audioLines[frame])
+		kyle.playing = true
 		animationPlayer.play("DisplayText")
 
 func waitForPlayer():

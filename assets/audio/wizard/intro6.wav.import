@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/intro6.wav-b6a06887de6f4ed5fa6f84f197b01881.sample"
+
+[deps]
+
+source_file="res://assets/audio/wizard/intro6.wav"
+dest_files=[ "res://.import/intro6.wav-b6a06887de6f4ed5fa6f84f197b01881.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

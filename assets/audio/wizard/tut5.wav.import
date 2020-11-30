@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/tut5.wav-73cdaaae6f8d7c652b309eeeec24f758.sample"
+
+[deps]
+
+source_file="res://assets/audio/wizard/tut5.wav"
+dest_files=[ "res://.import/tut5.wav-73cdaaae6f8d7c652b309eeeec24f758.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
